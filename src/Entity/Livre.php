@@ -5,9 +5,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LivreRepository")
+ * @Vich\Uploadable()
  */
 class Livre
 {
@@ -55,6 +59,10 @@ class Livre
 
     /**
      * @ORM\Column(type="string", length=255)
+	 * @Assert\Isbn(
+	 *     type="null",
+	 *     bothIsbnMessage="Entrez un Isbn valide"
+	 * )
      */
     private $Isbn;
 
@@ -63,11 +71,25 @@ class Livre
      */
     private $descripteurs;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $couverture;
+
+	/**
+	 * @var File|null
+	 * @Assert\Image(maxSize="3M")
+	 * @Vich\UploadableField(mapping="book_img",fileNameProperty="couverture")
+	 */
+    private $couvertureFile;
+
+
     public function __construct()
     {
         $this->exemplaires = new ArrayCollection();
         $this->descripteurs = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -216,4 +238,32 @@ class Livre
 
         return $this;
     }
+
+    public function getCouverture(): ?string
+    {
+        return $this->couverture;
+    }
+
+    public function setCouverture(?string $couverture): self
+    {
+        $this->couverture = $couverture;
+
+        return $this;
+    }
+
+    /**
+	 * @return File
+	 */
+	public function getCouvertureFile(): File
+	{
+		return $this->couvertureFile;
+	}
+
+	/**
+	 * @param File $couvertureFile
+	 */
+	public function setCouvertureFile(File $couvertureFile): void
+	{
+		$this->couvertureFile = $couvertureFile;
+	}
 }

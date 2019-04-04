@@ -83,11 +83,22 @@ class Livre
 	 */
     private $couvertureFile;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateAquis;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Auteur", mappedBy="livres")
+     */
+    private $auteurs;
+
 
     public function __construct()
     {
         $this->exemplaires = new ArrayCollection();
         $this->descripteurs = new ArrayCollection();
+        $this->auteurs = new ArrayCollection();
     }
 
 
@@ -255,15 +266,55 @@ class Livre
 	 * @return File
 	 */
 	public function getCouvertureFile(): File
-	{
-		return $this->couvertureFile;
-	}
+                        	{
+                        		return $this->couvertureFile;
+                        	}
 
 	/**
 	 * @param File $couvertureFile
 	 */
 	public function setCouvertureFile(File $couvertureFile): void
-	{
-		$this->couvertureFile = $couvertureFile;
-	}
+                        	{
+                        		$this->couvertureFile = $couvertureFile;
+                        	}
+
+    public function getDateAquis(): ?\DateTimeInterface
+    {
+        return $this->dateAquis;
+    }
+
+    public function setDateAquis(\DateTimeInterface $dateAquis): self
+    {
+        $this->dateAquis = $dateAquis;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Auteur[]
+     */
+    public function getAuteurs(): Collection
+    {
+        return $this->auteurs;
+    }
+
+    public function addAuteur(Auteur $auteur): self
+    {
+        if (!$this->auteurs->contains($auteur)) {
+            $this->auteurs[] = $auteur;
+            $auteur->addLivre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAuteur(Auteur $auteur): self
+    {
+        if ($this->auteurs->contains($auteur)) {
+            $this->auteurs->removeElement($auteur);
+            $auteur->removeLivre($this);
+        }
+
+        return $this;
+    }
 }

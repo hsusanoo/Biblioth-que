@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% form_theme livreForm 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
     <div class="container">
@@ -12,45 +12,55 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 
-                {{ form_start(livreForm) }}
+                {{ form_start(livreForm,{'attr':{
+                    'class': "addlibrary needsclick dz-clickable"
+                }}) }}
 
-                <div class="form-gourp">
-                    <label for="">ISBN</label>
-                    {{ form_row(livreForm.isbn,{'attr':{
+                {{ form_row(livreForm.Isbn,{
+                    'label': "ISBN",
+                    'attr':{
                         'name': "isbn",
                         'placeholder': "Numéro ISBN"
                     }}) }}
-                </div>
-                <div class="form-gourp">
-                    <label for="">Titre Principale</label>
-                    {{ form_row(livreForm.titrePrincipale,{'attr':{
+
+                {{ form_row(livreForm.titrePrincipale,{
+                    'label': "Titre Principale",
+                    'attr':{
                         'name': "titre_principale",
                         'placeholder': "Titre principale"
                     }}) }}
-                </div>
-                <div class="form-gourp">
-                    <label for="">Titre Secondaire</label>
-                    {{ form_row(livreForm.titreSecondaire,{'attr':{
+
+                {{ form_row(livreForm.titreSecondaire,{
+                    'label': "Titre Secondaire",
+                    'attr':{
                         'name': "titre_secondaire",
                         'placeholder': "Titre secondaire"
                     }}) }}
-                </div>
-                <div class="form-gourp">
-                    <label for="">Année d'édition</label>
-                    {{ form_row(livreForm.dateEdition,{'attr':{
+
+                {{ form_row(livreForm.dateEdition,{
+                    'label': "Année d'édition",
+                    'attr':{
                         'name': "annee_edition",
-                        'placeholder': "Année d'édition"
+                        'placeholder': "Année d'édition",
+                        'class': "js-yearpicker"
                     }}) }}
-                </div>
-                <div class="form-gourp">
-                    <label for="">Date d'aquisition</label>
-                    {{ form_row(livreForm.dateAquis,{'attr':{
-                        'name': "date_aquisition",
-                        'placeholder': "Date d'aquisition"
+
+                {{ form_row(livreForm.dateAquis,{
+                    'label': "Date d'aquision",
+                    'attr':{
+                        'name': "date_aquision",
+                        'placeholder': "jj/mm/aaaa",
+                        'class': "js-datepicker"
                     }}) }}
-                </div>
+
+                {{ form_row(livreForm.categorie,{
+                    'label': "Catégorie"
+                }) }}
+
+                <button class="btn btn-info form-control">Ajouter</button>
+
 
                 {{ form_end(livreForm) }}
 

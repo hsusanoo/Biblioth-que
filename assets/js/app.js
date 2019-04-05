@@ -27,8 +27,8 @@ $(document).ready(function () {
         endDate: "+0d",
         todayBtn: "linked",
         language: "fr",
-        autoclose: true,
         forceParse: false,
+        autoclose: true,
         todayHighlight: true
     });
 

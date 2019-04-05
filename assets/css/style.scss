@@ -44,6 +44,7 @@
 /*  1. Variables
 /*----------------------------------------*/
 
+$main-color: #3A9277;
 
 /*----------------------------------------*/
 /*  1. Common
@@ -185,7 +186,7 @@ body {
 }
 
 .bg-green {
-  background: #3A9277;
+  background: $main-color;
 }
 
 .bg-red {
@@ -938,7 +939,7 @@ ul.setting-panel-list li {
   display: block;
   overflow: hidden;
   cursor: pointer;
-  border: 2px solid #3A9277;
+  border: 2px solid $main-color;
   border-radius: 3px;
 }
 
@@ -958,7 +959,7 @@ ul.setting-panel-list li {
   &:before {
     content: "ON";
     padding-left: 7px;
-    background-color: #3A9277;
+    background-color: $main-color;
     color: #FFFFFF;
   }
 
@@ -990,7 +991,7 @@ ul.setting-panel-list li {
   width: 18px;
   margin: 0;
   background: #FFFFFF;
-  border: 2px solid #3A9277;
+  border: 2px solid $main-color;
   border-radius: 3px;
   position: absolute;
   top: 0;
@@ -1036,12 +1037,12 @@ ul.setting-panel-list li {
 
 .menu-switcher-pro .btn-info {
   &:active, &:focus, &:hover, &:visited {
-    background: #3A9277;
+    background: $main-color;
   }
 }
 
 .header-drl-controller-btn.btn-info:active:focus {
-  background: #3A9277;
+  background: $main-color;
 }
 
 .header-right-info ul.header-right-menu li {
@@ -1114,7 +1115,7 @@ ul.setting-panel-list li {
   }
 
   &:focus a {
-    color: #3A9277;
+    color: $main-color;
   }
 }
 
@@ -1136,7 +1137,7 @@ ul.setting-panel-list li {
 }
 
 .breadcome-heading .form-control:focus {
-  border: 1px solid #3A9277;
+  border: 1px solid $main-color;
 }
 
 ul.breadcome-menu {
@@ -1253,7 +1254,7 @@ ul.breadcome-menu {
 /*----------------------------------------*/
 
 .payment-inner-pro i {
-  color: #3A9277;
+  color: $main-color;
 }
 
 .income-rate-total {
@@ -1350,7 +1351,7 @@ ul.breadcome-menu {
 }
 
 .ug-1 .progress-bar {
-  background: #3A9277;
+  background: $main-color;
 }
 
 .ug-2 .progress-bar {
@@ -1438,7 +1439,7 @@ ul.breadcome-menu {
 
 .progress-bar {
   &.progress-bar-success, &.progress-bar-danger.ctn-vs-1 {
-    background: #3A9277;
+    background: $main-color;
   }
 
   &.progress-bar-info.ctn-vs-2 {
@@ -1462,7 +1463,7 @@ ul.breadcome-menu {
 
 .skill .progress {
   &:nth-child(1) .progress-bar {
-    background: #3A9277;
+    background: $main-color;
   }
 
   &:nth-child(2) .progress-bar {
@@ -1533,8 +1534,8 @@ ul.breadcome-menu {
 }
 
 .btn-success.widget-btn-1 {
-  background: #3A9277;
-  border: 1px solid #3A9277;
+  background: $main-color;
+  border: 1px solid $main-color;
 }
 
 .text-info {
@@ -1543,7 +1544,7 @@ ul.breadcome-menu {
 
 .wd-tb-cr {
   .text-success {
-    color: #3A9277;
+    color: $main-color;
   }
 
   .text-info {
@@ -1567,7 +1568,7 @@ ul.breadcome-menu {
   color: #e74c3c;
 
   &.ctn-ic-1 {
-    color: #3A9277;
+    color: $main-color;
   }
 }
 
@@ -1599,7 +1600,7 @@ ul.breadcome-menu {
 
 .calender-inner .fc-state-default {
   color: #fff;
-  background: #3A9277 none;
+  background: $main-color none;
   text-shadow: none;
   outline: none;
 }
@@ -1632,7 +1633,7 @@ ul.breadcome-menu {
   a {
     height: 25px;
     width: 25px;
-    background: #3A9277;
+    background: $main-color;
     font-size: 13px;
     border-radius: 50%;
     display: block;
@@ -1644,7 +1645,7 @@ ul.breadcome-menu {
     transition: all .4s ease 0s;
 
     &:hover {
-      background: #3A9277;
+      background: $main-color;
       transition: all .4s ease 0s;
     }
   }
@@ -1714,7 +1715,7 @@ ul {
   left: 0;
   width: 0%;
   height: 2px;
-  background: #3A9277;
+  background: $main-color;
   content: "";
   transition: all .4s ease 0s;
 }
@@ -1725,14 +1726,14 @@ ul {
   left: 0;
   width: 80%;
   height: 2px;
-  background: #3A9277;
+  background: $main-color;
   content: "";
   transition: all .4s ease 0s;
 }
 
 ul {
   &.tab-custon-design li.active a, &.tab-review-design li.active a {
-    color: #3A9277 !important;
+    color: $main-color !important;
   }
 
   &.tab-custon-design li a {
@@ -1933,7 +1934,7 @@ ul {
 
 .product-buttons button {
   border: none;
-  background: #3A9277;
+  background: $main-color;
   color: #fff;
   padding: 5px 10px;
   border-radius: 3px;
@@ -2320,7 +2321,7 @@ ul {
 
 .hpanel {
   &.hbggreen.bg-1 .panel-body {
-    background: #3A9277 !important;
+    background: $main-color !important;
   }
 
   &.hbgblue.bg-2 .panel-body {
@@ -2502,7 +2503,7 @@ ul.two-part-sp li {
   }
 
   i {
-    color: #3A9277;
+    color: $main-color;
     font-size: 14px;
   }
 }
@@ -2813,7 +2814,7 @@ ul.two-part-sp li {
 }
 
 .blog-date {
-  background: #3A9277;
+  background: $main-color;
   border: 4px solid #fff;
   border-radius: 50%;
   bottom: -25px;
@@ -2959,7 +2960,7 @@ ul.two-part-sp li {
 
 .comment-replay {
   float: right;
-  color: #3A9277;
+  color: $main-color;
   font-size: 14px;
   text-transform: uppercase;
 }
@@ -3045,7 +3046,7 @@ ul.two-part-sp li {
   }
 
   input[type="text"]:focus, textarea:focus {
-    border: 1px solid #3A9277;
+    border: 1px solid $main-color;
   }
 
   input[type="submit"] {
@@ -3054,7 +3055,7 @@ ul.two-part-sp li {
     font-size: 12px;
     color: #fff;
     padding: 10px 30px;
-    background: #3A9277;
+    background: $main-color;
     border: none;
     border-radius: 2px;
     transition: all .4s ease 0s;
@@ -3095,8 +3096,8 @@ ul.two-part-sp li {
 }
 
 .credit-card-custom a, .waves-light {
-  background: #3A9277;
-  border-color: #3A9277;
+  background: $main-color;
+  border-color: $main-color;
 }
 
 .payment-method-ht i {
@@ -3110,12 +3111,12 @@ ul.two-part-sp li {
   text-align: center;
 
   button {
-    background: #3A9277;
-    border-color: #3A9277;
+    background: $main-color;
+    border-color: $main-color;
 
     &:hover, &:focus, &:active, &:visited {
-      background: #3A9277;
-      border-color: #3A9277;
+      background: $main-color;
+      border-color: $main-color;
       outline: none;
       cursor: pointer;
     }
@@ -3124,8 +3125,8 @@ ul.two-part-sp li {
 
 .credit-card-custom a {
   &:hover, &:focus, &:active, &:visited {
-    background: #3A9277;
-    border-color: #3A9277;
+    background: $main-color;
+    border-color: $main-color;
     outline: none;
     cursor: pointer;
   }
@@ -3133,8 +3134,8 @@ ul.two-part-sp li {
 
 .waves-light {
   &:hover, &:focus, &:active, &:visited {
-    background: #3A9277;
-    border-color: #3A9277;
+    background: $main-color;
+    border-color: $main-color;
     outline: none;
     cursor: pointer;
   }
@@ -3161,7 +3162,7 @@ ul.two-part-sp li {
   position: absolute;
   top: 20px;
   right: 35px;
-  background: #3A9277;
+  background: $main-color;
   padding: 6px 20px;
   color: #fff;
   border-radius: 4px;
@@ -3209,7 +3210,7 @@ ul.two-part-sp li {
     color: #fff;
     padding: 5px 15px;
     font-size: 15px;
-    background: #3A9277;
+    background: $main-color;
     border-radius: 3px;
     outline: none;
   }
@@ -3246,7 +3247,7 @@ ul.two-part-sp li {
     color: #303030;
 
     &:focus {
-      background: #3A9277;
+      background: $main-color;
       color: #fff;
     }
   }
@@ -3378,9 +3379,9 @@ ul {
   }
 
   &:hover, &:active, &:focus {
-    background: #3A9277;
+    background: $main-color;
     color: #fff;
-    border: 1px solid #3A9277;
+    border: 1px solid $main-color;
     transition: all .4s ease 0s;
   }
 }
@@ -3422,8 +3423,8 @@ ul {
 }
 
 .btn-success.compose-btn {
-  background-color: #3A9277;
-  border-color: #3A9277;
+  background-color: $main-color;
+  border-color: $main-color;
   color: #fff;
   margin-top: 0;
 }
@@ -3441,8 +3442,8 @@ ul {
 }
 
 .btn-primary.ft-compse {
-  background-color: #3A9277;
-  border-color: #3A9277;
+  background-color: $main-color;
+  border-color: $main-color;
   color: #fff;
 }
 
@@ -3469,7 +3470,7 @@ ul {
 
 .ib-tb {
   .label-warning {
-    background: #3A9277;
+    background: $main-color;
   }
 
   .label-info {
@@ -3484,7 +3485,7 @@ ul {
 .ib-ml-ft {
   font-size: 14px;
   color: #fff;
-  background: #3A9277;
+  background: $main-color;
 }
 
 ul.mailbox-list li i {
@@ -3536,8 +3537,8 @@ li.multipleInput-email {
   float: left;
   margin-right: 2px;
   margin-bottom: 1px;
-  border: 1px #3A9277 solid;
-  background: #3A9277;
+  border: 1px $main-color solid;
+  background: $main-color;
   color: #fff;
   padding: 4px 10px;
   border-radius: 2px;
@@ -3594,7 +3595,7 @@ li.multipleInput-email {
 
 .contact-panel-cs {
   .contact-footer, .panel-footer {
-    background: #3A9277;
+    background: $main-color;
   }
 }
 
@@ -3651,24 +3652,24 @@ td.text-right.mail-date {
 }
 
 .images-cropper-pro .btn-primary {
-  background-color: #3A9277;
-  border-color: #3A9277;
+  background-color: $main-color;
+  border-color: $main-color;
 
   &:active {
     &:focus, &:hover {
-      background-color: #3A9277;
-      border-color: #3A9277;
+      background-color: $main-color;
+      border-color: $main-color;
     }
   }
 }
 
 .images-action-pro .btn-warning {
-  background-color: #3A9277;
-  border-color: #3A9277;
+  background-color: $main-color;
+  border-color: $main-color;
 
   &:active, &:focus, &:hover {
-    background-color: #3A9277;
-    border-color: #3A9277;
+    background-color: $main-color;
+    border-color: $main-color;
   }
 }
 
@@ -4095,15 +4096,15 @@ td.text-right.mail-date {
   box-shadow: none;
 
   &:focus {
-    border-color: #3A9277;
+    border-color: $main-color;
     outline: 0;
     box-shadow: none;
   }
 }
 
 .custom-go-button .btn-primary, .custom-dropdowns-button .dropdown-toggle {
-  background-color: #3A9277;
-  border-color: #3A9277;
+  background-color: $main-color;
+  border-color: $main-color;
   color: #FFFFFF;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -4111,8 +4112,8 @@ td.text-right.mail-date {
 
 .dropdown-segmented {
   .dropdown-toggle, .btn-white {
-    background-color: #3A9277;
-    border-color: #3A9277;
+    background-color: $main-color;
+    border-color: $main-color;
     color: #FFFFFF;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
@@ -4122,48 +4123,48 @@ td.text-right.mail-date {
 .custom-go-button .btn-primary {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  background-color: #3A9277;
-  border-color: #3A9277;
+  background-color: $main-color;
+  border-color: $main-color;
 
   &:active, &:focus {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    background-color: #3A9277;
-    border-color: #3A9277;
+    background-color: $main-color;
+    border-color: $main-color;
   }
 }
 
 .custom-dropdowns-button .dropdown-toggle {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  background-color: #3A9277;
-  border-color: #3A9277;
+  background-color: $main-color;
+  border-color: $main-color;
 
   &:active, &:focus {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    background-color: #3A9277;
-    border-color: #3A9277;
+    background-color: $main-color;
+    border-color: $main-color;
   }
 }
 
 .dropdown-segmented .dropdown-toggle {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  background-color: #3A9277;
-  border-color: #3A9277;
+  background-color: $main-color;
+  border-color: $main-color;
 
   &:active, &:focus {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    background-color: #3A9277;
-    border-color: #3A9277;
+    background-color: $main-color;
+    border-color: $main-color;
   }
 
-  border-left: 1px solid #3A9277;
+  border-left: 1px solid $main-color;
 
   &:active, &:focus {
-    border-left: 1px solid #3A9277;
+    border-left: 1px solid $main-color;
   }
 }
 
@@ -4181,12 +4182,12 @@ td.text-right.mail-date {
   &.ts-forms {
     input[type="text"] {
       &:hover, &:focus, &:active {
-        border: 1px solid #3A9277;
+        border: 1px solid $main-color;
       }
     }
 
     .file-button:hover + input {
-      border: 1px solid #3A9277;
+      border: 1px solid $main-color;
     }
 
     input[type="text"] {
@@ -4194,7 +4195,7 @@ td.text-right.mail-date {
     }
 
     .file-button {
-      background: #3A9277;
+      background: $main-color;
       border-radius: 0;
       width: 70px;
       height: 40px;
@@ -4202,7 +4203,7 @@ td.text-right.mail-date {
       top: 0;
 
       &:active, &:focus {
-        background: #3A9277;
+        background: $main-color;
         border-radius: 0;
         width: 70px;
         height: 40px;
@@ -4291,7 +4292,7 @@ td.text-right.mail-date {
   &:focus, &:active {
     outline: none;
     box-shadow: none;
-    border: 1px solid #3A9277;
+    border: 1px solid $main-color;
   }
 }
 
@@ -4299,7 +4300,7 @@ td.text-right.mail-date {
   &:focus, &:active {
     outline: none;
     box-shadow: none;
-    border: 1px solid #3A9277;
+    border: 1px solid $main-color;
   }
 }
 
@@ -4309,8 +4310,8 @@ td.text-right.mail-date {
 
 .datepicker table tr td {
   &.active.active, span.active.active {
-    background-color: #3A9277;
-    border-color: #3A9277;
+    background-color: $main-color;
+    border-color: $main-color;
   }
 }
 
@@ -4603,12 +4604,12 @@ td.text-right.mail-date {
 }
 
 .back-backend a {
-  background: #3A9277;
-  border-color: #3A9277;
+  background: $main-color;
+  border-color: $main-color;
 
   &:hover {
-    background: #3A9277;
-    border-color: #3A9277;
+    background: $main-color;
+    border-color: $main-color;
   }
 }
 
@@ -4626,7 +4627,7 @@ td.text-right.mail-date {
   }
 
   .counter {
-    color: #3A9277;
+    color: $main-color;
   }
 
   text-align: center;
@@ -4646,14 +4647,14 @@ td.text-right.mail-date {
     color: #fff;
     padding: 10px 30px;
     border-radius: 3px;
-    background: #3A9277;
+    background: $main-color;
     transition: all .4s ease 0s;
   }
 }
 
 .login-footer {
   a {
-    color: #3A9277;
+    color: $main-color;
   }
 
   margin-top: 15px;
@@ -4677,22 +4678,22 @@ td.text-right.mail-date {
 
 .pagination > .active > {
   a {
-    background-color: #3A9277;
-    border-color: #3A9277;
+    background-color: $main-color;
+    border-color: $main-color;
 
     &:focus, &:hover {
-      background-color: #3A9277;
-      border-color: #3A9277;
+      background-color: $main-color;
+      border-color: $main-color;
     }
   }
 
   span {
-    background-color: #3A9277;
-    border-color: #3A9277;
+    background-color: $main-color;
+    border-color: $main-color;
 
     &:focus, &:hover {
-      background-color: #3A9277;
-      border-color: #3A9277;
+      background-color: $main-color;
+      border-color: $main-color;
     }
   }
 }
@@ -4722,10 +4723,10 @@ td.text-right.mail-date {
 .color-line {
   background: #f7f9fa;
   height: 6px;
-  background-image: -webkit-linear-gradient(left, #3A9277, #3A9277 25%, #933EC5 25%, #933EC5 35%, #65b12d 35%, #65b12d 45%, #D80027 45%, #D80027 55%, #ffb606 55%, #ffb606 65%, #e67e22 65%, #e67e22 75%, #e74c3c 85%, #e74c3c 85%, #c0392b 85%, #c0392b 100%);
-  background-image: -moz-linear-gradient(left, #3A9277, #3A9277 25%, #933EC5 25%, #933EC5 35%, #65b12d 35%, #65b12d 45%, #D80027 45%, #D80027 55%, #ffb606 55%, #ffb606 65%, #e67e22 65%, #e67e22 75%, #e74c3c 85%, #e74c3c 85%, #c0392b 85%, #c0392b 100%);
-  background-image: -ms-linear-gradient(left, #3A9277, #3A9277 25%, #933EC5 25%, #933EC5 35%, #65b12d 35%, #65b12d 45%, #D80027 45%, #D80027 55%, #ffb606 55%, #ffb606 65%, #e67e22 65%, #e67e22 75%, #e74c3c 85%, #e74c3c 85%, #c0392b 85%, #c0392b 100%);
-  background-image: linear-gradient(to right, #3A9277, #3A9277 25%, #933EC5 25%, #933EC5 35%, #65b12d 35%, #65b12d 45%, #D80027 45%, #D80027 55%, #ffb606 55%, #ffb606 65%, #e67e22 65%, #e67e22 75%, #e74c3c 85%, #e74c3c 85%, #c0392b 85%, #c0392b 100%);
+  background-image: -webkit-linear-gradient(left, $main-color, $main-color 25%, #933EC5 25%, #933EC5 35%, #65b12d 35%, #65b12d 45%, #D80027 45%, #D80027 55%, #ffb606 55%, #ffb606 65%, #e67e22 65%, #e67e22 75%, #e74c3c 85%, #e74c3c 85%, #c0392b 85%, #c0392b 100%);
+  background-image: -moz-linear-gradient(left, $main-color, $main-color 25%, #933EC5 25%, #933EC5 35%, #65b12d 35%, #65b12d 45%, #D80027 45%, #D80027 55%, #ffb606 55%, #ffb606 65%, #e67e22 65%, #e67e22 75%, #e74c3c 85%, #e74c3c 85%, #c0392b 85%, #c0392b 100%);
+  background-image: -ms-linear-gradient(left, $main-color, $main-color 25%, #933EC5 25%, #933EC5 35%, #65b12d 35%, #65b12d 45%, #D80027 45%, #D80027 55%, #ffb606 55%, #ffb606 65%, #e67e22 65%, #e67e22 75%, #e74c3c 85%, #e74c3c 85%, #c0392b 85%, #c0392b 100%);
+  background-image: linear-gradient(to right, $main-color, $main-color 25%, #933EC5 25%, #933EC5 35%, #65b12d 35%, #65b12d 45%, #D80027 45%, #D80027 55%, #ffb606 55%, #ffb606 65%, #e67e22 65%, #e67e22 75%, #e74c3c 85%, #e74c3c 85%, #c0392b 85%, #c0392b 100%);
   background-size: 100% 6px;
   background-position: 50% 100%;
   background-repeat: no-repeat;
@@ -4762,7 +4763,7 @@ td.text-right.mail-date {
 
 .form-group-inner input {
   &[type="email"]:focus, &[type="password"]:focus, &[type="text"]:focus {
-    border: 1px solid #3A9277;
+    border: 1px solid $main-color;
     outline: none;
     border-radius: 0;
     box-shadow: none;
@@ -4770,7 +4771,7 @@ td.text-right.mail-date {
 }
 
 .form-select-list .custom-select-value:focus {
-  border: 1px solid #3A9277;
+  border: 1px solid $main-color;
   outline: none;
   border-radius: 0;
   box-shadow: none;
@@ -4812,8 +4813,8 @@ td.text-right.mail-date {
   }
 
   .login-submit-cs {
-    background-color: #3A9277;
-    border-color: #3A9277;
+    background-color: $main-color;
+    border-color: $main-color;
     font-size: 14px;
     font-weight: 400;
     border-radius: 0;
@@ -4822,7 +4823,7 @@ td.text-right.mail-date {
 
 .modal-bootstrap.modal-login-form {
   padding: 7px 20px;
-  background-color: #3A9277;
+  background-color: $main-color;
   display: inline-block;
   text-align: center;
 
@@ -4834,8 +4835,8 @@ td.text-right.mail-date {
 .login-btn-inner .btn-primary {
   &.active {
     &.focus, &:focus, &:hover {
-      background-color: #3A9277;
-      border-color: #3A9277;
+      background-color: $main-color;
+      border-color: $main-color;
       border-radius: 0;
       outline: 0 auto -webkit-focus-ring-color;
       outline-offset: 0;
@@ -4844,8 +4845,8 @@ td.text-right.mail-date {
 
   &:active {
     &.focus, &:focus, &:hover {
-      background-color: #3A9277;
-      border-color: #3A9277;
+      background-color: $main-color;
+      border-color: $main-color;
       border-radius: 0;
       outline: 0 auto -webkit-focus-ring-color;
       outline-offset: 0;
@@ -4853,8 +4854,8 @@ td.text-right.mail-date {
   }
 
   &:hover, &:active, &:focus {
-    background-color: #3A9277;
-    border-color: #3A9277;
+    background-color: $main-color;
+    border-color: $main-color;
     border-radius: 0;
     outline: 0 auto -webkit-focus-ring-color;
     outline-offset: 0;
@@ -4862,7 +4863,7 @@ td.text-right.mail-date {
 }
 
 .create-account-sign a {
-  color: #3A9277;
+  color: $main-color;
   font-size: 100px;
   padding: 5px 70px;
   display: block;
@@ -5070,29 +5071,29 @@ td.text-right.mail-date {
 }
 
 .btn-success.loginbtn {
-  background-color: #3A9277;
-  border-color: #3A9277;
+  background-color: $main-color;
+  border-color: $main-color;
 }
 
 .lock-inner {
   i {
     font-size: 60px;
-    color: #3A9277;
+    color: $main-color;
   }
 
   .text-success {
-    color: #3A9277;
+    color: $main-color;
   }
 
   .btn-primary {
-    background: #3A9277;
-    border-color: #3A9277;
+    background: $main-color;
+    border-color: $main-color;
   }
 }
 
 .poss-recover .btn-success {
-  background-color: #3A9277;
-  border-color: #3A9277;
+  background-color: $main-color;
+  border-color: $main-color;
 }
 
 .main-sparkline16-hd h1, .main-sparkline15-hd h1 {
@@ -5127,7 +5128,7 @@ div#sparklinehome canvas {
 }
 
 .header-top-area {
-  background: #3A9277;
+  background: $main-color;
 }
 
 .sidebar-nav {
@@ -5221,7 +5222,7 @@ div#sparklinehome canvas {
 }
 
 .single-product-text .button-default.cart-btn {
-  background: #3A9277;
+  background: $main-color;
 }
 
 .history-anl-icon i {
@@ -5229,7 +5230,7 @@ div#sparklinehome canvas {
 }
 
 .footer-copyright-area {
-  background: #3A9277;
+  background: $main-color;
   padding: 20px 0;
   text-align: center;
 }
@@ -5273,7 +5274,7 @@ div#sparklinehome canvas {
 }
 
 .edu-custon-design .panel-heading {
-  background: #3A9277;
+  background: $main-color;
   color: #fff;
 }
 
@@ -5318,7 +5319,7 @@ div#sparklinehome canvas {
 }
 
 .product-buttons button:hover {
-  background: #3A9277;
+  background: $main-color;
   transition: all .4s ease 0s;
 }
 
@@ -5343,12 +5344,12 @@ div#sparklinehome canvas {
 }
 
 .single-product-text a:hover, .single-latest-text a:hover {
-  color: #3A9277;
+  color: $main-color;
   transition: all .4s ease 0s;
 }
 
 .single-product-text .button-default.cart-btn:hover {
-  background: #3A9277;
+  background: $main-color;
   transition: all .4s ease 0s;
 }
 
@@ -5396,7 +5397,7 @@ div#sparklinehome canvas {
 }
 
 .progress-green {
-  background-color: #3A9277;
+  background-color: $main-color;
 }
 
 .progress-yellow {
@@ -5433,7 +5434,7 @@ div#sparklinehome canvas {
   i {
     font-size: 40px;
     line-height: 54px;
-    color: #3A9277;
+    color: $main-color;
   }
 
   &.twitter-cl i {
@@ -5455,7 +5456,7 @@ div#sparklinehome canvas {
   h3 {
     font-size: 16px;
     text-transform: capitalize;
-    color: #3A9277;
+    color: $main-color;
   }
 }
 
@@ -5520,7 +5521,7 @@ div#sparklinehome canvas {
   .follow-cards {
     font-size: 14px;
     color: #fff;
-    background: #3A9277;
+    background: $main-color;
     display: inline-block;
     padding: 5px 20px;
     border-radius: 3px;
@@ -5640,7 +5641,7 @@ div#sparklinehome canvas {
 }
 
 .label-danger.label-1 {
-  background: #3A9277;
+  background: $main-color;
 }
 
 .label-purple.label-2 {
@@ -5698,7 +5699,7 @@ div#sparklinehome canvas {
   }
 
   .text-success {
-    color: #3A9277;
+    color: $main-color;
   }
 
   .text-danger {
@@ -5728,7 +5729,7 @@ div#sparklinehome canvas {
   }
 
   &.progress-bar-danger.hd-tp-1 {
-    background: #3A9277;
+    background: $main-color;
   }
 }
 
@@ -5759,13 +5760,13 @@ div#sparklinehome canvas {
 
 .menu-switcher-pro .btn-info {
   &:active, &:focus, &:hover, &:visited {
-    background: #3A9277;
+    background: $main-color;
     outline: none;
   }
 }
 
 .header-drl-controller-btn.btn-info:active:focus {
-  background: #3A9277;
+  background: $main-color;
   outline: none;
 }
 
@@ -5790,7 +5791,7 @@ div#sparklinehome canvas {
 }
 
 .widget-cl-1 .text-success {
-  color: #3A9277;
+  color: $main-color;
 }
 
 .widget-cl-2 .text-info {
@@ -5807,8 +5808,8 @@ div#sparklinehome canvas {
 
 .btn-success.widget-btn-1 {
   &:active, &:hover, &:focus, &:visited {
-    background: #3A9277;
-    border: 1px solid #3A9277;
+    background: $main-color;
+    border: 1px solid $main-color;
     outline: none;
   }
 }
@@ -5865,7 +5866,7 @@ div#sparklinehome canvas {
   }
 
   textarea:focus {
-    border: 1px solid #3A9277;
+    border: 1px solid $main-color;
   }
 }
 
@@ -5875,8 +5876,8 @@ div#sparklinehome canvas {
 
 .m-t-md {
   .btn-success {
-    background-color: #3A9277;
-    border-color: #3A9277;
+    background-color: $main-color;
+    border-color: $main-color;
   }
 
   .btn-primary {
@@ -6001,21 +6002,21 @@ div#sparklinehome canvas {
   }
 
   .editable-submit {
-    background: #3A9277;
+    background: $main-color;
     color: #fff;
-    border: 1px solid #3A9277;
+    border: 1px solid $main-color;
   }
 
   .btn-default {
     &:hover, &:focus, &:active {
-      background: #3A9277;
+      background: $main-color;
       color: #fff;
     }
   }
 
   .editable-submit {
     &:hover, &:focus, &:active {
-      background: #3A9277;
+      background: $main-color;
       color: #fff;
     }
   }
@@ -6027,11 +6028,11 @@ div#sparklinehome canvas {
 
 .multi-uploader-cs .dropzone {
   &.dropzone-custom {
-    border: 2px dashed #3A9277;
+    border: 2px dashed $main-color;
   }
 
   &.dz-clickable .dz-message {
-    border: 0 dashed #3A9277;
+    border: 0 dashed $main-color;
   }
 }
 
@@ -6047,7 +6048,7 @@ div#sparklinehome canvas {
 
 .footer-lg-pro a {
   font-size: 14px;
-  color: #3A9277;
+  color: $main-color;
 }
 
 .country-state li:last-child, .pwstrength_viewport_progress .progress, .pwstrength_viewport_progress2 .progress, .pwstrength_viewport_progress4 .progress, .form-group.mg-b-pass {
@@ -6133,7 +6134,7 @@ div#sparklinehome canvas {
 
 .mCS-light-1.mCSB_scrollTools {
   .mCSB_dragger .mCSB_dragger_bar {
-    background-color: #3A9277;
+    background-color: $main-color;
   }
 
   .mCSB_draggerRail {
@@ -6566,8 +6567,8 @@ div#sparklinehome canvas {
   }
 
   .btn-info {
-    background-color: #3A9277;
-    border-color: #3A9277;
+    background-color: $main-color;
+    border-color: $main-color;
   }
 
   .btn-warning {
@@ -6587,16 +6588,16 @@ div#sparklinehome canvas {
 
   .btn-info {
     &:focus, &:active, &:visited {
-      background-color: #3A9277;
-      border-color: #3A9277;
+      background-color: $main-color;
+      border-color: $main-color;
       outline: none;
     }
   }
 
   .btn-warning {
     &:focus, &:active, &:visited {
-      background-color: #3A9277;
-      border-color: #3A9277;
+      background-color: $main-color;
+      border-color: $main-color;
       outline: none;
     }
 

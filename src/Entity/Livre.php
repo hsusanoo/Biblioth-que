@@ -34,6 +34,12 @@ class Livre
 
     /**
      * @ORM\Column(type="smallint")
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     min="4",
+     *     max="4",
+     *     exactMessage="Entrez une année valide"
+     * )
      */
     private $dateEdition;
 
@@ -61,7 +67,7 @@ class Livre
      * @ORM\Column(type="string", length=255)
 	 * @Assert\Isbn(
 	 *     type="null",
-	 *     bothIsbnMessage="Entrez un Isbn valide"
+	 *     bothIsbnMessage="Entrez un ISBN valide"
 	 * )
      */
     private $Isbn;

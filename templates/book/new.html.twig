@@ -5,14 +5,16 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h1>Ajouter un livre</h1>
+                <div class="page-header">
+                    <h1>Ajouter un livre</h1>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
 
                 {{ form_start(livreForm,{'attr':{
                     'class': "addlibrary needsclick dz-clickable"
@@ -21,28 +23,24 @@
                 {{ form_row(livreForm.Isbn,{
                     'label': "ISBN",
                     'attr':{
-                        'name': "isbn",
                         'placeholder': "Numéro ISBN"
                     }}) }}
 
                 {{ form_row(livreForm.titrePrincipale,{
                     'label': "Titre Principale",
                     'attr':{
-                        'name': "titre_principale",
                         'placeholder': "Titre principale"
                     }}) }}
 
                 {{ form_row(livreForm.titreSecondaire,{
                     'label': "Titre Secondaire",
                     'attr':{
-                        'name': "titre_secondaire",
                         'placeholder': "Titre secondaire"
                     }}) }}
 
                 {{ form_row(livreForm.dateEdition,{
                     'label': "Année d'édition",
                     'attr':{
-                        'name': "annee_edition",
                         'placeholder': "Année d'édition",
                         'class': "js-yearpicker"
                     }}) }}
@@ -55,12 +53,34 @@
                         'class': "js-datepicker"
                     }}) }}
 
-                {{ form_row(livreForm.categorie,{
-                    'label': "Catégorie"
+                {{ form_row(livreForm.prix,{
+                    'label': "Prix",
+                    'attr':{
+                        'placeholder': "Prix"
+                    }
                 }) }}
 
-                <button class="btn btn-info form-control">Ajouter</button>
+                {{ form_row(livreForm.categorie,{
+                    'label': "Catégorie",
+                    'attr':{
+                        'class': "select-two"
+                    }
+                }) }}
 
+                {{ form_row(livreForm.descripteurs,{
+                    'label': "Mots clé",
+                    'attr':{
+                        'class': "select-two-multiple"
+                    }
+                }) }}
+
+                {{ form_row(livreForm.observation,{
+                    'label': "Observation",
+                    'attr':{
+                        'placeholder': "Description..."
+                    }}) }}
+
+                <button class="btn btn-info form-control">Ajouter</button>
 
                 {{ form_end(livreForm) }}
 

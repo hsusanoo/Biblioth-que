@@ -17,7 +17,10 @@ require('bootstrap-table');
 require('popper.js');
 require('toastr');
 require('bootstrap-datepicker');
+require('bootstrap-datepicker/js/locales/bootstrap-datepicker.fr-CH');
 require('@fortawesome/fontawesome-free/js/all');
+require('select2/dist/js/select2.full');
+require('select2/dist/js/i18n/fr');
 
 
 $(document).ready(function () {
@@ -31,6 +34,14 @@ $(document).ready(function () {
         autoclose: true,
         todayHighlight: true
     });
+
+    $('.select-two-multiple').select2({
+        language: 'fr',
+        tags: true
+    });
+    $('.select-two').select2({
+        language: 'fr'
+    })
 
 });
 

@@ -1,10 +1,66 @@
 {% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-<h1>Ajouter un livre</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Ajouter un livre</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+
+                {{ form_start(livreForm) }}
+
+                <div class="form-gourp">
+                    <label for="">ISBN</label>
+                    {{ form_row(livreForm.isbn,{'attr':{
+                        'name': "isbn",
+                        'placeholder': "Numéro ISBN"
+                    }}) }}
+                </div>
+                <div class="form-gourp">
+                    <label for="">Titre Principale</label>
+                    {{ form_row(livreForm.titrePrincipale,{'attr':{
+                        'name': "titre_principale",
+                        'placeholder': "Titre principale"
+                    }}) }}
+                </div>
+                <div class="form-gourp">
+                    <label for="">Titre Secondaire</label>
+                    {{ form_row(livreForm.titreSecondaire,{'attr':{
+                        'name': "titre_secondaire",
+                        'placeholder': "Titre secondaire"
+                    }}) }}
+                </div>
+                <div class="form-gourp">
+                    <label for="">Année d'édition</label>
+                    {{ form_row(livreForm.dateEdition,{'attr':{
+                        'name': "annee_edition",
+                        'placeholder': "Année d'édition"
+                    }}) }}
+                </div>
+                <div class="form-gourp">
+                    <label for="">Date d'aquisition</label>
+                    {{ form_row(livreForm.dateAquis,{'attr':{
+                        'name': "date_aquisition",
+                        'placeholder': "Date d'aquisition"
+                    }}) }}
+                </div>
+
+                {{ form_end(livreForm) }}
+
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block title %}
-Ajout d'un Livre
+    Ajout d'un Livre
 {% endblock %}
 

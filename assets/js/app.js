@@ -16,5 +16,24 @@ require('bootstrap');
 require('bootstrap-table');
 require('popper.js');
 require('toastr');
+require('bootstrap-datepicker');
+require('@fortawesome/fontawesome-free/js/all');
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+
+$(document).ready(function () {
+
+    $('.js-datepicker').datepicker({
+        format: "dd/mm/yyyy",
+        endDate: "+0d",
+        todayBtn: "linked",
+        language: "fr",
+        autoclose: true,
+        forceParse: false,
+        todayHighlight: true
+    });
+
+});
+
+// assets/js/_main.js
+const imagesContext = require.context('../img', true, /\.(png|jpg|jpeg|gif|ico|svg|webp)$/);
+imagesContext.keys().forEach(imagesContext);

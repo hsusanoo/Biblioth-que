@@ -13,12 +13,13 @@
     </div>
 
     <div class="container">
+
+        {{ form_start(livreForm,{'attr':{
+            'class': "addlibrary needsclick dz-clickable"
+        }}) }}
+
         <div class="row">
             <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
-
-                {{ form_start(livreForm,{'attr':{
-                    'class': "addlibrary needsclick dz-clickable"
-                }}) }}
 
                 {{ form_row(livreForm.Isbn,{
                     'label': "ISBN",
@@ -79,13 +80,27 @@
                     'attr':{
                         'placeholder': "Description..."
                     }}) }}
-
-                <button class="btn btn-info form-control">Ajouter</button>
-
-                {{ form_end(livreForm) }}
-
             </div>
         </div>
+        <div class="row">
+            <div class="exemplaires col-md-6"
+                 data-prototype="{{ form_widget(livreForm.exemplaires.vars.prototype)|e('html_attr') }}">
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-2"></div>
+            <div class="col-md-2">
+                <button class="btn btn-info form-control button">Ajouter</button>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-2">
+                <button type="reset" class="btn btn-danger form-control button">Annuler</button>
+            </div>
+        </div>
+
+        {{ form_end(livreForm) }}
     </div>
 
 {% endblock %}

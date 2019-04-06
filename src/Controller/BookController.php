@@ -44,7 +44,7 @@ class BookController extends AbstractController
         $livreForm->handleRequest($request);
 
         if ($livreForm->isSubmitted() && $livreForm->isValid()){
-
+            dump($livre);
         }
 
         return $this->render('book/new.html.twig',[

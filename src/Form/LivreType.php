@@ -7,6 +7,7 @@ use App\Entity\Descripteur;
 use App\Entity\Livre;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -38,7 +39,14 @@ class LivreType extends AbstractType
                 'choice_label' => "nom",
                 'multiple' => "true"
             ])
-//            ->add('auteurs')
+            ->add('exemplaires',CollectionType::class,[
+                'entry_type' => ExemplaireType::class,
+                'entry_options' => [
+                    'label' => false,
+                ],
+                'allow_add' => true,
+                'allow_delete' => true
+            ])
         ;
     }
 

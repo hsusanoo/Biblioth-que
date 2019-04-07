@@ -14,8 +14,8 @@ class ExemplaireType extends AbstractType
         $builder
             ->add('nInventaire')
             ->add('cote')
-            ->add('statut')
-            ->add('livre')
+//            ->add('statut')
+//            ->add('livre')
         ;
     }
 

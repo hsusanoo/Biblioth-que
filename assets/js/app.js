@@ -37,7 +37,9 @@ $(document).ready(function () {
 
     $('.select-two-multiple').select2({
         language: 'fr',
-        tags: true
+        tags: true,
+        tokenSeparators: [','],
+        placeholder: "Clé1,Clé2,.."
     });
     $('.select-two').select2({
         language: 'fr'

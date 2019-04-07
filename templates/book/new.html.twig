@@ -83,20 +83,50 @@
             </div>
         </div>
         <div class="row">
-            <div class="exemplaires col-md-6"
-                 data-prototype="{{ form_widget(livreForm.exemplaires.vars.prototype)|e('html_attr') }}">
+            <div id="exemplaires" class="col-lg-6 col-md-8 col-sm-10 col-12"
+                 data-prototype="{{ form_row(livreForm.exemplaires.vars.prototype)|e('html_attr') }}">
+                <div class="card">
+                    <h4 class="card-header">Exemplaires :</h4>
+                    <div class="card-body">
+                        {% for exemplaire in livreForm.exemplaires %}
+                            <div class="form-row">
+                                <div class="col col-sm-6 col-md-6 col-6 col-lg-6">
+                                    {{ form_row(exemplaire.nInventaire,{
+                                        'label': false,
+                                        'attr':{
+                                            'placeholder': "N° Inventaire"
+                                        }
+                                    }) }}
+                                </div>
+                                <div class="col col-sm-4 col-md-4 col-4 col-lg-4">
+                                    {{ form_row(exemplaire.cote,{
+                                        'label': false,
+                                        'attr':{
+                                            'placeholder': "Cote"
+                                        }
+                                    }) }}
+                                </div>
+
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="card-footer">
+                        <input type="button" class="form-control btn btn-info" value="Ajouter un Exemplaire">
+                    </div>
+                </div>
             </div>
             <div class="col-md-6"></div>
         </div>
-        <div class="row">
+        <hr>
+        <div class="row align-content-end">
             <div class="col-md-2"></div>
             <div class="col-md-2"></div>
             <div class="col-md-2">
-                <button class="btn btn-info form-control button">Ajouter</button>
+                <button class="btn btn-success form-control">Ajouter</button>
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-2">
-                <button type="reset" class="btn btn-danger form-control button">Annuler</button>
+                <button type="reset" class="btn btn-danger form-control">Annuler</button>
             </div>
         </div>
 
@@ -104,7 +134,9 @@
     </div>
 
 {% endblock %}
-
+{% block javascripts %}
+    {{ encore_entry_script_tags('bookForm') }}
+{% endblock %}
 {% block title %}
     Ajout d'un Livre
 {% endblock %}

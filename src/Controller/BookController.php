@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Exemplaire;
 use App\Entity\Livre;
 use App\Form\LivreType;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -37,17 +38,25 @@ class BookController extends AbstractController
     {
 
         $livre = new Livre();
+
         $livre->setDateAquis(new \DateTime('now'));
 
-        $livreForm = $this->createForm(LivreType::class,$livre);
+        $exemplaire = new Exemplaire();
+
+        $exemplaire->setLivre($livre);
+
+        $livre->addExemplaire($exemplaire);
+
+
+        $livreForm = $this->createForm(LivreType::class, $livre);
 
         $livreForm->handleRequest($request);
 
-        if ($livreForm->isSubmitted() && $livreForm->isValid()){
+        if ($livreForm->isSubmitted() && $livreForm->isValid()) {
             dump($livre);
         }
 
-        return $this->render('book/new.html.twig',[
+        return $this->render('book/new.html.twig', [
             'livreForm' => $livreForm->createView()
         ]);
     }

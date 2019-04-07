@@ -21,33 +21,32 @@ class LivreType extends AbstractType
 //            ->add('couverture')
             ->add('titrePrincipale')
             ->add('titreSecondaire')
-            ->add('dateEdition',TextType::class)
+            ->add('dateEdition', TextType::class)
             ->add('prix')
             ->add('observation')
             ->add('Isbn')
-            ->add('dateAquis',DateType::class,[
+            ->add('dateAquis', DateType::class, [
                 'widget' => 'single_text',
                 'html5' => false,
                 'format' => 'dd/MM/yyyy'
             ])
-            ->add('categorie',EntityType::class,[
+            ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
                 'choice_label' => "nom"
             ])
-            ->add('descripteurs',EntityType::class,[
+            ->add('descripteurs', EntityType::class, [
                 'class' => Descripteur::class,
                 'choice_label' => "nom",
                 'multiple' => "true"
             ])
-            ->add('exemplaires',CollectionType::class,[
+            ->add('exemplaires', CollectionType::class, [
                 'entry_type' => ExemplaireType::class,
                 'entry_options' => [
                     'label' => false,
                 ],
                 'allow_add' => true,
                 'allow_delete' => true
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

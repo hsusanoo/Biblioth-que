@@ -68,12 +68,7 @@
                     }
                 }) }}
 
-                {{ form_row(livreForm.descripteurs,{
-                    'label': "Mots clé",
-                    'attr':{
-                        'class': "select-two-multiple"
-                    }
-                }) }}
+                {{ form_row(livreForm.descripteurs) }}
 
                 {{ form_row(livreForm.observation,{
                     'label': "Observation",
@@ -106,16 +101,33 @@
                                         }
                                     }) }}
                                 </div>
-
                             </div>
                         {% endfor %}
                     </div>
-                    <div class="card-footer">
-                        <input type="button" class="form-control btn btn-info" value="Ajouter un Exemplaire">
-                    </div>
+                    <div class="card-footer"></div>
                 </div>
             </div>
-            <div class="col-md-6"></div>
+            <div id="auteurs" class="col-lg-6 col-md-8 col-sm-10 col-12"
+                 data-prototype="{{ form_row(livreForm.auteurs.vars.prototype)|e('html_attr') }}">
+                <div class="card">
+                    <h4 class="card-header">Auteurs :</h4>
+                    <div class="card-body">
+                        {% for auteur in livreForm.auteurs %}
+                            <div class="form-row">
+                                <div class="col col-lg-10 col-md-10 col-sm-10 col-10">
+                                    {{ form_row(auteur,{
+                                        'label': false,
+                                        'attr':{
+                                            'placeholder': "Nom"
+                                        }
+                                    }) }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="card-footer"></div>
+                </div>
+            </div>
         </div>
         <hr>
         <div class="row align-content-end">

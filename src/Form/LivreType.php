@@ -7,6 +7,7 @@ use App\Entity\Descripteur;
 use App\Entity\Livre;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -34,19 +35,31 @@ class LivreType extends AbstractType
                 'class' => Categorie::class,
                 'choice_label' => "nom"
             ])
-            ->add('descripteurs', EntityType::class, [
-                'class' => Descripteur::class,
-                'choice_label' => "nom",
-                'multiple' => "true"
+            ->add('descripteurs', ChoiceType::class, [
+                'label' => "Mots clés",
+                'multiple' => true,
+                'required' => false,
+                'attr' => [
+                    'class' => "select-two-multiple"
+                ]
             ])
             ->add('exemplaires', CollectionType::class, [
                 'entry_type' => ExemplaireType::class,
                 'entry_options' => [
-                    'label' => false,
+                    'label' => false
+                ],
+                'allow_add' => true,
+                'allow_delete' => true
+            ])
+            ->add('auteurs', CollectionType::class, [
+                'entry_type' => AuteurType::class,
+                'entry_options' => [
+                    'label' => false
                 ],
                 'allow_add' => true,
                 'allow_delete' => true
             ]);
+        $builder->get('descripteurs')->resetViewTransformers();
     }
 
     public function configureOptions(OptionsResolver $resolver)

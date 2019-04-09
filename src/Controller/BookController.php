@@ -2,18 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Auteur;
+use App\Entity\Descripteur;
 use App\Entity\Exemplaire;
 use App\Entity\Livre;
 use App\Form\LivreType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Isbn;
 
 class BookController extends AbstractController
 {
@@ -42,17 +39,23 @@ class BookController extends AbstractController
         $livre->setDateAquis(new \DateTime('now'));
 
         $exemplaire = new Exemplaire();
-
         $exemplaire->setLivre($livre);
 
-        $livre->addExemplaire($exemplaire);
+        $auteur = new Auteur();
+        $auteur->addLivre($livre);
 
+//        $desc = new Descripteur();
+//        $desc->addLivre($livre);
+
+        $livre->addExemplaire($exemplaire);
+        $livre->addAuteur($auteur);
+//        $livre->addDescripteur($desc);
 
         $livreForm = $this->createForm(LivreType::class, $livre);
 
         $livreForm->handleRequest($request);
 
-        if ($livreForm->isSubmitted() && $livreForm->isValid()) {
+        if ($livreForm->isSubmitted()) {
             dump($livre);
         }
 

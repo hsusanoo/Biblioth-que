@@ -54,7 +54,7 @@ class Livre
     private $observation;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Exemplaire", mappedBy="livre", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Exemplaire", mappedBy="livre", orphanRemoval=true,cascade={"persist"})
      */
     private $exemplaires;
 
@@ -65,15 +65,15 @@ class Livre
 
     /**
      * @ORM\Column(type="string", length=255)
-	 * @Assert\Isbn(
-	 *     type="null",
-	 *     bothIsbnMessage="Entrez un ISBN valide"
-	 * )
+     * @Assert\Isbn(
+     *     type="null",
+     *     bothIsbnMessage="Entrez un ISBN valide"
+     * )
      */
     private $Isbn;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Descripteur", mappedBy="livres")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Descripteur", mappedBy="livres",cascade={"persist"})
      */
     private $descripteurs;
 
@@ -82,11 +82,11 @@ class Livre
      */
     private $couverture;
 
-	/**
-	 * @var File|null
-	 * @Assert\Image(maxSize="3M")
-	 * @Vich\UploadableField(mapping="book_img",fileNameProperty="couverture")
-	 */
+    /**
+     * @var File|null
+     * @Assert\Image(maxSize="3M")
+     * @Vich\UploadableField(mapping="book_img",fileNameProperty="couverture")
+     */
     private $couvertureFile;
 
     /**
@@ -95,7 +95,7 @@ class Livre
     private $dateAquis;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Auteur", mappedBy="livres")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Auteur", mappedBy="livres",cascade={"persist"})
      */
     private $auteurs;
 
@@ -256,6 +256,16 @@ class Livre
         return $this;
     }
 
+    /**
+     * @param mixed $descripteurs
+     */
+    public function setDescripteurs($descripteurs): void
+    {
+        $this->descripteurs = $descripteurs;
+    }
+
+
+
     public function getCouverture(): ?string
     {
         return $this->couverture;
@@ -269,20 +279,20 @@ class Livre
     }
 
     /**
-	 * @return File
-	 */
-	public function getCouvertureFile(): File
-                        	{
-                        		return $this->couvertureFile;
-                        	}
+     * @return File
+     */
+    public function getCouvertureFile()//: File
+    {
+        return $this->couvertureFile;
+    }
 
-	/**
-	 * @param File $couvertureFile
-	 */
-	public function setCouvertureFile(File $couvertureFile): void
-                        	{
-                        		$this->couvertureFile = $couvertureFile;
-                        	}
+    /**
+     * @param File $couvertureFile
+     */
+    public function setCouvertureFile(File $couvertureFile): void
+    {
+        $this->couvertureFile = $couvertureFile;
+    }
 
     public function getDateAquis(): ?\DateTimeInterface
     {

@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Categorie;
 use App\Entity\Descripteur;
 use App\Entity\Livre;
+use App\Form\DataTransformer\StringToTagTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -16,6 +17,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LivreType extends AbstractType
 {
+
+    private $transformer;
+
+    public function __construct(StringToTagTransformer $transformer)
+    {
+        $this->transformer = $transformer;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -60,6 +69,7 @@ class LivreType extends AbstractType
                 'allow_delete' => true
             ]);
         $builder->get('descripteurs')->resetViewTransformers();
+//        $builder->get('descripteurs')->addModelTransformer($this->transformer);
     }
 
     public function configureOptions(OptionsResolver $resolver)

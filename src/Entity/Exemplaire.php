@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Exemplaire
 {
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -17,7 +18,7 @@ class Exemplaire
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="bigint")
      */
     private $nInventaire;
 
@@ -27,9 +28,9 @@ class Exemplaire
     private $cote;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean",nullable=true,options={"default":1})
      */
-    private $statut;
+    private $statut = 1;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Livre", inversedBy="exemplaires")

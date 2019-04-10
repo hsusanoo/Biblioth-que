@@ -4,4 +4,5 @@ vich_uploader:
     mappings:
         book_img:
             uri_prefix: /images/livres
-            upload_destination: '%kernel.project_dir%/public/images/livres'
+            upload_destination: '%kernel.project_dir%/public/img/livres'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer

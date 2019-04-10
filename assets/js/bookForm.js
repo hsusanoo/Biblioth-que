@@ -85,3 +85,19 @@ function addRemoveButton(item) {
     item.append(removeButton);
 
 }
+
+// Cover img
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            $('#coverPreview').attr('src', e.target.result);
+            $('#coverPreview').hide();
+            $('#coverPreview').fadeIn(650);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+$(".cover-upload input[type='file']").change(function() {
+    readURL(this);
+});

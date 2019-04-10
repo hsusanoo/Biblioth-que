@@ -1,0 +1,39 @@
+// Book cover
+.custom-file{
+  display: none;
+}
+.cover-upload {
+  input {
+    display: none;
+  }
+
+  label {
+    display: block;
+    height: 100%;
+    width: 100%;
+    margin-bottom: 0;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+
+    &:hover {
+      border-color: #d6d6d6;
+
+      .layer {
+        background-color: rgba(0, 0, 0, 0.3);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: all .2s ease-in-out;
+      }
+    }
+  }
+
+  img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+}

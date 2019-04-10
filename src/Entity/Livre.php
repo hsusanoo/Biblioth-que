@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -98,6 +99,16 @@ class Livre
      * @ORM\ManyToMany(targetEntity="App\Entity\Auteur", mappedBy="livres",cascade={"persist"})
      */
     private $auteurs;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nPages;
 
 
     public function __construct()
@@ -288,10 +299,15 @@ class Livre
 
     /**
      * @param File $couvertureFile
+     * @throws \Exception
      */
     public function setCouvertureFile(File $couvertureFile): void
     {
         $this->couvertureFile = $couvertureFile;
+
+        if ($this->couvertureFile instanceof UploadedFile){
+            $this->updated_at = new \DateTime('now');
+        }
     }
 
     public function getDateAquis(): ?\DateTimeInterface
@@ -330,6 +346,30 @@ class Livre
             $this->auteurs->removeElement($auteur);
             $auteur->removeLivre($this);
         }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getNPages(): ?int
+    {
+        return $this->nPages;
+    }
+
+    public function setNPages(int $nPages): self
+    {
+        $this->nPages = $nPages;
 
         return $this;
     }

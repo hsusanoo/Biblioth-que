@@ -11,28 +11,25 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LivreType extends AbstractType
 {
-
-    private $transformer;
-
-    public function __construct(StringToTagTransformer $transformer)
-    {
-        $this->transformer = $transformer;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-//            ->add('couverture')
+            ->add('couvertureFile',FileType::class,[
+                'required' => false,
+                'label' => false
+            ])
             ->add('titrePrincipale')
             ->add('titreSecondaire')
             ->add('dateEdition', TextType::class)
             ->add('prix')
+            ->add('nPages')
             ->add('observation')
             ->add('Isbn')
             ->add('dateAquis', DateType::class, [
@@ -45,7 +42,7 @@ class LivreType extends AbstractType
                 'choice_label' => "nom"
             ])
             ->add('descripteurs', ChoiceType::class, [
-                'label' => "Mots clés",
+                'label' => false,
                 'multiple' => true,
                 'required' => false,
                 'attr' => [

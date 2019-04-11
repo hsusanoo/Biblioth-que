@@ -1,44 +1,49 @@
-var $collectionHolder;
-var $addNewSample = $('<input type="button" class="form-control btn btn-info" value="Ajouter un Exemplaire">');
+var $exmcollectionHolder;
+var $autCollectionHolder;
+var $addNewSample = $('<button type="button" class="form-control btn btn-info"><i class="fas fa-plus"></i> Exemplaire</button>');
+var $addNewAut = $('<button type="button" class="form-control btn btn-info"><i class="fas fa-plus"></i> Auteur</button>');
 var $exmCardBody = $('#exemplaires div.card-body');
-var index;
+var $autCardBody = $('#auteurs div.card-body');
+var exmindex;
+var autindex;
 
 $(document).ready(function () {
 
     // get collection
-    $collectionHolder = $('#exemplaires');
+    $exmcollectionHolder = $('#exemplaires');
+    $autCollectionHolder = $('#auteurs');
 
-    // setting current index
-    index = $collectionHolder.find('.form-row').length;
+    // setting current exmindex
+    exmindex = $exmcollectionHolder.find('.form-row').length;
+    autindex = $autCollectionHolder.find('form-row').length;
 
-
-    // add remove button foreach form-row
-    // $collectionHolder.find('.form-row').each(function () {
-    //     addRemoveButton($(this));
-    // });
-
-    // add "Ajouter un exemplaire" button
+    // Add buttons
     $('#exemplaires div.card-footer').append($addNewSample);
+    $('#auteurs div.card-footer').append($addNewAut);
 
     //Handle adding a new sample button
     $addNewSample.click(function (e) {
-
         e.preventDefault();
+        addNewSampleRow();
+    });
 
-        addNewRow();
-    })
+    // Handleadding new author button
+    $addNewAut.click(function (e) {
+        e.preventDefault();
+        addNewAuthorRow();
+    });
 
 });
 
 // Adding new sample row
-function addNewRow(){
+function addNewSampleRow(){
 
     // Getting the prototype
-    let prototype = $collectionHolder.data('prototype');
+    let prototype = $exmcollectionHolder.data('prototype');
 
     // Creating new form row
     let newForm = prototype;
-    newForm = newForm.replace(/__name__/g,index++);
+    newForm = newForm.replace(/__name__/g,exmindex++);
 
 
     // creating form
@@ -60,6 +65,33 @@ function addNewRow(){
 
     //Appending form to card
     $exmCardBody.append($formRow);
+
+}
+
+function addNewAuthorRow() {
+
+    // Getting the prototype
+    let prototype = $autCollectionHolder.data('prototype');
+
+    // Creating new form row
+    let newForm = prototype;
+    newForm = newForm.replace(/__name__/g,autindex++);
+
+    // creating form
+    let $formRow    = $('<div class="form-row"></div>');
+    let $nom = $('<div class="col col-sm-10 col-md-10 col-10 col-lg-10"></div>');
+
+    $nom.append($(newForm).find('div.form-group:first'));
+    $formRow.append($nom);
+
+    addRemoveButton($($formRow));
+
+    //Removing labels + adding placeholders instead
+    $($formRow).find('label').remove();
+    $($formRow).find('input').attr("placeholder","Nom");
+
+    //Appending form to card
+    $autCardBody.append($formRow);
 
 }
 
@@ -85,6 +117,7 @@ function addRemoveButton(item) {
     item.append(removeButton);
 
 }
+
 
 // Cover img
 function readURL(input) {

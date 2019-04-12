@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Livres{% endblock %}
+
+{% block body %}
+
+    <div id="toolbar">
+        <a href="#filters" data-toggle="collapse"
+           role="button" aria-expanded="false"
+           aria-controls="filters">
+            <i class="fas fa-chevron-down"></i> Filtres avancés:
+        </a>
+        <div id="filters" class="collapse">
+            <div class="card card-body">
+                <form action="" class="form-inline">
+                    <div class="form-row">
+                        <div class="input-group mb-2">
+                            <input type="text" class="input-sm form-control js-datepicker" name="start-date"
+                                   placeholder="Date début"/>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">à</span>
+                            </div>
+                        </div>
+                        <input type="text" class="input-sm form-control js-datepicker" name="end-date"
+                               placeholder="Date fin"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <table id="table" data-toggle="table"
+           data-toolbar="#toolbar"
+           data-mobile-responsive="true"
+           data-card-view="true"
+           data-sort-class="table-active"
+           data-pagination="true"
+           data-search="true"
+           data-show-columns="true"
+           data-show-pagination-switch="true"
+           data-show-refresh="true"
+           data-key-events="true"
+           data-show-toggle="true"
+           data-remember-order="true"
+            {#data-cookie="true"#}
+            {#data-cookie-id-table="saveId"#}
+           data-show-export="true"
+           data-click-to-select="true"
+           data-show-fullscreen="true"
+           data-maintain-selected="true"
+    >
+        <thead>
+        <tr>
+            <th data-field="state" data-checkbox="true"></th>
+            <th data-sortable="true" data-formatter="statutFormatter">Statut</th>
+            <th data-formatter="coverFormatter">Couverture</th>
+            <th data-sortable="true">ISBN</th>
+            <th data-sortable="true" data-formatter="textFormatter">Titre Principale</th>
+            <th data-sortable="true" data-formatter="textFormatter">Titre Secondaire</th>
+            <th data-sortable="true">Année d'édition</th>
+            <th data-sortable="true">Prix</th>
+            <th data-sortable="true">Pages</th>
+            <th data-sortable="true">Catégorie</th>
+            <th data-sortable="true">Date d'aquision</th>
+            <th data-sortable="true" data-formatter="quantiteFormatter">Quantité</th>
+            <th data-formatter="textFormatter">Observation</th>
+        </tr>
+        </thead>
+    </table>
+
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('booksTable') }}
+{% endblock %}

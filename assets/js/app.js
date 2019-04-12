@@ -14,6 +14,16 @@ global.$ = $;
 
 require('bootstrap');
 require('bootstrap-table');
+require('bootstrap-table/dist/locale/bootstrap-table-fr-FR');
+require('tableexport.jquery.plugin/libs/FileSaver/FileSaver.min');
+require('xlsx/dist/xlsx.core.min');
+var jsPDF = require('jspdf');
+require('jspdf-autotable');
+require('tableexport.jquery.plugin/tableExport.min');
+require('bootstrap-table/dist/extensions/export/bootstrap-table-export');
+require('bootstrap-table/dist/extensions/cookie/bootstrap-table-cookie');
+require('bootstrap-table/dist/extensions/accent-neutralise/bootstrap-table-accent-neutralise');
+require('bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile');
 require('popper.js');
 require('toastr');
 require('bootstrap-datepicker');

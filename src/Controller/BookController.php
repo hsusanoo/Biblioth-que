@@ -20,7 +20,7 @@ class BookController extends AbstractController
      */
     public function index()
     {
-        return $this->render('book/index.html.twig', [
+        return $this->render('book/show.html.twig', [
             'controller_name' => 'BookController',
         ]);
     }

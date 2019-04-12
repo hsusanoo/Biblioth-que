@@ -19,7 +19,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('bookForm', './assets/js/bookForm.js')
-    //.addEntry('page2', './assets/js/page2.js')
+    .addEntry('booksTable', './assets/js/booksTable.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

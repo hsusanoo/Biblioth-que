@@ -3,7 +3,16 @@
 
 {% block body %}
 
-    <div class="container">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item" aria-current="page"><a href="{{ path('books') }}">Livres</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Ajouter</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
 
         {{ form_start(livreForm,{'attr':{
             'class': "addlibrary needsclick dz-clickable"
@@ -180,7 +189,6 @@
         </div>
 
         {{ form_end(livreForm) }}
-    </div>
 
 {% endblock %}
 {% block javascripts %}

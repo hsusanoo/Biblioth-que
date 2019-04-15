@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "349ea8af7fbc5d32431da5823d7a7b67",
+    "content-hash": "99a491bb8ced1bb264b2b67bddb68178",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1351,6 +1351,68 @@
             "time": "2016-10-17T18:31:11+00:00"
         },
         {
+            "name": "friendsofsymfony/jsrouting-bundle",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle.git",
+                "reference": "c24d1820da8b6ec55cb2023b456f1d49dd2cbe62"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSJsRoutingBundle/zipball/c24d1820da8b6ec55cb2023b456f1d49dd2cbe62",
+                "reference": "c24d1820da8b6ec55cb2023b456f1d49dd2cbe62",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3.9|^7.0",
+                "symfony/console": "~2.7||~3.0|^4.0",
+                "symfony/framework-bundle": "~2.7||~3.0|^4.0",
+                "symfony/serializer": "~2.7||~3.0|^4.0",
+                "willdurand/jsonp-callback-validator": "~1.0"
+            },
+            "require-dev": {
+                "symfony/expression-language": "~2.7||~3.0|^4.0",
+                "symfony/phpunit-bridge": "^3.3|^4.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "FOS\\JsRoutingBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "FriendsOfSymfony Community",
+                    "homepage": "https://github.com/friendsofsymfony/FOSJsRoutingBundle/contributors"
+                },
+                {
+                    "name": "William Durand",
+                    "email": "will+git@drnd.me"
+                }
+            ],
+            "description": "A pretty nice way to expose your Symfony2 routing to client applications.",
+            "homepage": "http://friendsofsymfony.github.com",
+            "keywords": [
+                "Js Routing",
+                "javascript",
+                "routing"
+            ],
+            "time": "2019-02-03T16:01:06+00:00"
+        },
+        {
             "name": "fzaninotto/faker",
             "version": "v1.8.0",
             "source": {
@@ -2256,16 +2318,16 @@
         },
         {
             "name": "sensio/framework-extra-bundle",
-            "version": "v5.3.0",
+            "version": "v5.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "02d272bda8d3e13a9e4978e549ced0895abb75e6"
+                "reference": "5f75c4658b03301cba17baa15a840b57b72b4262"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/02d272bda8d3e13a9e4978e549ced0895abb75e6",
-                "reference": "02d272bda8d3e13a9e4978e549ced0895abb75e6",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/5f75c4658b03301cba17baa15a840b57b72b4262",
+                "reference": "5f75c4658b03301cba17baa15a840b57b72b4262",
                 "shasum": ""
             },
             "require": {
@@ -2325,7 +2387,7 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2019-04-08T15:22:19+00:00"
+            "time": "2019-04-10T06:00:20+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3215,16 +3277,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.2.1",
+            "version": "v1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "305a6cd75a54992f47f46eb655245b6c9a06997a"
+                "reference": "41c5b29e07778942a76e7a22dbc3f6d62a42dc6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/305a6cd75a54992f47f46eb655245b6c9a06997a",
-                "reference": "305a6cd75a54992f47f46eb655245b6c9a06997a",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/41c5b29e07778942a76e7a22dbc3f6d62a42dc6e",
+                "reference": "41c5b29e07778942a76e7a22dbc3f6d62a42dc6e",
                 "shasum": ""
             },
             "require": {
@@ -3260,7 +3322,7 @@
                 }
             ],
             "description": "Composer plugin for Symfony",
-            "time": "2019-04-03T17:16:03+00:00"
+            "time": "2019-04-11T12:36:26+00:00"
         },
         {
             "name": "symfony/form",
@@ -5527,16 +5589,16 @@
         },
         {
             "name": "symfony/webpack-encore-bundle",
-            "version": "v1.4.0",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/webpack-encore-bundle.git",
-                "reference": "fc18456ed44737995f912c2084505fb67d040e11"
+                "reference": "2384cfde92226f2447eb422570c322afe2ae15ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/fc18456ed44737995f912c2084505fb67d040e11",
-                "reference": "fc18456ed44737995f912c2084505fb67d040e11",
+                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/2384cfde92226f2447eb422570c322afe2ae15ea",
+                "reference": "2384cfde92226f2447eb422570c322afe2ae15ea",
                 "shasum": ""
             },
             "require": {
@@ -5577,7 +5639,7 @@
                 }
             ],
             "description": "Integration with your Symfony app & Webpack Encore!",
-            "time": "2019-03-29T14:09:53+00:00"
+            "time": "2019-04-10T17:55:40+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -5849,6 +5911,46 @@
                 "validate"
             ],
             "time": "2018-12-25T11:19:39+00:00"
+        },
+        {
+            "name": "willdurand/jsonp-callback-validator",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/willdurand/JsonpCallbackValidator.git",
+                "reference": "1a7d388bb521959e612ef50c5c7b1691b097e909"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/willdurand/JsonpCallbackValidator/zipball/1a7d388bb521959e612ef50c5c7b1691b097e909",
+                "reference": "1a7d388bb521959e612ef50c5c7b1691b097e909",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JsonpCallbackValidator": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "William Durand",
+                    "email": "william.durand1@gmail.com",
+                    "homepage": "http://www.willdurand.fr"
+                }
+            ],
+            "description": "JSONP callback validator.",
+            "time": "2014-01-20T22:35:06+00:00"
         },
         {
             "name": "zendframework/zend-code",

@@ -9,6 +9,28 @@ var autindex;
 
 $(document).ready(function () {
 
+    $('.select-two-multiple').select2({
+        ajax: {
+            url: "/books/getcat",
+            dataType: 'json',
+            data: function (params) {
+                return {
+                    searchTerm: params.term
+                };
+            },
+            processResults: function (data) {
+                // Tranforms the top-level key of the response object from 'items' to 'results'
+                return {
+                    results: data.items
+                };
+            }
+        },
+        language: 'fr',
+        tags: true,
+        tokenSeparators: [','],
+        placeholder: "Clé1,Clé2,.."
+    });
+
     // get collection
     $exmcollectionHolder = $('#exemplaires');
     $autCollectionHolder = $('#auteurs');
@@ -36,20 +58,20 @@ $(document).ready(function () {
 });
 
 // Adding new sample row
-function addNewSampleRow(){
+function addNewSampleRow() {
 
     // Getting the prototype
     let prototype = $exmcollectionHolder.data('prototype');
 
     // Creating new form row
     let newForm = prototype;
-    newForm = newForm.replace(/__name__/g,exmindex++);
+    newForm = newForm.replace(/__name__/g, exmindex++);
 
 
     // creating form
-    let $formRow    = $('<div class="form-row"></div>');
+    let $formRow = $('<div class="form-row"></div>');
     let $nInentaire = $('<div class="col col-sm-6 col-md-6 col-6 col-lg-6"></div>');
-    let $cote       = $('<div class="col col-sm-4 col-md-4 col-4 col-lg-4"></div>');
+    let $cote = $('<div class="col col-sm-4 col-md-4 col-4 col-lg-4"></div>');
 
     $nInentaire.append($(newForm).find('div.form-group:first'));
     $cote.append($(newForm).find('div.form-group:last'));
@@ -60,8 +82,8 @@ function addNewSampleRow(){
 
     //Removing labels + adding placeholders instead
     $($formRow).find('label').remove();
-    $($formRow).find('input:first').attr("placeholder","N° Inventaire");
-    $($formRow).find('input:last').attr("placeholder","Cote");
+    $($formRow).find('input:first').attr("placeholder", "N° Inventaire");
+    $($formRow).find('input:last').attr("placeholder", "Cote");
 
     //Appending form to card
     $exmCardBody.append($formRow);
@@ -75,10 +97,10 @@ function addNewAuthorRow() {
 
     // Creating new form row
     let newForm = prototype;
-    newForm = newForm.replace(/__name__/g,autindex++);
+    newForm = newForm.replace(/__name__/g, autindex++);
 
     // creating form
-    let $formRow    = $('<div class="form-row"></div>');
+    let $formRow = $('<div class="form-row"></div>');
     let $nom = $('<div class="col col-sm-10 col-md-10 col-10 col-lg-10"></div>');
 
     $nom.append($(newForm).find('div.form-group:first'));
@@ -88,7 +110,7 @@ function addNewAuthorRow() {
 
     //Removing labels + adding placeholders instead
     $($formRow).find('label').remove();
-    $($formRow).find('input').attr("placeholder","Nom");
+    $($formRow).find('input').attr("placeholder", "Nom");
 
     //Appending form to card
     $autCardBody.append($formRow);
@@ -123,7 +145,7 @@ function addRemoveButton(item) {
 function readURL(input) {
     if (input.files && input.files[0]) {
         let reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function (e) {
             $('#coverPreview').attr('src', e.target.result);
             $('#coverPreview').hide();
             $('#coverPreview').fadeIn(650);
@@ -131,6 +153,7 @@ function readURL(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
-$(".cover-upload input[type='file']").change(function() {
+
+$(".cover-upload input[type='file']").change(function () {
     readURL(this);
 });

@@ -3,72 +3,165 @@
 {% block title %}Livres{% endblock %}
 
 {% block body %}
-
-    <div id="toolbar">
-        <a href="#filters" data-toggle="collapse"
-           role="button" aria-expanded="false"
-           aria-controls="filters">
-            <i class="fas fa-chevron-down"></i> Filtres avancés:
-        </a>
-        <div id="filters" class="collapse">
-            <div class="card card-body">
-                <form action="" class="form-inline">
-                    <div class="form-row">
-                        <div class="input-group mb-2">
-                            <input type="text" class="input-sm form-control js-datepicker" name="start-date"
-                                   placeholder="Date début"/>
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">à</span>
-                            </div>
-                        </div>
-                        <input type="text" class="input-sm form-control js-datepicker" name="end-date"
-                               placeholder="Date fin"/>
-                    </div>
-                </form>
-            </div>
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">Livres</li>
+                </ol>
+            </nav>
         </div>
     </div>
+    <div class="card card-body">
+        <div>
+            <a href="#filters" data-toggle="collapse"
+               role="button" aria-expanded="false"
+               aria-controls="filters">
+                <i class="fas fa-chevron-down"></i> Filtres avancés
+            </a>
+            <div id="filters" class="collapse">
+                <div class="card card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="statut">Statut :</label>
+                                <select name="statut" id="statut" class="form-control form-control-sm">
+                                    <option value="1">Disponible</option>
+                                    <option value="0">Indisponible</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="range">Période :</label>
+                                <input type="text" name="range" class="form-control form-control-sm date-range">
+                            </div>
+                        </div>
+                        <div class="col"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <table id="table" data-toggle="table"
-           data-toolbar="#toolbar"
-           data-mobile-responsive="true"
-           data-card-view="true"
-           data-sort-class="table-active"
-           data-pagination="true"
-           data-search="true"
-           data-show-columns="true"
-           data-show-pagination-switch="true"
-           data-show-refresh="true"
-           data-key-events="true"
-           data-show-toggle="true"
-           data-remember-order="true"
-            {#data-cookie="true"#}
-            {#data-cookie-id-table="saveId"#}
-           data-show-export="true"
-           data-click-to-select="true"
-           data-show-fullscreen="true"
-           data-maintain-selected="true"
-    >
-        <thead>
-        <tr>
-            <th data-field="state" data-checkbox="true"></th>
-            <th data-sortable="true" data-formatter="statutFormatter">Statut</th>
-            <th data-formatter="coverFormatter">Couverture</th>
-            <th data-sortable="true">ISBN</th>
-            <th data-sortable="true" data-formatter="textFormatter">Titre Principale</th>
-            <th data-sortable="true" data-formatter="textFormatter">Titre Secondaire</th>
-            <th data-sortable="true">Année d'édition</th>
-            <th data-sortable="true">Prix</th>
-            <th data-sortable="true">Pages</th>
-            <th data-sortable="true">Catégorie</th>
-            <th data-sortable="true">Date d'aquision</th>
-            <th data-sortable="true" data-formatter="quantiteFormatter">Quantité</th>
-            <th data-formatter="textFormatter">Observation</th>
-        </tr>
-        </thead>
-    </table>
+        <div id="toolbar">
+            <select id="exportType" class="form-control form-control-sm">
+                <option value="basic">Export Basique</option>
+                <option value="all">Exporter Tout</option>
+                <option value="selected">Export Selection</option>
+            </select>
+        </div>
+
+        <table id="table"
+               data-url="books/get"
+               data-toggle="table"
+               data-toolbar="#toolbar"
+               data-classes="table table-bordered table-hover table-sm"
+               data-card-view="true"
+               data-mobile-responsive="true"
+               data-sort-class="table-active"
+               data-pagination="true"
+               data-search="true"
+               data-show-columns="true"
+               data-show-pagination-switch="true"
+               data-show-refresh="true"
+               data-key-events="true"
+               {#data-show-toggle="true"#}
+               data-remember-order="true"
+                {#data-cookie="true"#}
+                {#data-cookie-id-table="saveId"#}
+               data-show-export="true"
+               data-click-to-select="true"
+               data-show-fullscreen="true"
+               data-maintain-selected="true"
+               data-resizable="true"
+        >
+            <thead>
+            <tr>
+                <th data-field="state" data-checkbox="true"></th>
+                <th data-field="statut" data-sortable="true" data-formatter="statutFormatter" data-align="center">
+                    Statut
+                </th>
+                <th data-field="couverture" data-formatter="coverFormatter" data-align="center">Couvert</th>
+                <th data-field="isbn" data-sortable="true" data-align="center">ISBN</th>
+                <th data-field="titrePrincipale" data-sortable="true" data-formatter="textFormatter">Titre Principale
+                </th>
+                <th data-field="titreSecondaire" data-sortable="true" data-formatter="textFormatter">Titre Secondaire
+                </th>
+                <th data-field="authors" data-sortable="true">Auteurs</th>
+                <th data-field="edition" data-sortable="true" data-align="center">Année d'édition</th>
+                <th data-field="prix" data-sortable="true" data-align="center">Prix</th>
+                <th data-field="n_pages" data-sortable="true" data-align="center">Pages</th>
+                <th data-field="categorie" data-sortable="true" data-align="center">Catégorie</th>
+                <th data-field="date_aquis" data-sortable="true" data-align="center">Date d'aquision</th>
+                <th data-field="quantité" data-sortable="true" data-formatter="quantiteFormatter" data-align="center">
+                    Quantité
+                </th>
+                <th data-field="observation" data-formatter="textFormatter">Observation</th>
+                <th data-field="tags" data-formatter="tagsFormatter">Mots Clés</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
 
 {% endblock %}
 {% block javascripts %}
+
     {{ encore_entry_script_tags('booksTable') }}
+
+    <script>
+
+        // Data formatters
+
+        function statutFormatter(value) {
+            let statut, badge;
+            if (value > 0) {
+                statut = 'Disponible';
+                badge = 'success';
+            } else {
+                statut = 'Indisponible';
+                badge = 'secondary';
+            }
+            return '<span class="badge badge-pill badge-' + badge + '" style="margin-bottom: 5px">' + statut + '</span>';
+        }
+
+        function coverFormatter(value) {
+            return '<img src="/img/livres/' + value + '" style="height: 70px; width: 49px;" ' +
+                'alt="book-cover" onerror="this.onerror=null;this.src=\'https://i.imgur.com/yNW4lQK.png\'">';
+        }
+
+        function tagsFormatter(value) {
+            let tags = value.split(',').sort();
+            let result = '';
+            for (let i = 0; i < tags.length; i++) {
+                result += '<span class="badge badge-info">' + tags[i] + '</span> ';
+            }
+            return result;
+        }
+
+        function authorsFormatter(value) {
+            let authors = value.split(',').sort();
+            let result = '';
+            for (let i = 0; i < authors.length; i++) {
+                result += authors[i];
+                if (i !== authors.length - 1)
+                    result += '<br>';
+            }
+        }
+
+        function quantiteFormatter(value) {
+            return '<span class="badge badge-pill badge-danger">' + value + '</span>';
+        }
+
+        function textFormatter(value) {
+            if (!value) value = "";
+            return '<span style="display: flex; flex-direction: row; max-height: 70px; overflow: auto;">' + value + '</span>';
+        }
+
+        function dateFormatter(value) {
+            console.log("my object: %o", value.timezone.transitions[0].time.toString());
+            return value.timezone.transitions[0].time;
+        }
+
+    </script>
+
 {% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -306,7 +307,7 @@ class Livre
         $this->couvertureFile = $couvertureFile;
 
         if ($this->couvertureFile instanceof UploadedFile){
-            $this->updated_at = new \DateTime('now');
+            $this->updated_at = new DateTime('now');
         }
     }
 

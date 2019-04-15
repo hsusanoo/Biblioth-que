@@ -1,5 +1,5 @@
 $('#exportType').change(function () {
-    $('#table').bootstrapTable('destroy').bootstrapTable({
+    $('#table').bootstrapTable('refreshOptions',{
         exportTypes: ['csv', 'sql', 'excel'],
         exportDataType: $(this).val(),
         columns:[

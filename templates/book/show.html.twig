@@ -1,8 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Livres{% endblock %}
-
-{% block body %}
+{% block bread_cumb %}
     <div class="row">
         <div class="col">
             <nav aria-label="breadcrumb">
@@ -12,6 +11,8 @@
             </nav>
         </div>
     </div>
+{% endblock %}
+{% block body %}
     <div class="card card-body">
         <div>
             <a href="#filters" data-toggle="collapse"
@@ -20,24 +21,31 @@
                 <i class="fas fa-chevron-down"></i> Filtres avancés
             </a>
             <div id="filters" class="collapse">
-                <div class="card card-body">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="statut">Statut :</label>
-                                <select name="statut" id="statut" class="form-control form-control-sm">
-                                    <option value="1">Disponible</option>
-                                    <option value="0">Indisponible</option>
-                                </select>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="statut">Statut :</label>
+                                    <select name="statut" id="statut" class="form-control form-control-sm">
+                                        <option value="1">Disponible</option>
+                                        <option value="0">Indisponible</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="range">Période :</label>
-                                <input type="text" name="range" class="form-control form-control-sm date-range">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="range">Période :</label>
+                                    <input type="text" name="range" class="form-control form-control-sm date-range">
+                                </div>
                             </div>
+                            <div class="col"></div>
                         </div>
-                        <div class="col"></div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col"><button type="button" id="apllyFilters" class="btn btn-primary">Appliquer</button></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -65,7 +73,7 @@
                data-show-pagination-switch="true"
                data-show-refresh="true"
                data-key-events="true"
-               {#data-show-toggle="true"#}
+                {#data-show-toggle="true"#}
                data-remember-order="true"
                 {#data-cookie="true"#}
                 {#data-cookie-id-table="saveId"#}
@@ -73,31 +81,40 @@
                data-click-to-select="true"
                data-show-fullscreen="true"
                data-maintain-selected="true"
-               data-resizable="true"
+               data-filter-control="true"
         >
             <thead>
             <tr>
-                <th data-field="state" data-checkbox="true"></th>
-                <th data-field="statut" data-sortable="true" data-formatter="statutFormatter" data-align="center">
+                <th data-field="state" data-checkbox="true" data-halign="center"></th>
+                <th data-field="statut" data-sortable="true" data-formatter="statutFormatter"
+                    data-align="center" data-halign="center">
                     Statut
                 </th>
-                <th data-field="couverture" data-formatter="coverFormatter" data-align="center">Couvert</th>
-                <th data-field="isbn" data-sortable="true" data-align="center">ISBN</th>
-                <th data-field="titrePrincipale" data-sortable="true" data-formatter="textFormatter">Titre Principale
+                <th data-field="couverture" data-formatter="coverFormatter" data-align="center" data-halign="center">
+                    Couvert
                 </th>
-                <th data-field="titreSecondaire" data-sortable="true" data-formatter="textFormatter">Titre Secondaire
+                <th data-field="isbn" data-sortable="true" data-align="center" data-halign="center">ISBN</th>
+                <th data-field="titrePrincipale" data-sortable="true" data-formatter="textFormatter"
+                    data-halign="center">Titre Principale
                 </th>
-                <th data-field="authors" data-sortable="true">Auteurs</th>
-                <th data-field="edition" data-sortable="true" data-align="center">Année d'édition</th>
-                <th data-field="prix" data-sortable="true" data-align="center">Prix</th>
-                <th data-field="n_pages" data-sortable="true" data-align="center">Pages</th>
-                <th data-field="categorie" data-sortable="true" data-align="center">Catégorie</th>
-                <th data-field="date_aquis" data-sortable="true" data-align="center">Date d'aquision</th>
-                <th data-field="quantité" data-sortable="true" data-formatter="quantiteFormatter" data-align="center">
+                <th data-field="titreSecondaire" data-sortable="true" data-formatter="textFormatter"
+                    data-halign="center">Titre Secondaire
+                </th>
+                <th data-field="authors" data-sortable="true" data-halign="center">Auteurs</th>
+                <th data-field="edition" data-sortable="true" data-align="center" data-halign="center">Année d'édition
+                </th>
+                <th data-field="prix" data-sortable="true" data-align="center" data-halign="center">Prix</th>
+                <th data-field="n_pages" data-sortable="true" data-align="center" data-halign="center">Pages</th>
+                <th data-field="categorie" data-sortable="true" data-align="center" data-halign="center">Catégorie</th>
+                <th data-field="date_aquis" data-sortable="true" data-align="center" data-halign="center">Date
+                    d'aquision
+                </th>
+                <th data-field="quantité" data-sortable="true" data-formatter="quantiteFormatter" data-align="center"
+                    data-halign="center">
                     Quantité
                 </th>
-                <th data-field="observation" data-formatter="textFormatter">Observation</th>
-                <th data-field="tags" data-formatter="tagsFormatter">Mots Clés</th>
+                <th data-field="observation" data-formatter="textFormatter" data-halign="center">Observation</th>
+                <th data-field="tags" data-formatter="tagsFormatter" data-halign="center">Mots Clés</th>
             </tr>
             </thead>
         </table>

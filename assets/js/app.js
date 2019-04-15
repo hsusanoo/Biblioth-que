@@ -18,6 +18,7 @@ require('perfect-scrollbar');
 require('@coreui/coreui');
 require('bootstrap-table');
 require('bootstrap-table/dist/locale/bootstrap-table-fr-FR');
+require('bootstrap-table/dist/extensions/filter-control/bootstrap-table-filter-control');
 require('tableexport.jquery.plugin/libs/FileSaver/FileSaver.min');
 require('xlsx/dist/xlsx.core.min');
 var jsPDF = require('jspdf');

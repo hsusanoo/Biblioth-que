@@ -1,8 +1,6 @@
 {% extends 'base.html.twig' %}
 {% form_theme livreForm 'bootstrap_4_layout.html.twig' %}
-
-{% block body %}
-
+{% block bread_cumb %}
     <div class="row">
         <div class="col">
             <nav aria-label="breadcrumb">
@@ -13,182 +11,184 @@
             </nav>
         </div>
     </div>
+{% endblock %}
+{% block body %}
 
-        {{ form_start(livreForm,{'attr':{
-            'class': "addlibrary needsclick dz-clickable"
-        }}) }}
+    {{ form_start(livreForm,{'attr':{
+        'class': "addlibrary needsclick dz-clickable"
+    }}) }}
 
-        <div class="card mb-3">
-            <div class="row no-gutters">
-                <div class="col-md-4 cover-upload">
-                    {{ form_widget(livreForm.couvertureFile,{
-                        'attr':{
-                            'accept': ".png, .jpg, .jpeg"
-                        }
-                    }) }}
-                    <label for="{{ livreForm.couvertureFile.vars.id }}">
-                        <img id="coverPreview" src="http://placehold.it/350x510" class="card-img" alt="book_cover">
-                        <div class="layer"></div>
-                    </label>
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <div class="form-row">
-                            <div class="col">
-                                {{ form_row(livreForm.Isbn,{
-                                    'label': false,
-                                    'attr':{
-                                        'placeholder': "Numéro ISBN"
-                                    }}) }}
-                            </div>
-                            <div class="col">
-                                {{ form_row(livreForm.prix,{
-                                    'label': false,
-                                    'attr':{
-                                        'placeholder': "Prix"
-                                    }
-                                }) }}
-                            </div>
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            <div class="col-md-4 cover-upload">
+                {{ form_widget(livreForm.couvertureFile,{
+                    'attr':{
+                        'accept': ".png, .jpg, .jpeg"
+                    }
+                }) }}
+                <label for="{{ livreForm.couvertureFile.vars.id }}">
+                    <img id="coverPreview" src="http://placehold.it/350x510" class="card-img" alt="book_cover">
+                    <div class="layer"></div>
+                </label>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="col">
+                            {{ form_row(livreForm.Isbn,{
+                                'label': false,
+                                'attr':{
+                                    'placeholder': "Numéro ISBN"
+                                }}) }}
                         </div>
-                        <div class="form-row">
-                            <div class="col">
-                                {{ form_row(livreForm.titrePrincipale,{
-                                    'label': false,
-                                    'attr':{
-                                        'placeholder': "Titre principale"
-                                    }}) }}
-                            </div>
+                        <div class="col">
+                            {{ form_row(livreForm.prix,{
+                                'label': false,
+                                'attr':{
+                                    'placeholder': "Prix"
+                                }
+                            }) }}
                         </div>
-                        <div class="form-row">
-                            <div class="col">
-                                {{ form_row(livreForm.titreSecondaire,{
-                                    'label': false,
-                                    'attr':{
-                                        'placeholder': "Titre Secondaire"
-                                    }}) }}
-                            </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            {{ form_row(livreForm.titrePrincipale,{
+                                'label': false,
+                                'attr':{
+                                    'placeholder': "Titre principale"
+                                }}) }}
                         </div>
-                        <div class="form-row">
-                            <div class="col">
-                                {{ form_row(livreForm.dateEdition,{
-                                    'label': false,
-                                    'attr':{
-                                        'placeholder': "Année d'édition",
-                                        'class': "js-yearpicker"
-                                    }}) }}
-                            </div>
-                            <div class="col">
-                                {{ form_row(livreForm.dateAquis,{
-                                    'label': false,
-                                    'attr':{
-                                        'placeholder': "jj/mm/aaaa",
-                                        'class': "js-datepicker"
-                                    }}) }}
-                            </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            {{ form_row(livreForm.titreSecondaire,{
+                                'label': false,
+                                'attr':{
+                                    'placeholder': "Titre Secondaire"
+                                }}) }}
                         </div>
-                        <div class="form-row">
-                            <div class="col">
-                                {{ form_row(livreForm.categorie,{
-                                    'label': false,
-                                    'attr':{
-                                        'class': "select-two"
-                                    }
-                                }) }}
-                            </div>
-                            <div class="col">
-                                {{ form_row(livreForm.nPages,{
-                                    'label': false,
-                                    'attr':{
-                                        'placeholder': "Nombre de pages"
-                                    }
-                                }) }}
-                            </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            {{ form_row(livreForm.dateEdition,{
+                                'label': false,
+                                'attr':{
+                                    'placeholder': "Année d'édition",
+                                    'class': "js-yearpicker"
+                                }}) }}
                         </div>
-                        <div class="form-row">
-                            <div class="col">
-                                {{ form_row(livreForm.descripteurs) }}
-                            </div>
+                        <div class="col">
+                            {{ form_row(livreForm.dateAquis,{
+                                'label': false,
+                                'attr':{
+                                    'placeholder': "jj/mm/aaaa",
+                                    'class': "js-datepicker"
+                                }}) }}
                         </div>
-                        <div class="form-row">
-                            <div class="col">
-                                {{ form_row(livreForm.observation,{
-                                    'label': false,
-                                    'attr':{
-                                        'placeholder': "Description..."
-                                    }}) }}
-                            </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            {{ form_row(livreForm.categorie,{
+                                'label': false,
+                                'attr':{
+                                    'class': "select-two"
+                                }
+                            }) }}
+                        </div>
+                        <div class="col">
+                            {{ form_row(livreForm.nPages,{
+                                'label': false,
+                                'attr':{
+                                    'placeholder': "Nombre de pages"
+                                }
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            {{ form_row(livreForm.descripteurs) }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            {{ form_row(livreForm.observation,{
+                                'label': false,
+                                'attr':{
+                                    'placeholder': "Description..."
+                                }}) }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="row">
-            <div id="exemplaires" class="col-lg-6 col-md-6 col-sm-12 col-12"
-                 data-prototype="{{ form_row(livreForm.exemplaires.vars.prototype)|e('html_attr') }}">
-                <div class="card">
-                    <h4 class="card-header">Exemplaires :</h4>
-                    <div class="card-body">
-                        {% for exemplaire in livreForm.exemplaires %}
-                            <div class="form-row">
-                                <div class="col col-sm-6 col-md-6 col-6 col-lg-6">
-                                    {{ form_row(exemplaire.nInventaire,{
-                                        'label': false,
-                                        'attr':{
-                                            'placeholder': "N° Inventaire"
-                                        }
-                                    }) }}
-                                </div>
-                                <div class="col col-sm-4 col-md-4 col-4 col-lg-4">
-                                    {{ form_row(exemplaire.cote,{
-                                        'label': false,
-                                        'attr':{
-                                            'placeholder': "Cote"
-                                        }
-                                    }) }}
-                                </div>
+    <div class="row">
+        <div id="exemplaires" class="col-lg-6 col-md-6 col-sm-12 col-12"
+             data-prototype="{{ form_row(livreForm.exemplaires.vars.prototype)|e('html_attr') }}">
+            <div class="card">
+                <h4 class="card-header">Exemplaires :</h4>
+                <div class="card-body">
+                    {% for exemplaire in livreForm.exemplaires %}
+                        <div class="form-row">
+                            <div class="col col-sm-6 col-md-6 col-6 col-lg-6">
+                                {{ form_row(exemplaire.nInventaire,{
+                                    'label': false,
+                                    'attr':{
+                                        'placeholder': "N° Inventaire"
+                                    }
+                                }) }}
                             </div>
-                        {% endfor %}
-                    </div>
-                    <div class="card-footer"></div>
-                </div>
-            </div>
-            <div id="auteurs" class="col-lg-6 col-md-6 col-sm-12 col-12"
-                 data-prototype="{{ form_row(livreForm.auteurs.vars.prototype)|e('html_attr') }}">
-                <div class="card">
-                    <h4 class="card-header">Auteurs :</h4>
-                    <div class="card-body">
-                        {% for auteur in livreForm.auteurs %}
-                            <div class="form-row">
-                                <div class="col col-lg-10 col-md-10 col-sm-10 col-10">
-                                    {{ form_row(auteur,{
-                                        'label': false,
-                                        'attr':{
-                                            'placeholder': "Nom"
-                                        }
-                                    }) }}
-                                </div>
+                            <div class="col col-sm-4 col-md-4 col-4 col-lg-4">
+                                {{ form_row(exemplaire.cote,{
+                                    'label': false,
+                                    'attr':{
+                                        'placeholder': "Cote"
+                                    }
+                                }) }}
                             </div>
-                        {% endfor %}
-                    </div>
-                    <div class="card-footer"></div>
+                        </div>
+                    {% endfor %}
                 </div>
+                <div class="card-footer"></div>
             </div>
         </div>
-        <hr>
-        <div class="row align-content-end">
-            <div class="col-md-2"></div>
-            <div class="col-md-2"></div>
-            <div class="col-md-2">
-                <button class="btn btn-success form-control">Ajouter</button>
-            </div>
-            <div class="col-md-2"></div>
-            <div class="col-md-2">
-                <button type="reset" class="btn btn-danger form-control">Annuler</button>
+        <div id="auteurs" class="col-lg-6 col-md-6 col-sm-12 col-12"
+             data-prototype="{{ form_row(livreForm.auteurs.vars.prototype)|e('html_attr') }}">
+            <div class="card">
+                <h4 class="card-header">Auteurs :</h4>
+                <div class="card-body">
+                    {% for auteur in livreForm.auteurs %}
+                        <div class="form-row">
+                            <div class="col col-lg-10 col-md-10 col-sm-10 col-10">
+                                {{ form_row(auteur,{
+                                    'label': false,
+                                    'attr':{
+                                        'placeholder': "Nom"
+                                    }
+                                }) }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="card-footer"></div>
             </div>
         </div>
+    </div>
+    <hr>
+    <div class="row align-content-end">
+        <div class="col-md-2"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            <button class="btn btn-success form-control">Ajouter</button>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            <button type="reset" class="btn btn-danger form-control">Annuler</button>
+        </div>
+    </div>
 
-        {{ form_end(livreForm) }}
+    {{ form_end(livreForm) }}
 
 {% endblock %}
 {% block javascripts %}

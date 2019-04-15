@@ -7,11 +7,55 @@
     {% block stylesheets %}
     {% endblock %}
 </head>
-<body>
-<div class="container">
-    <main id="main">
-        {% block body %}
+<body class="app header-fixed sidebar-fixed aside-menu-fixed pace-done sidebar-show brand-minimized sidebar-minimized">
+<header class="app-header navbar">
+    <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">
+        <img class="navbar-brand-full" src="https://via.placeholder.com/89x25" width="89" height="25" alt="Logo">
+        <img class="navbar-brand-minimized" src="https://via.placeholder.com/30" width="30" height="30" alt="Logo">
+    </a>
+    <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</header>
+<div class="app-body">
+    <div class="sidebar">
+        <nav class="sidebar-nav">
+            <ul class="nav">
+                <li class="nav-title">Menu</li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="nav-icon cui-dashboard"></i> Acceuil
+                    </a>
+                </li>
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link nav-dropdown-toggle" href="#">
+                        <i class="nav-icon cui-bookmark"></i> Livres
+                    </a>
+                    <ul class="nav-dropdown-items">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('books') }}"> Consulter
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('books_new') }}"> Ajouter
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+    </div>
+    <main id="main" class="main">
+        {% block bread_cumb %}
         {% endblock %}
+        <div class="container">
+            {% block body %}
+            {% endblock %}
+        </div>
     </main>
 </div>
 {{ encore_entry_script_tags('app') }}

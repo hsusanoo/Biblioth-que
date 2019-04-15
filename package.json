@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@coreui/coreui": "^2.1.9",
+        "@coreui/icons": "^0.3.0",
         "bootstrap": "^4.3.1",
         "bootstrap-datepicker": "^1.8.0",
         "bootstrap-table": "^1.14.2",

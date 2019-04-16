@@ -106,7 +106,15 @@
                     </div>
                     <div class="form-row">
                         <div class="col">
-                            {{ form_row(livreForm.descripteurs) }}
+                            {% if tags %}
+                                {{ form_row(livreForm.descripteurs,{
+                                    'attr':{
+                                        'value': tags|join(',')
+                                    }
+                                }) }}
+                            {% else %}
+                                {{ form_row(livreForm.descripteurs) }}
+                            {% endif %}
                         </div>
                     </div>
                     <div class="form-row">
@@ -180,11 +188,13 @@
         <div class="col-md-2"></div>
         <div class="col-md-2"></div>
         <div class="col-md-2">
-            <button class="btn btn-success form-control">Ajouter</button>
+            <button class="btn btn-primary btn-block">
+                {% if editMode %}Editer{% else %}Ajouter{% endif %}
+                </button>
         </div>
         <div class="col-md-2"></div>
         <div class="col-md-2">
-            <button type="reset" class="btn btn-danger form-control">Annuler</button>
+            <button type="reset" class="btn btn-outline-dark btn-block">Annuler</button>
         </div>
     </div>
 

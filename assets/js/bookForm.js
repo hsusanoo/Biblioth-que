@@ -9,27 +9,30 @@ var autindex;
 
 $(document).ready(function () {
 
-    $('.select-two-multiple').select2({
-        ajax: {
-            url: "/books/getcat",
-            dataType: 'json',
-            data: function (params) {
-                return {
-                    searchTerm: params.term
-                };
-            },
-            processResults: function (data) {
-                // Tranforms the top-level key of the response object from 'items' to 'results'
-                return {
-                    results: data.items
-                };
+    $.get("/books/gettags", function (data, status) {
+
+        let tags = $('.select-two-multiple:first').attr('value').split(',');
+
+        if (tags) {
+            for (let i = 0; i < data.results.length; i++) {
+                for (let j = 0; j < tags.length; j++) {
+                    if (data.results[i].text === tags[j]) {
+                        data.results[i]['selected'] = true
+                    }
+                }
             }
-        },
-        language: 'fr',
-        tags: true,
-        tokenSeparators: [','],
-        placeholder: "Clé1,Clé2,.."
+        }
+
+
+        $('.select-two-multiple').select2({
+            data: data.results,
+            language: 'fr',
+            tags: true,
+            tokenSeparators: [','],
+            placeholder: "Clé1,Clé2,.."
+        });
     });
+
 
     // get collection
     $exmcollectionHolder = $('#exemplaires');

@@ -40,6 +40,23 @@ require('select2/dist/js/i18n/fr');
 require('store');
 require('jquery-resizable-columns/dist/jquery.resizableColumns.min');
 
+
+// Override update method
+$.fn.select2.amd.require._defined['select2/selection/search'].prototype.update = function(a, b) {
+    var c = this.$search[0] == document.activeElement;
+    this.$search.attr("placeholder", "");
+    a.call(this, b);
+    this.$selection.find(".select2-selection__rendered").append(this.$searchContainer);
+    this.resizeSearch();
+    if (c) {
+        var self = this;
+        window.setTimeout(function() {
+            self.$search.focus();
+        }, 0);
+    }
+};
+
+
 $(document).ready(function () {
 
     $('.js-datepicker').datepicker({

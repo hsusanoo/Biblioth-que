@@ -1,8 +1,8 @@
 $('#exportType').change(function () {
-    $('#table').bootstrapTable('refreshOptions',{
+    $('#table').bootstrapTable('refreshOptions', {
         exportTypes: ['csv', 'sql', 'excel'],
         exportDataType: $(this).val(),
-        columns:[
+        columns: [
             {
                 field: 'state',
                 checkbox: true,
@@ -12,4 +12,12 @@ $('#exportType').change(function () {
     })
 }).trigger('change');
 
+$('#statut').change(function () {
+    console.log("Selected "+$(this).val());
+    if ($(this).val() !== '') {
+        $('#table').bootstrapTable('filterBy',{
+            statut: $(this).val()
+        })
+    }
+});
 

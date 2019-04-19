@@ -27,6 +27,9 @@ security:
                 secret:   '%kernel.secret%'
                 path: /
 
+            logout:
+                path: security_logout
+                target: security_login
             # activate different ways to authenticate
 
             # http_basic: true
@@ -39,4 +42,4 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
      - { path: ^/admin, roles: ROLE_ADMIN }
-#     - { path: ^/profile, roles: ROLE_USER }
+#     - { path: ^/books, roles: ROLE_USER }

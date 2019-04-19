@@ -45,6 +45,21 @@
                         </li>
                     </ul>
                 </li>
+                {% if is_granted('ROLE_GESTION') %}
+                    <li class="nav-item nav-dropdown">
+                        <a href="#" class="nav-link nav-dropdown-toggle">
+                            <i class="nav-icon cui-user"></i> Responsables
+                        </a>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">&nbsp;&nbsp;&nbsp;Consulter</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">&nbsp;&nbsp;&nbsp;Ajouter</a>
+                            </li>
+                        </ul>
+                    </li>
+                {% endif %}
             </ul>
         </nav>
         <button class="sidebar-minimizer brand-minimizer" type="button"></button>
@@ -52,7 +67,7 @@
     <main id="main" class="main">
         {% block bread_cumb %}
         {% endblock %}
-        <div class="container-fluid">
+        <div class="container-fluid pb-4">
             {% block body %}
             {% endblock %}
         </div>

@@ -27,7 +27,7 @@ class UserFixtures extends Fixture
         $user->setNom("ADMIN");
         $user->setPrenom("Admin");
         $user->setPhone("0548178727");
-        $user->setRoles(["ROLE_ADMIN"]);
+        $user->setRoles(["ROLE_ADMIN","ROLE_GESTION"]);
 
         $manager->persist($user);
 

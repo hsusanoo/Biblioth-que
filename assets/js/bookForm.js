@@ -9,7 +9,7 @@ var autindex;
 
 $(document).ready(function () {
 
-    $.get("/books/gettags", function (data, status) {
+    $.get("/admin/books/gettags", function (data, status) {
 
         let tagString = $('.select-two-multiple:first').attr('value');
 

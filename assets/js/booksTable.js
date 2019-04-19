@@ -14,7 +14,7 @@ $('#exportType').change(function () {
 
 $('#exportType').val('selected').trigger('change');
 
-$.get("/books/getcat",function (data, status) {
+$.get("/admin/books/getcat",function (data, status) {
 
     $('#domaine').select2({
         data: data.results,

@@ -22,7 +22,7 @@ use Symfony\Component\Serializer\Serializer;
 class BookController extends AbstractController
 {
     /**
-     * @Route("/books", name="books")
+     * @Route("/admin/books", name="books")
      */
     public function show()
     {
@@ -34,7 +34,7 @@ class BookController extends AbstractController
     /**
      * @param Request $request
      * @param CategorieRepository $repo
-     * @Route("books/getcat",name="get_cat",methods={"GET"})
+     * @Route("admin/books/getcat",name="get_cat",methods={"GET"})
      * @return JsonResponse
      */
     public function getDomaine(Request $request, CategorieRepository $repo){
@@ -82,7 +82,7 @@ class BookController extends AbstractController
      * @param Request $request
      * @param DescripteurRepository $tagsRepo
      * @return JsonResponse
-     * @Route("/books/gettags",name="get_tags",methods={"GET"})
+     * @Route("/admin/books/gettags",name="get_tags",methods={"GET"})
      */
     public function getTags(Request $request, DescripteurRepository $tagsRepo)
     {
@@ -126,7 +126,7 @@ class BookController extends AbstractController
     }
 
     /**
-     * @Route("/books/get",name="get_books",methods={"GET"},options={"expose"=true})
+     * @Route("/admin/books/get",name="get_books",methods={"GET"},options={"expose"=true})
      * @param Request $request
      * @param LivreRepository $livreRepository
      * @return JsonResponse
@@ -237,8 +237,8 @@ class BookController extends AbstractController
     }
 
     /**
-     * @Route("/books/new",name="books_new")
-     * @Route("/books/{id}/edit",name="book_edit")
+     * @Route("/admin/books/new",name="books_new")
+     * @Route("/admin/books/{id}/edit",name="book_edit")
      * @param Request $request
      * @param ObjectManager $manager
      * @param Livre|null $livre

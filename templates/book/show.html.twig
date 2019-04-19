@@ -193,24 +193,10 @@
             return value.timezone.transitions[0].time;
         }
 
-        // function actionFormatter(value, row, index) {
-        //     return [
-        //         '<a class="edit" href="javascript:void(0)">',
-        //         '<i class="far fa-edit fa-lg"></i>',
-        //         '</a>'
-        //     ].join('')
-        // }
-        //
-        // let operateEvents = {
-        //     'click .edit': function (e, value, row, index) {
-        //         alert('You click like action, row: ' + JSON.stringify(row))
-        //     }
-        // };
-
         window.operateEvents = {
             'click .edit': function (e, value, row) {
                 // alert('You click like action, row: ' + JSON.stringify(row.id))
-                window.location.href = "/books/" + JSON.stringify(row.id) + "/edit";
+                window.location.href = "/admin/books/" + JSON.stringify(row.id) + "/edit";
             }
         };
 

@@ -157,7 +157,7 @@ $('#filter_button').click(function (e) {
     let cat = $('#domaine').val();
 
     $('#table').bootstrapTable('refreshOptions', {
-        url: '/books/get',
+        url: '/admin/books/get',
         queryParams: getParams(statut,cat,startDate,endDate)
     });
 

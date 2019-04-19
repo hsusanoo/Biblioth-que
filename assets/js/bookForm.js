@@ -1,7 +1,7 @@
 var $exmcollectionHolder;
 var $autCollectionHolder;
-var $addNewSample = $('<button type="button" class="form-control btn btn-info"><i class="fas fa-plus"></i> Exemplaire</button>');
-var $addNewAut = $('<button type="button" class="form-control btn btn-info"><i class="fas fa-plus"></i> Auteur</button>');
+var $addNewSample = $('<button type="button" class="btn btn-dark btn-block"><i class="fas fa-plus"></i> Exemplaire</button>');
+var $addNewAut = $('<button type="button" class="btn btn-dark btn-block"><i class="fas fa-plus"></i> Auteur</button>');
 var $exmCardBody = $('#exemplaires div.card-body');
 var $autCardBody = $('#auteurs div.card-body');
 var exmindex;
@@ -11,9 +11,10 @@ $(document).ready(function () {
 
     $.get("/books/gettags", function (data, status) {
 
-        let tags = $('.select-two-multiple:first').attr('value').split(',');
+        let tagString = $('.select-two-multiple:first').attr('value');
 
-        if (tags) {
+        if (tagString) {
+            let tags = tagString.split(',');
             for (let i = 0; i < data.results.length; i++) {
                 for (let j = 0; j < tags.length; j++) {
                     if (data.results[i].text === tags[j]) {

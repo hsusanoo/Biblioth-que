@@ -24,24 +24,35 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col">
+                            <div class="col-12 col-lg-4 col-md-4 col-sm-4">
                                 <div class="form-group">
                                     <label for="statut">Statut :</label>
                                     <select name="statut" id="statut" class="form-control form-control-sm">
                                         <option value=""></option>
-                                        <option value="Disponible">Disponible</option>
-                                        <option value="Indisponible">Indisponible</option>
+                                        <option value="1">Disponible</option>
+                                        <option value="0">Indisponible</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-12 col-lg-4 col-md-4 col-sm-4">
                                 <div class="form-group">
                                     <label for="range">Période :</label>
-                                    <input type="text" name="range" class="form-control form-control-sm date-range">
+                                    <input id="daterange" type="text" name="range"
+                                           class="form-control form-control-sm date-range">
                                 </div>
                             </div>
-                            <div class="col"></div>
+                            <div class="col-12 col-lg-4 col-md-4 col-sm-4">
+                                <div class="form-group">
+                                    <label for="domaine">Domaine :</label>
+                                    <select name="domaine" id="domaine" class="form-control form-control-sm">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-primary" id="filter_button">Appliquer</button>
                     </div>
                 </div>
             </div>
@@ -58,9 +69,10 @@
         <table id="table"
                data-url="books/get"
                data-toggle="table"
+               data-id-field="id"
                data-toolbar="#toolbar"
                data-classes="table table-bordered table-hover table-sm"
-               data-card-view="true"
+               {#data-card-view="true"#}
                data-mobile-responsive="true"
                data-sort-class="table-active"
                data-pagination="true"
@@ -68,20 +80,20 @@
                data-show-columns="true"
                data-show-pagination-switch="true"
                data-show-refresh="true"
-               data-key-events="true"
+                {#data-key-events="true"#}
                 {#data-show-toggle="true"#}
-               data-remember-order="true"
+                {#data-remember-order="true"#}
                 {#data-cookie="true"#}
                 {#data-cookie-id-table="saveId"#}
                data-show-export="true"
                data-click-to-select="true"
                data-show-fullscreen="true"
                data-maintain-selected="true"
-               data-filter-control="true"
         >
             <thead>
             <tr>
                 <th data-field="state" data-checkbox="true" data-halign="center"></th>
+                <th data-field="id" data-halign="center" data-align="center">ID</th>
                 <th data-field="statut" data-sortable="true" data-formatter="statutFormatter"
                     data-align="center" data-halign="center">
                     Statut
@@ -103,7 +115,7 @@
                 <th data-field="n_pages" data-sortable="true" data-align="center" data-halign="center">Pages</th>
                 <th data-field="categorie" data-sortable="true" data-align="center" data-halign="center">Catégorie</th>
                 <th data-field="date_aquis" data-sortable="true" data-align="center" data-halign="center">Date
-                    d'aquision
+                    d'acquisition
                 </th>
                 <th data-field="quantité" data-sortable="true" data-formatter="quantiteFormatter" data-align="center"
                     data-halign="center">
@@ -111,7 +123,7 @@
                 </th>
                 <th data-field="observation" data-formatter="textFormatter" data-halign="center">Observation</th>
                 <th data-field="tags" data-formatter="tagsFormatter" data-halign="center">Mots Clés</th>
-                <th data-field="action" data-formatter="actionFormatter" data-halign="center" >Action</th>
+                <th data-field="action" data-formatter="operateFormatter" data-events="operateEvents">Action</th>
             </tr>
             </thead>
         </table>
@@ -139,7 +151,12 @@
         }
 
         function coverFormatter(value) {
-            return '<img src="/img/livres/' + value + '" style="height: 70px; width: 49px;" ' +
+            let element = '<img src="';
+            if (value.match(/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g))
+                element+=value;
+            else
+                element+= '/img/livres/' + value;
+            return element + '" style="height: 70px; width: 49px;" ' +
                 'alt="book-cover" onerror="this.onerror=null;this.src=\'https://i.imgur.com/yNW4lQK.png\'">';
         }
 
@@ -176,19 +193,34 @@
             return value.timezone.transitions[0].time;
         }
 
-        function actionFormatter(value, row, index) {
+        // function actionFormatter(value, row, index) {
+        //     return [
+        //         '<a class="edit" href="javascript:void(0)">',
+        //         '<i class="far fa-edit fa-lg"></i>',
+        //         '</a>'
+        //     ].join('')
+        // }
+        //
+        // let operateEvents = {
+        //     'click .edit': function (e, value, row, index) {
+        //         alert('You click like action, row: ' + JSON.stringify(row))
+        //     }
+        // };
+
+        window.operateEvents = {
+            'click .edit': function (e, value, row) {
+                // alert('You click like action, row: ' + JSON.stringify(row.id))
+                window.location.href = "/books/" + JSON.stringify(row.id) + "/edit";
+            }
+        };
+
+        function operateFormatter(value, row, index) {
             return [
-                '<a class="edit">',
+                '<a class="edit" href="#" title="Like">',
                 '<i class="far fa-edit fa-lg"></i>',
                 '</a>'
             ].join('')
         }
-
-        let editEvents = {
-            'click .edit': function (e, value, row, index) {
-                alert('You click like action, row: ' + JSON.stringify(row))
-            }
-        };
 
     </script>
 

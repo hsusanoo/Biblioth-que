@@ -6,6 +6,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -13,6 +14,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LivreRepository")
+ * @UniqueEntity(
+ *     fields={"Isbn"},
+ *     message="Ce numéro ISBN est déja utilisé"
+ * )
  * @Vich\Uploadable()
  */
 class Livre
@@ -271,8 +276,11 @@ class Livre
     /**
      * @param mixed $descripteurs
      */
-    public function setDescripteurs($descripteurs): void
+    public function setDescripteurs(Array $descripteurs): void
     {
+        foreach ($descripteurs as $desc){
+            $desc->addLivre($this);
+        }
         $this->descripteurs = $descripteurs;
     }
 
@@ -339,6 +347,13 @@ class Livre
         }
 
         return $this;
+    }
+
+    public function setAuteurs(Array $auteurs){
+        foreach ($auteurs as $auteur) {
+            $auteur->addLivre($this);
+        }
+        $this->auteurs = $auteurs;
     }
 
     public function removeAuteur(Auteur $auteur): self

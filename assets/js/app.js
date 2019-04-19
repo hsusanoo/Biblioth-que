@@ -42,7 +42,7 @@ require('jquery-resizable-columns/dist/jquery.resizableColumns.min');
 
 
 // Override update method
-$.fn.select2.amd.require._defined['select2/selection/search'].prototype.update = function(a, b) {
+$.fn.select2.amd.require._defined['select2/selection/search'].prototype.update = function (a, b) {
     var c = this.$search[0] == document.activeElement;
     this.$search.attr("placeholder", "");
     a.call(this, b);
@@ -50,7 +50,7 @@ $.fn.select2.amd.require._defined['select2/selection/search'].prototype.update =
     this.resizeSearch();
     if (c) {
         var self = this;
-        window.setTimeout(function() {
+        window.setTimeout(function () {
             self.$search.focus();
         }, 0);
     }
@@ -70,10 +70,27 @@ $(document).ready(function () {
     });
 
     $('.select-two').select2({
-        language: 'fr'
+        lang: 'fr'
     })
 
 });
+
+//Moment.JS Return Date Ranges
+function getDates(startDate, endDate) {
+    let dateArray = [];
+    let currentDate = moment(startDate);
+    let stopDate = moment(endDate);
+    while (currentDate <= stopDate) {
+        dateArray.push(moment(currentDate).format('DD/MM/YYYY'));
+        currentDate = moment(currentDate).add(1, 'days');
+    }
+    return dateArray;
+}
+
+// dateRangePicker filter
+
+var startDate;
+var endDate;
 
 $(function () {
 
@@ -128,8 +145,38 @@ $(function () {
         "minDate": min,
         "maxDate": max
     }, function (start, end, label) {
-        console.log('New date range selected: ' + start.format('DD/MM/YYYY') + ' to ' + end.format('DD/MM/YYYY') + ' (predefined range: ' + label + ')');
+        //console.log('New date range selected: ' + start.format('DD/MM/YYYY') + ' to ' + end.format('DD/MM/YYYY') + ' (predefined range: ' + label + ')');
+        startDate = start.format('DD/MM/YYYY');
+        endDate = end.format('DD/MM/YYYY');
     });
+});
+
+$('#filter_button').click(function (e) {
+
+    let statut = $('#statut').val();
+    let cat = $('#domaine').val();
+
+    $('#table').bootstrapTable('refreshOptions', {
+        url: '/books/get',
+        queryParams: getParams(statut,cat,startDate,endDate)
+    });
+
+    function getParams(statut,cat,startDate,endDate) {
+
+        let params = {};
+
+        if (statut !== '')
+            params.statut = statut;
+        if (cat !== '')
+            params.cat = cat;
+        if (startDate && endDate){
+            params.start = startDate;
+            params.end = endDate
+        }
+        console.log(params);
+        return params
+    }
+
 });
 
 // assets/js/_main.js

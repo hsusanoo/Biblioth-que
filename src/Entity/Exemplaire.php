@@ -18,7 +18,7 @@ class Exemplaire
     private $id;
 
     /**
-     * @ORM\Column(type="bigint")
+     * @ORM\Column(type="decimal",precision=7,scale=2)
      */
     private $nInventaire;
 
@@ -33,7 +33,7 @@ class Exemplaire
     private $statut = 1;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Livre", inversedBy="exemplaires")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Livre", inversedBy="exemplaires",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $livre;

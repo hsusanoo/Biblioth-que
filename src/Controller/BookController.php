@@ -33,24 +33,23 @@ class BookController extends AbstractController
 
     /**
      * @param Request $request
-     * @param DescripteurRepository $tagsRepo
+     * @param CategorieRepository $repo
+     * @Route("books/getcat",name="get_cat",methods={"GET"})
      * @return JsonResponse
-     * @Route("/books/gettags",name="get_tags",methods={"GET"})
      */
-    public function getTags(Request $request, DescripteurRepository $tagsRepo)
-    {
-//        if ($request->isXmlHttpRequest()) {
+    public function getDomaine(Request $request, CategorieRepository $repo){
+        if ($request->isXmlHttpRequest()) {
 
-            $repos = $tagsRepo->findAll();
-            $tags = [];
+            $repos = $repo->findAll();
+            $cats = [];
 
             foreach ($repos as $repo) {
-                $tag['id'] = $repo->getId();
-                $tag['text'] = $repo->getNom();
-                $tags[] = $tag;
+                $cat['id'] = $repo->getNom();
+                $cat['text'] = $repo->getNom();
+                $cats[] = $cat;
             }
 
-            $results['results'] = $tags;
+            $results['results'] = $cats;
             $results['pagination'] = ['more' => false];
 
             $encoders = [
@@ -71,7 +70,55 @@ class BookController extends AbstractController
 
             return new JsonResponse($data, 200, [], true);
 
-//        }
+        }
+        return new JsonResponse([
+            'type' => "error",
+            'message' => "Not a XmlHttpRequest"
+        ], 400, [], false);
+    }
+
+
+    /**
+     * @param Request $request
+     * @param DescripteurRepository $tagsRepo
+     * @return JsonResponse
+     * @Route("/books/gettags",name="get_tags",methods={"GET"})
+     */
+    public function getTags(Request $request, DescripteurRepository $tagsRepo)
+    {
+        if ($request->isXmlHttpRequest()) {
+
+        $repos = $tagsRepo->findAll();
+        $tags = [];
+
+        foreach ($repos as $repo) {
+            $tag['id'] = $repo->getId();
+            $tag['text'] = $repo->getNom();
+            $tags[] = $tag;
+        }
+
+        $results['results'] = $tags;
+        $results['pagination'] = ['more' => false];
+
+        $encoders = [
+            new JsonEncoder(),
+        ];
+
+        $normalizers = [
+            new ObjectNormalizer(),
+        ];
+
+        $seralizer = new Serializer($normalizers, $encoders);
+
+        $data = $seralizer->serialize($results, 'json', [
+            'circular_reference_handler' => function ($object) {
+                return $object->getId();
+            }
+        ]);
+
+        return new JsonResponse($data, 200, [], true);
+
+        }
         return new JsonResponse([
             'type' => "error",
             'message' => "Not a XmlHttpRequest"
@@ -88,70 +135,99 @@ class BookController extends AbstractController
     public function getBooks(Request $request, LivreRepository $livreRepository)
     {
 
-//        if ($request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
 
-        $livres = $livreRepository->findAll();
+            $livres = $livreRepository->findAll();
 
-        $books = [];
+            $books = [];
 
-        foreach ($livres as $livre) {
+            foreach ($livres as $livre) {
 
-            $book = [];
-            $book['titrePrincipale'] = $livre->getTitrePrincipale();
-            $book['titreSecondaire'] = $livre->getTitreSecondaire();
-            $book['isbn'] = $livre->getIsbn();
-            $book['couverture'] = $livre->getCouverture();
-            $statut = 0;
-            foreach ($livre->getExemplaires() as $exemplaire) {
-                if ($exemplaire->getStatut() == 1)
-                    $statut = 1;
-            }
-            $book['statut'] = $statut;
-            $book['edition'] = $livre->getDateEdition();
-            $book['date_aquis'] = date_format($livre->getDateAquis(), "d/m/Y");
-            $book['quantité'] = count($livre->getExemplaires());
-            $book['observation'] = $livre->getObservation();
-            $book['n_pages'] = $livre->getNPages();
-            $book['categorie'] = $livre->getCategorie()->getNom();
-            $book['prix'] = $livre->getPrix();
-            $tags = [];
-            foreach ($livre->getDescripteurs() as $tag) {
-                $tags[] = $tag->getNom();
-            }
-            $book['tags'] = implode(",", $tags);
-            $authors = [];
-            foreach ($livre->getAuteurs() as $auteur) {
-                $authors[] = $auteur->getNom();
-            }
-            $book['authors'] = implode(",", $authors);
-            $books[] = $book;
-
-        }
-
-
-        if ($books) {
-
-            $encoders = [
-                new JsonEncoder(),
-            ];
-
-            $normalizers = [
-                new ObjectNormalizer(),
-            ];
-
-            $seralizer = new Serializer($normalizers, $encoders);
-
-            $data = $seralizer->serialize($books, 'json', [
-                'circular_reference_handler' => function ($object) {
-                    return $object->getId();
+                $book = [];
+                $book['id'] = $livre->getId();
+                $book['titrePrincipale'] = $livre->getTitrePrincipale();
+                $book['titreSecondaire'] = $livre->getTitreSecondaire();
+                $book['isbn'] = $livre->getIsbn();
+                $book['couverture'] = $livre->getCouverture();
+                $statut = 0;
+                foreach ($livre->getExemplaires() as $exemplaire) {
+                    if ($exemplaire->getStatut() == 1)
+                        $statut = 1;
                 }
-            ]);
+                $book['statut'] = $statut;
+                $book['edition'] = $livre->getDateEdition();
+                $book['date_aquis'] = date_format($livre->getDateAquis(), "d/m/Y");
+                $book['quantité'] = count($livre->getExemplaires());
+                $book['observation'] = $livre->getObservation();
+                $book['n_pages'] = $livre->getNPages();
+                $book['categorie'] = $livre->getCategorie()->getNom();
+                $book['prix'] = $livre->getPrix();
+                $tags = [];
+                foreach ($livre->getDescripteurs() as $tag) {
+                    $tags[] = $tag->getNom();
+                }
+                $book['tags'] = implode(",", $tags);
+                $authors = [];
+                foreach ($livre->getAuteurs() as $auteur) {
+                    $authors[] = $auteur->getNom();
+                }
+                $book['authors'] = implode(",", $authors);
+                $books[] = $book;
 
-            return new JsonResponse($data, 200, [], true);
+            }
+
+
+            // Getting query parameters
+
+        $statut = $request->query->get('statut');
+        $start  = $request->query->get('start');
+        $end    = $request->query->get('end');
+        $cat    = $request->query->get('cat');
+
+        // Filtering data
+
+        $filteredStatut = array_filter($books,function ($el) use ($statut) {
+            if ($statut != null)
+                return $el['statut'] == $statut;
+            return true;
+        });
+
+        $filteredDate = array_filter($filteredStatut,function ($el) use ($start,$end) {
+            if ($start != null && $end != null){
+                return (strtotime($el['date_aquis']) <= strtotime($end) && strtotime($el['date_aquis']) >= strtotime($start));
+            }
+            return true;
+        });
+
+        $filteredCat = array_filter($filteredDate,function ($el) use ($cat) {
+            if ($cat != null)
+                return $el['categorie'] == $cat;
+            return true;
+        });
+
+            if ($filteredCat) {
+
+                $encoders = [
+                    new JsonEncoder(),
+                ];
+
+                $normalizers = [
+                    new ObjectNormalizer(),
+                ];
+
+                $seralizer = new Serializer($normalizers, $encoders);
+
+                $data = $seralizer->serialize($filteredCat, 'json', [
+                    'circular_reference_handler' => function ($object) {
+                        return $object->getId();
+                    }
+                ]);
+
+                return new JsonResponse($data, 200, [], true);
+
+            }
 
         }
-
-//        }
 
         return new JsonResponse([
             'type' => "error",
@@ -163,16 +239,13 @@ class BookController extends AbstractController
     /**
      * @Route("/books/new",name="books_new")
      * @Route("/books/{id}/edit",name="book_edit")
-     * @param Livre|null $livre
      * @param Request $request
      * @param ObjectManager $manager
-     * @param CategorieRepository $categorieRepository
+     * @param Livre|null $livre
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function create(Request $request, ObjectManager $manager,
-                           CategorieRepository $categorieRepository,
-                           Livre $livre = null, LivreRepository $repository)
+    public function create(Request $request, ObjectManager $manager, Livre $livre = null)
     {
 
         // creating new book if create mode
@@ -193,7 +266,7 @@ class BookController extends AbstractController
             $auteur->addLivre($livre);
             $livre->addAuteur($auteur);
 
-        }else{
+        } else {
             $tags = [];
             foreach ($livre->getDescripteurs() as $tag) {
                 $tags[] = $tag->getNom();
@@ -210,13 +283,18 @@ class BookController extends AbstractController
             // Converting tags strings to Objects Array
             $descripteurs = [];
 
+            //TODO: exclude existent tags from the loop on the array
 
             foreach ($livre->getDescripteurs() as $desc) {
 
-                $descripteur = new Descripteur();
-                $descripteur->setNom($desc)
-                    ->addLivre($livre);
-                $descripteurs[] = $descripteur;
+                if (!is_numeric($desc)) {
+                    $descripteur = new Descripteur();
+                    $descripteur->setNom($desc);
+//                        ->addLivre($livre);
+                    $manager->persist($descripteur);
+                    $descripteurs[] = $descripteur;
+
+                }
             }
 
             $livre->setDescripteurs($descripteurs);
@@ -236,10 +314,18 @@ class BookController extends AbstractController
             return $this->redirectToRoute("books");
         }
 
+        if ($livre->getId())
+            return $this->render('book/new.html.twig', [
+                'livreForm' => $livreForm->createView(),
+                'tags' => $tags ? $tags : null,
+                'editMode' => true,
+                'livre' => $livre
+            ]);
+
         return $this->render('book/new.html.twig', [
             'livreForm' => $livreForm->createView(),
-            'tags' => $tags ? $tags : null,
-            'editMode' => $livre->getId() !== null
+            'editMode' => false
         ]);
+
     }
 }

@@ -10,14 +10,16 @@ $('#exportType').change(function () {
             }
         ]
     })
-}).trigger('change');
+});
 
-$('#statut').change(function () {
-    console.log("Selected "+$(this).val());
-    if ($(this).val() !== '') {
-        $('#table').bootstrapTable('filterBy',{
-            statut: $(this).val()
-        })
-    }
+$('#exportType').val('selected').trigger('change');
+
+$.get("/books/getcat",function (data, status) {
+
+    $('#domaine').select2({
+        data: data.results,
+        language: 'fr',
+        width: '100%'
+    });
 });
 

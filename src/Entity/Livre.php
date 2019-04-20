@@ -278,12 +278,17 @@ class Livre
      */
     public function setDescripteurs(Array $descripteurs): void
     {
-        foreach ($descripteurs as $desc){
+
+        foreach ($this->descripteurs as $descripteur) {
+            if ($descripteur instanceof Descripteur)
+                $this->removeDescripteur($descripteur);
+        }
+
+        foreach ($descripteurs as $desc) {
             $desc->addLivre($this);
         }
         $this->descripteurs = $descripteurs;
     }
-
 
 
     public function getCouverture(): ?string
@@ -314,7 +319,7 @@ class Livre
     {
         $this->couvertureFile = $couvertureFile;
 
-        if ($this->couvertureFile instanceof UploadedFile){
+        if ($this->couvertureFile instanceof UploadedFile) {
             $this->updated_at = new DateTime('now');
         }
     }
@@ -349,10 +354,17 @@ class Livre
         return $this;
     }
 
-    public function setAuteurs(Array $auteurs){
+    public function setAuteurs(Array $auteurs)
+    {
+
+        foreach ($this->auteurs as $auteur) {
+            $this->removeAuteur($auteur);
+        }
+
         foreach ($auteurs as $auteur) {
             $auteur->addLivre($this);
         }
+
         $this->auteurs = $auteurs;
     }
 

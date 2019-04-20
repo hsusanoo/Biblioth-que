@@ -21,12 +21,22 @@ use Symfony\Component\Serializer\Serializer;
 
 class BookController extends AbstractController
 {
+
+    /**
+     * @Route("/admin",name="dashboard")
+     */
+    public function dashboard(){
+
+        return $this->render('admin/index.html.twig');
+
+    }
+
     /**
      * @Route("/admin/books", name="books")
      */
     public function show()
     {
-        return $this->render('book/show.html.twig', [
+        return $this->render('admin/book/show.html.twig', [
             'controller_name' => 'BookController',
         ]);
     }
@@ -37,7 +47,8 @@ class BookController extends AbstractController
      * @Route("admin/books/getcat",name="get_cat",methods={"GET"})
      * @return JsonResponse
      */
-    public function getDomaine(Request $request, CategorieRepository $repo){
+    public function getDomaine(Request $request, CategorieRepository $repo)
+    {
         if ($request->isXmlHttpRequest()) {
 
             $repos = $repo->findAll();
@@ -88,35 +99,35 @@ class BookController extends AbstractController
     {
         if ($request->isXmlHttpRequest()) {
 
-        $repos = $tagsRepo->findAll();
-        $tags = [];
+            $repos = $tagsRepo->findAll();
+            $tags = [];
 
-        foreach ($repos as $repo) {
-            $tag['id'] = $repo->getId();
-            $tag['text'] = $repo->getNom();
-            $tags[] = $tag;
-        }
-
-        $results['results'] = $tags;
-        $results['pagination'] = ['more' => false];
-
-        $encoders = [
-            new JsonEncoder(),
-        ];
-
-        $normalizers = [
-            new ObjectNormalizer(),
-        ];
-
-        $seralizer = new Serializer($normalizers, $encoders);
-
-        $data = $seralizer->serialize($results, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
+            foreach ($repos as $repo) {
+                $tag['id'] = $repo->getId();
+                $tag['text'] = $repo->getNom();
+                $tags[] = $tag;
             }
-        ]);
 
-        return new JsonResponse($data, 200, [], true);
+            $results['results'] = $tags;
+            $results['pagination'] = ['more' => false];
+
+            $encoders = [
+                new JsonEncoder(),
+            ];
+
+            $normalizers = [
+                new ObjectNormalizer(),
+            ];
+
+            $seralizer = new Serializer($normalizers, $encoders);
+
+            $data = $seralizer->serialize($results, 'json', [
+                'circular_reference_handler' => function ($object) {
+                    return $object->getId();
+                }
+            ]);
+
+            return new JsonResponse($data, 200, [], true);
 
         }
         return new JsonResponse([
@@ -179,31 +190,31 @@ class BookController extends AbstractController
 
             // Getting query parameters
 
-        $statut = $request->query->get('statut');
-        $start  = $request->query->get('start');
-        $end    = $request->query->get('end');
-        $cat    = $request->query->get('cat');
+            $statut = $request->query->get('statut');
+            $start = $request->query->get('start');
+            $end = $request->query->get('end');
+            $cat = $request->query->get('cat');
 
-        // Filtering data
+            // Filtering data
 
-        $filteredStatut = array_filter($books,function ($el) use ($statut) {
-            if ($statut != null)
-                return $el['statut'] == $statut;
-            return true;
-        });
+            $filteredStatut = array_filter($books, function ($el) use ($statut) {
+                if ($statut != null)
+                    return $el['statut'] == $statut;
+                return true;
+            });
 
-        $filteredDate = array_filter($filteredStatut,function ($el) use ($start,$end) {
-            if ($start != null && $end != null){
-                return (strtotime($el['date_aquis']) <= strtotime($end) && strtotime($el['date_aquis']) >= strtotime($start));
-            }
-            return true;
-        });
+            $filteredDate = array_filter($filteredStatut, function ($el) use ($start, $end) {
+                if ($start != null && $end != null) {
+                    return (strtotime($el['date_aquis']) <= strtotime($end) && strtotime($el['date_aquis']) >= strtotime($start));
+                }
+                return true;
+            });
 
-        $filteredCat = array_filter($filteredDate,function ($el) use ($cat) {
-            if ($cat != null)
-                return $el['categorie'] == $cat;
-            return true;
-        });
+            $filteredCat = array_filter($filteredDate, function ($el) use ($cat) {
+                if ($cat != null)
+                    return $el['categorie'] == $cat;
+                return true;
+            });
 
             if ($filteredCat) {
 
@@ -283,16 +294,30 @@ class BookController extends AbstractController
             // Converting tags strings to Objects Array
             $descripteurs = [];
 
-            //TODO: exclude existent tags from the loop on the array
-
             foreach ($livre->getDescripteurs() as $desc) {
 
                 if (!is_numeric($desc)) {
-                    $descripteur = new Descripteur();
-                    $descripteur->setNom($desc);
-//                        ->addLivre($livre);
-                    $manager->persist($descripteur);
-                    $descripteurs[] = $descripteur;
+                    if (!$desc instanceof Descripteur) {
+
+                        $exists = $manager
+                            ->getRepository(DescripteurRepository::class)
+                            ->findOneBy(["nom"=>$desc]);
+
+                        if (!$exists){
+
+                            $descripteur = new Descripteur();
+                            $descripteur->setNom($desc);
+                            $manager->persist($descripteur);
+
+                            $descripteurs[] = $descripteur;
+
+                        }else{
+                            $descripteurs[] = $exists;
+                        }
+
+                    } else {
+                        $descripteurs[] = $desc;
+                    }
 
                 }
             }
@@ -315,14 +340,14 @@ class BookController extends AbstractController
         }
 
         if ($livre->getId())
-            return $this->render('book/new.html.twig', [
+            return $this->render('admin/book/new.html.twig', [
                 'livreForm' => $livreForm->createView(),
                 'tags' => $tags ? $tags : null,
                 'editMode' => true,
                 'livre' => $livre
             ]);
 
-        return $this->render('book/new.html.twig', [
+        return $this->render('admin/book/new.html.twig', [
             'livreForm' => $livreForm->createView(),
             'editMode' => false
         ]);

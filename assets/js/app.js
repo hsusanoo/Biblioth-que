@@ -16,6 +16,8 @@ require('bootstrap');
 require('popper.js');
 require('perfect-scrollbar');
 require('@coreui/coreui');
+require('pace/pace');
+require('pace-js/pace.min');
 require('bootstrap-table');
 require('bootstrap-table/dist/locale/bootstrap-table-fr-FR');
 require('bootstrap-table/dist/extensions/filter-control/bootstrap-table-filter-control');
@@ -28,7 +30,7 @@ require('bootstrap-table/dist/extensions/export/bootstrap-table-export');
 require('bootstrap-table/dist/extensions/cookie/bootstrap-table-cookie');
 require('bootstrap-table/dist/extensions/accent-neutralise/bootstrap-table-accent-neutralise');
 require('bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile');
-require('toastr');
+global.toastr = require('toastr');
 require('bootstrap-datepicker');
 require('bootstrap-datepicker/js/locales/bootstrap-datepicker.fr-CH');
 var moment = require('moment');
@@ -56,6 +58,23 @@ $.fn.select2.amd.require._defined['select2/selection/search'].prototype.update =
     }
 };
 
+toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": true,
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+};
 
 $(document).ready(function () {
 

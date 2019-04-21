@@ -30,6 +30,8 @@
         "metismenu": "^3.0.4",
         "moment": "^2.24.0",
         "normalize.css": "^8.0.1",
+        "pace": "0.0.4",
+        "pace-js": "^1.0.2",
         "perfect-scrollbar": "^1.4.0",
         "popper.js": "^1.15.0",
         "select2": "^4.0.6-rc.1",

@@ -102,6 +102,11 @@
     </main>
 </div>
 {{ encore_entry_script_tags('app') }}
+{% for message in app.flashes('success') %}
+    <script>
+        toastr["success"]("{{ message }}");
+    </script>
+{% endfor %}
 {% block javascripts %}{% endblock %}
 </body>
 </html>

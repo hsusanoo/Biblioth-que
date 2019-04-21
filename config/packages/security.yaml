@@ -25,7 +25,6 @@ security:
 
             remember_me:
                 secret:   '%kernel.secret%'
-                path: /
 
             logout:
                 path: security_logout

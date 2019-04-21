@@ -19,4 +19,14 @@ class SecurityController extends AbstractController
      * @Route("/logout",name="security_logout")
      */
     public function logout(){}
+
+    /**
+     * @Route("/admin",name="dashboard")
+     * @Route("/",name="index")
+     */
+    public function dashboard(){
+
+        return $this->render('admin/index.html.twig');
+
+    }
 }

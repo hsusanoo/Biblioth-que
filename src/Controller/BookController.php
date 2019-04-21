@@ -23,19 +23,14 @@ class BookController extends AbstractController
 {
 
     /**
-     * @Route("/admin",name="dashboard")
-     */
-    public function dashboard(){
-
-        return $this->render('admin/index.html.twig');
-
-    }
-
-    /**
      * @Route("/admin/books", name="books")
      */
     public function show()
     {
+        $this->addFlash(
+            'success',
+            'Hello !');
+
         return $this->render('admin/book/show.html.twig', [
             'controller_name' => 'BookController',
         ]);
@@ -336,6 +331,10 @@ class BookController extends AbstractController
             $manager->persist($livre);
             $manager->flush();
 
+            $this->addFlash(
+                'success',
+                'Livre ajouté avec succès !');
+
             return $this->redirectToRoute("books");
         }
 
@@ -346,6 +345,7 @@ class BookController extends AbstractController
                 'editMode' => true,
                 'livre' => $livre
             ]);
+
 
         return $this->render('admin/book/new.html.twig', [
             'livreForm' => $livreForm->createView(),

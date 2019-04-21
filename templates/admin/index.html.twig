@@ -14,4 +14,9 @@
     </div>
 {% endblock %}
 {% block body %}
+    {% if app.request.get('login') %}
+        <script>
+            toastr["success"]("Bienvenue !");
+        </script>
+    {% endif %}
 {% endblock %}

@@ -36,7 +36,7 @@
                     <i class="fa fa-wrench"></i> Paramettres
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ path('security_logout') }}">
+                <a class="dropdown-item" href="{{ path('app_logout') }}">
                     <i class="fa fa-lock"></i> Déconnexion
                 </a>
             </div>
@@ -48,11 +48,13 @@
         <nav class="sidebar-nav">
             <ul class="nav">
                 <li class="nav-title">Menu</li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('dashboard') }}">
-                        <i class="nav-icon cui-dashboard"></i> Tableau de bord
-                    </a>
-                </li>
+                {% if is_granted('ROLE_GESTION') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('dashboard') }}">
+                            <i class="nav-icon cui-dashboard"></i> Tableau de bord
+                        </a>
+                    </li>
+                {% endif %}
                 <li class="nav-item nav-dropdown">
                     <a class="nav-link nav-dropdown-toggle" href="#">
                         <i class="nav-icon cui-bookmark"></i> Livres

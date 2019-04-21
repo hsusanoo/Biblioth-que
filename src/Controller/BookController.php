@@ -27,10 +27,6 @@ class BookController extends AbstractController
      */
     public function show()
     {
-        $this->addFlash(
-            'success',
-            'Hello !');
-
         return $this->render('admin/book/show.html.twig', [
             'controller_name' => 'BookController',
         ]);

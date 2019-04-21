@@ -59,6 +59,29 @@ $.fn.select2.amd.require._defined['select2/selection/search'].prototype.update =
 
 $(document).ready(function () {
 
+    // Poppers
+    $(function () {
+        $('[data-toggle="popover"]').popover({
+            container: 'body',
+            trigger: 'focus'
+        })
+    });
+
+    // Datepickers
+    $('.js-month-picker').datepicker({
+        format: "mm/yyyy",
+        startView: "months",
+        minViewMode: "months",
+        language: "fr",
+    });
+
+    $('.js-year-picker').datepicker({
+        format: "yyyy",
+        startView: "years",
+        minViewMode: "years",
+        language: "fr",
+    });
+
     $('.js-datepicker').datepicker({
         format: "dd/mm/yyyy",
         endDate: "+0d",
@@ -69,8 +92,9 @@ $(document).ready(function () {
         todayHighlight: true
     });
 
+    // Select tags
     $('.select-two').select2({
-        lang: 'fr'
+        lang: 'fr',
     })
 
 });

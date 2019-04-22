@@ -231,7 +231,7 @@ class IOController extends AbstractController
 
         // Redirect output to a client’s web browser (Xlsx)
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="simple-' . time() . '.xlsx"');
+        header('Content-Disposition: attachment;filename="AcquisitionsDocumentaires' . $date . '.xlsx"');
         header('Cache-Control: max-age=0');
 
 
@@ -281,4 +281,17 @@ class IOController extends AbstractController
             return $monthsArray[$lang][(int)$month];
         return '';
     }
+
+    public function getCatRepo(CategorieRepository $repository){
+
+        $categories = $repository->findAll();
+        $categories->
+        $data = [];
+
+        foreach ($categories as $category) {
+            //TODO: build json data
+        }
+
+    }
+
 }

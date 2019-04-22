@@ -20,6 +20,7 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('bookForm', './assets/js/bookForm.js')
     .addEntry('booksTable', './assets/js/booksTable.js')
+    .addEntry('dashboard','./assets/js/_dashboard.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

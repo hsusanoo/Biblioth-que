@@ -41,6 +41,7 @@ require('select2/dist/js/select2.full');
 require('select2/dist/js/i18n/fr');
 require('store');
 require('jquery-resizable-columns/dist/jquery.resizableColumns.min');
+require('chart.js/dist/Chart.min');
 
 
 // Override update method

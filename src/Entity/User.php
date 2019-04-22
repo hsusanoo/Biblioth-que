@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(
  *     fields={"email"},
- *     message="Cette email est déja utilisé"
+ *     message="Cet email est déja utilisé"
  * )
  */
 class User implements UserInterface,\Serializable
@@ -51,7 +51,12 @@ class User implements UserInterface,\Serializable
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="decimal")
+     * @Assert\Length(
+     *     min="10",
+     *     max="10",
+     *     exactMessage="Entrez un numéro de téléphone valide"
+     * )
      */
     private $phone;
 

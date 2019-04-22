@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% form_theme userForm 'bootstrap_4_layout.html.twig' %}
+{% block title %}
+    Responsables
+{% endblock %}
+{% block bread_cumb %}
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item" aria-current="page"><a href="{{ path('responsable') }}">Responsables</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Ajouter</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-header text-center">
+                        <h5>Ajouter un Responsable</h5>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(userForm) }}
+                        {{ form_end(userForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

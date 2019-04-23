@@ -1,0 +1,18 @@
+{% extends 'login_base.html.twig' %}
+{% block body %}
+    <div class="card">
+        <div class="card-body text-center">
+            <div class="ard-title">Bonjour <h5>{{ nom|upper~' '~prenom|capitalize }}</h5></div>
+            <div class="card-text">
+                Vous ête ajouté autant qu'Admin dans le site de la bibliothèque de l'ESTS <br>
+                Vous trouverez votre mot de passe ci dessous,
+                <b style="color: #c20308">Veuillez le changer après votre première authentification.</b>
+                <div class="card col-md-5">
+                    <div class="card-body">
+                        <b>{{ password }}</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

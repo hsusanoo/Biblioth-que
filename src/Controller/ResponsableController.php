@@ -6,9 +6,11 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Faker\Factory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class ResponsableController extends AbstractController
 {
@@ -18,12 +20,21 @@ class ResponsableController extends AbstractController
     public function show(Request $request, UserRepository $repository)
     {
 
-        $users = $repository->findBy([
-            'roles' => ['ROLE_USER'],
-        ]);
+        $users = $repository->findAll();
+
+        $resp = [];
+
+        foreach ($users as $user) {
+            if (!in_array("ROLE_GESTION", $user->getRoles())) {
+                $resp[] = $user;
+            }
+        }
+
+        dump($resp);
 
         return $this->render('admin/responsable/show.html.twig', [
             'controller_name' => 'ResponsableController',
+            'responsables' => $resp
         ]);
     }
 
@@ -31,24 +42,57 @@ class ResponsableController extends AbstractController
      * @Route("/admin/responsable/ajouter",name="resp_new")
      * @param Request $request
      * @param ObjectManager $manager
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param \Swift_Mailer $mailer
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function new(Request $request, ObjectManager $manager){
+    public function new(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder,
+                        \Swift_Mailer $mailer)
+    {
 
         $user = new User();
 
-        $userForm = $this->createForm(UserType::class,$user);
+        $userForm = $this->createForm(UserType::class, $user);
 
         $userForm->handleRequest($request);
 
-        if ($userForm->isSubmitted() && $userForm->isValid()){
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
+
+            $faker = Factory::create();
 
             $user->setRoles(['ROLE_ADMIN']);
+            $random = md5(rand(0, 1000));
+            $user->setPassword($passwordEncoder->encodePassword($user, $random));
 
-            $manager->persist($user);
+            // Emailing password to user's mail
+            $message = (new \Swift_Message("Bienvenue"))
+                ->setFrom("freeinxd@gmail.com")
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'emails/admin.html.twig', [
+                            'nom' => $user->getNom(),
+                            'prenom' => $user->getPrenom(),
+                            'password' => $random
+                        ]
+                    ),
+                    'text/html'
+                );
+
+            if (!$mailer->send($message)){
+                $this->addFlash('error','Une erreur est survenue: Email n\'a pas pu être envoyé !');
+                return $this->render('admin/responsable/new.html.twig', [
+                    'controller_name' => 'ResponsableController',
+                    'userForm' => $userForm->createView()
+                ]);
+            }
+
+                $manager->persist($user);
             $manager->flush();
 
+            $this->addFlash('success', $user->getNom() . ' ' . $user->getPrenom() . ' ajouté !');
 
+            return $this->redirectToRoute('responsable');
 
         }
 

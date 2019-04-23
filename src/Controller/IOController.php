@@ -231,7 +231,7 @@ class IOController extends AbstractController
 
         // Redirect output to a client’s web browser (Xlsx)
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="simple-' . time() . '.xlsx"');
+        header('Content-Disposition: attachment;filename="Acquisitions Documentaires ' . time() . '.xlsx"');
         header('Cache-Control: max-age=0');
 
 

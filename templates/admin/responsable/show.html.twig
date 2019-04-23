@@ -23,8 +23,25 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ resp.nom|upper~' '~resp.prenom|capitalize }}</h5>
                             <div class="card-text">
-                                <a href="#" class="btn btn-outline-primary">Profile</a>
+                                <small>Dernière connexion : <br>
+                                    {% if resp.lastLogin %}
+                                        {% if date(resp.lastLogin)| date('d/m/Y') == date('now')| date('d/m/Y') %}
+                                            Aujourd'hui à {{ resp.lastLogin | date('H:i:s') }}
+                                        {% elseif date(resp.lastLogin)| date('d/m/Y') == date('-1day')| date('d/m/Y') %}
+                                            Hier à {{ resp.lastLogin | date('H:i:s') }}
+                                        {% else %}
+                                            {{ resp.lastLogin | date('d/m/Y à H:i:s') }}
+                                        {% endif %}
+                                    {% else %}
+                                        Jamais
+                                    {% endif %}
+                                    {#Today twig is : {{ date('now')| date('d/m/Y') }}#}
+                                    {#date resp is : {{ date(resp.lastLogin)|date('d/m/Y') }}#}
+                                </small>
                             </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#" class="btn btn-outline-primary btn-block">Profile</a>
                         </div>
                     </div>
                 </div>

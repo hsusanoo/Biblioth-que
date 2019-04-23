@@ -292,9 +292,9 @@ class BookController extends AbstractController
 
                         $exists = $manager
                             ->getRepository(DescripteurRepository::class)
-                            ->findOneBy(["nom"=>$desc]);
+                            ->findOneBy(["nom" => $desc]);
 
-                        if (!$exists){
+                        if (!$exists) {
 
                             $descripteur = new Descripteur();
                             $descripteur->setNom($desc);
@@ -302,7 +302,7 @@ class BookController extends AbstractController
 
                             $descripteurs[] = $descripteur;
 
-                        }else{
+                        } else {
                             $descripteurs[] = $exists;
                         }
 
@@ -322,7 +322,15 @@ class BookController extends AbstractController
                 $exemplaire->setLivre($livre);
             }
 
+            // setting update time
             $livre->setUpdatedAt(new \DateTime());
+
+            //setting added by
+            $livre->setAddedBy($this->getUser());
+
+            // setting updated by if it's updated
+            if ($livre->getId())
+                $livre->setUpdatedBy($this->getUser());
 
             $manager->persist($livre);
             $manager->flush();

@@ -77,9 +77,9 @@ class ResponsableController extends AbstractController
                         ]
                     ),
                     'text/html'
-                );
-
-            if (!$mailer->send($message)){
+                )->setContentType('text/html');
+                $nSent = $mailer->send($message);
+            if (!$nSent){
                 $this->addFlash('error','Une erreur est survenue: Email n\'a pas pu être envoyé !');
                 return $this->render('admin/responsable/new.html.twig', [
                     'controller_name' => 'ResponsableController',

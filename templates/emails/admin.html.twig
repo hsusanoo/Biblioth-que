@@ -1,4 +1,8 @@
-{% extends 'login_base.html.twig' %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
 {% block body %}
     <div class="card">
         <div class="card-body text-center">
@@ -9,10 +13,13 @@
                 <b style="color: #c20308">Veuillez le changer après votre première authentification.</b>
                 <div class="card col-md-5">
                     <div class="card-body">
-                        <b>{{ password }}</b>
+                        MDP :<b> {{ password }}</b>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
+</body>
+</html>
+

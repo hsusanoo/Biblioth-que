@@ -75,6 +75,7 @@ class AppFixtures extends Fixture
             $book = new Livre();
             $book->setCouverture($faker->imageUrl(350, 500, 'abstract'));
             $book->setIsbn($faker->isbn10);
+            $book->setEditeur($faker->name);
             $book->setTitrePrincipale($faker->sentence($faker->numberBetween(3,7)));
             $book->setTitreSecondaire($faker->sentence($faker->numberBetween(3,7)));
             $book->setDateAquis($faker->dateTimeThisYear('now'));

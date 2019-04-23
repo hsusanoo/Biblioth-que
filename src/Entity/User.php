@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -14,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     message="Cet email est déja utilisé"
  * )
  */
-class User implements UserInterface,\Serializable
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -60,6 +62,28 @@ class User implements UserInterface,\Serializable
      */
     private $phone;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Livre", mappedBy="addedBy")
+     */
+    private $livres;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastLogin;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Livre", mappedBy="updatedBy")
+     */
+    private $livresUpdated;
+
+
+    public function __construct()
+    {
+        $this->livres = new ArrayCollection();
+        $this->livresUpdated = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -84,7 +108,7 @@ class User implements UserInterface,\Serializable
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -111,7 +135,7 @@ class User implements UserInterface,\Serializable
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword(string $password): self
@@ -210,6 +234,80 @@ class User implements UserInterface,\Serializable
             $this->nom,
             $this->prenom,
             $this->roles
-            ) = unserialize($serialized,["allowed_classes" => false]);
+            ) = unserialize($serialized, ["allowed_classes" => false]);
+    }
+
+    /**
+     * @return Collection|Livre[]
+     */
+    public function getLivres(): Collection
+    {
+        return $this->livres;
+    }
+
+    public function addLivre(Livre $livre): self
+    {
+        if (!$this->livres->contains($livre)) {
+            $this->livres[] = $livre;
+            $livre->setAddedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLivre(Livre $livre): self
+    {
+        if ($this->livres->contains($livre)) {
+            $this->livres->removeElement($livre);
+            // set the owning side to null (unless already changed)
+            if ($livre->getAddedBy() === $this) {
+                $livre->setAddedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLastLogin(): ?\DateTimeInterface
+    {
+        return $this->lastLogin;
+    }
+
+    public function setLastLogin(?\DateTimeInterface $lastLogin): self
+    {
+        $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Livre[]
+     */
+    public function getLivresUpdated(): Collection
+    {
+        return $this->livresUpdated;
+    }
+
+    public function addLivresUpdated(Livre $livresUpdated): self
+    {
+        if (!$this->livresUpdated->contains($livresUpdated)) {
+            $this->livresUpdated[] = $livresUpdated;
+            $livresUpdated->setUpdatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLivresUpdated(Livre $livresUpdated): self
+    {
+        if ($this->livresUpdated->contains($livresUpdated)) {
+            $this->livresUpdated->removeElement($livresUpdated);
+            // set the owning side to null (unless already changed)
+            if ($livresUpdated->getUpdatedBy() === $this) {
+                $livresUpdated->setUpdatedBy(null);
+            }
+        }
+
+        return $this;
     }
 }

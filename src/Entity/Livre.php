@@ -116,6 +116,21 @@ class Livre
      */
     private $nPages;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="livres")
+     */
+    private $addedBy;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Editeur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="livresUpdated")
+     */
+    private $updatedBy;
+
 
     public function __construct()
     {
@@ -398,6 +413,42 @@ class Livre
     public function setNPages(int $nPages): self
     {
         $this->nPages = $nPages;
+
+        return $this;
+    }
+
+    public function getAddedBy(): ?User
+    {
+        return $this->addedBy;
+    }
+
+    public function setAddedBy(?User $addedBy): self
+    {
+        $this->addedBy = $addedBy;
+
+        return $this;
+    }
+
+    public function getEditeur(): ?string
+    {
+        return $this->Editeur;
+    }
+
+    public function setEditeur(?string $Editeur): self
+    {
+        $this->Editeur = $Editeur;
+
+        return $this;
+    }
+
+    public function getUpdatedBy(): ?User
+    {
+        return $this->updatedBy;
+    }
+
+    public function setUpdatedBy(?User $updatedBy): self
+    {
+        $this->updatedBy = $updatedBy;
 
         return $this;
     }

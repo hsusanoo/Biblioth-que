@@ -44,5 +44,5 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
       - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: /responsable, roles: ROLE_GESTION }
       - { path: ^/admin, roles: ROLE_ADMIN }
-      - { path: /dashboard, roles: ROLE_GESTION }

@@ -2,8 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Auteur;
 use App\Entity\Categorie;
+use App\Entity\Exemplaire;
+use App\Entity\Livre;
+use App\Repository\AuteurRepository;
 use App\Repository\CategorieRepository;
+use App\Repository\LivreRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -55,7 +60,7 @@ class IOController extends AbstractController
         $sheet = $spreadsheet->getActiveSheet();
 
         // Changing cells width
-        $sheet->getColumnDimension('A')->setWidth(67.86);
+        $sheet->getColumnDimension('A')->setWidth(72.43);
         $sheet->getColumnDimension('B')->setWidth(22.14);
         $sheet->getColumnDimension('C')->setWidth(16.14);
         $sheet->getColumnDimension('D')->setWidth(16.14);
@@ -240,6 +245,114 @@ class IOController extends AbstractController
         // Save into php output
         $writer->save('php://output');
         exit();
+    }
+
+
+    /**
+     * @Route("/admin/import",name="import")
+     * @param ObjectManager $manager
+     * @param LivreRepository $livreRepository
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     */
+    public function import(ObjectManager $manager, LivreRepository $livreRepository,
+                           CategorieRepository $categorieRepository, AuteurRepository $auteurRepository)
+    {
+
+        // Excel file name
+        $inputFileName = __DIR__ . '/CultureGen.xlsx';
+        // Loading spreadsheet
+        $spreadsheet = IOFactory::load($inputFileName);
+        // getting current active sheet
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Iterator starting at 7
+        $i = 7;
+
+
+        // Getting domaine
+        $domain = $sheet->getCell('A' . ($i + 1))->getValue();
+        $category = $categorieRepository->findOneBy([
+            'nom' => ucfirst(mb_strtolower($domain))
+        ]);
+
+        $i += 5;
+
+        while ($sheet->getCell('A' . $i)->getValue() == !null) {
+
+            $livre = new Livre();
+            $title = null;
+
+            // Categorie
+            $livre->setCategorie($category);
+            $livre->setAddedBy($this->getUser());
+            $livre->setDateAquis(new \DateTime());
+
+            // Titre
+            $title = $sheet->getCell('A' . $i)->getValue();
+            $livre->setTitrePrincipale($title);
+            // Auteurs
+            $authors = $sheet->getCell('A' . ($i + 1))->getValue();
+            $authorsList = [];
+            if (strpos($authors, '/')) {
+                // Get alll authors
+                $authorsList = explode('/', $authors);
+
+            } else {
+                // Get first author
+                $authorsList[] = explode(',', $authors)[0];
+            }
+
+            // search if author exists or not
+            foreach ($authorsList as $authorName) {
+
+                if ($exists = $auteurRepository->findOneBy(['nom' => $authorName])) {
+                    $livre->addAuteur($exists);
+                } else {
+                    $newAuth = new Auteur();
+                    $newAuth->setNom($authorName);
+                    $livre->addAuteur($newAuth);
+                }
+
+            }
+
+            // Editeur et date
+            $edit_year = explode('/', $sheet->getCell('B' . $i)->getValue());
+
+            $editor = $edit_year[0];
+            $year = $edit_year[1];
+
+//            dump([$title,$authorsList,$i]);
+
+            $livre->setDateEdition((int)$year);
+            $livre->setEditeur($editor);
+
+
+            // Exemplaires
+            $Ninventaire = $sheet->getCell('C' . $i)->getValue();
+            $cote = $sheet->getCell('D' . $i)->getValue();
+
+            $exemplaire = new Exemplaire();
+            $exemplaire->setNInventaire((float)$Ninventaire);
+            $exemplaire->setCote($cote);
+
+            $livre->addExemplaire($exemplaire);
+
+            $i += 3;
+            while ($title == $sheet->getCell('A' . $i)->getValue()) {
+                $Ninventaire = $sheet->getCell('C' . $i)->getValue();
+                $cote = $sheet->getCell('D' . $i)->getValue();
+
+                $exemplaire = new Exemplaire();
+                $exemplaire->setNInventaire((float)$Ninventaire);
+                $exemplaire->setCote($cote);
+
+                $livre->addExemplaire($exemplaire);
+            $i += 3;
+            }
+        }
+            dump($livre);
+        die();
     }
 
     // Return String value of the given month in the given language

@@ -43,12 +43,12 @@ class Exemplaire
         return $this->id;
     }
 
-    public function getNInventaire(): ?int
+    public function getNInventaire(): ?float
     {
         return $this->nInventaire;
     }
 
-    public function setNInventaire(int $nInventaire): self
+    public function setNInventaire(float $nInventaire): self
     {
         $this->nInventaire = $nInventaire;
 

@@ -51,7 +51,7 @@ class Livre
     private $dateEdition;
 
     /**
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="smallint",nullable=true)
      */
     private $prix;
 
@@ -71,7 +71,7 @@ class Livre
     private $categorie;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      * @Assert\Isbn(
      *     type="null",
      *     bothIsbnMessage="Entrez un ISBN valide"
@@ -107,12 +107,12 @@ class Livre
     private $auteurs;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime",nullable=true)
      */
     private $updated_at;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer",nullable=true)
      */
     private $nPages;
 

@@ -52,18 +52,44 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="button" class="btn btn-primary" id="filter_button">Appliquer</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="filter_button">Appliquer</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="toolbar">
-            <select id="exportType" class="form-control form-control-sm">
-                <option value="basic">Export Basique</option>
-                <option value="all">Exporter Tout</option>
-                <option value="selected">Export Selection</option>
-            </select>
+        <div id="toolbar" class="row">
+            <div class="col">
+                <select id="exportType" class="form-control form-control-sm">
+                    <option value="basic">Export Basique</option>
+                    <option value="all">Exporter Tout</option>
+                    <option value="selected">Export Selection</option>
+                </select>
+            </div>
+            <div class="col-md-5">
+                <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#importModal">
+                    <i class="cui-cloud-upload"></i> Importer
+                </button>
+                <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="importModalTitle">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <table id="table"
@@ -72,7 +98,7 @@
                data-id-field="id"
                data-toolbar="#toolbar"
                data-classes="table table-bordered table-hover table-sm"
-               {#data-card-view="true"#}
+                {#data-card-view="true"#}
                data-mobile-responsive="true"
                data-sort-class="table-active"
                data-pagination="true"
@@ -153,9 +179,9 @@
         function coverFormatter(value) {
             let element = '<img src="';
             if (value.match(/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g))
-                element+=value;
+                element += value;
             else
-                element+= '/img/livres/' + value;
+                element += '/img/livres/' + value;
             return element + '" style="height: 70px; width: 49px;" ' +
                 'alt="book-cover" onerror="this.onerror=null;this.src=\'https://i.imgur.com/yNW4lQK.png\'">';
         }

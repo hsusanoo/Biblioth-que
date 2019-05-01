@@ -19,6 +19,24 @@ class LivreRepository extends ServiceEntityRepository
         parent::__construct($registry, Livre::class);
     }
 
+    /**
+     * @param $value
+     * @return Livre[] Returns an array of Livre objects
+     */
+    public function findByYear($year)
+    {
+        $startDate = '01/01/'.$year;
+        $endDate = '31/12/'.$year;
+
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.dateAquis >= :start')
+            ->andWhere('l.dateAquis <= :end')
+            ->setParameter('start', $startDate)
+            ->setParameter('end', $endDate)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Livre[] Returns an array of Livre objects
     //  */

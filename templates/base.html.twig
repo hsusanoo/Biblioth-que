@@ -83,10 +83,22 @@
                         </ul>
                     </li>
                 {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('export') }}">
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link nav-dropdown-toggle" href="#">
                         <i class="nav-icon cui-chart"></i> Rapports
                     </a>
+                    <ul class="nav-dropdown-items">
+                        <li class="nav-item">
+                            <a href="{{ path('export') }}" class="nav-link">
+                                &nbsp;&nbsp;&nbsp;Aquisitions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('inventory') }}" class="nav-link">
+                                &nbsp;&nbsp;&nbsp;Inventaire
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>

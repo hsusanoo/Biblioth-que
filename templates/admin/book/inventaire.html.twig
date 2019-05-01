@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Inventaire
+{% endblock %}
+{% block bread_cumb %}
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcumb-item" aria-current="page">Rapports</li>
+                    <li class="breadcrumb-item active" aria-current="page">Inventaire</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="card card-body text-center">
+            <h2 class="card-title">Exporter l'Inventaires des Livres</h2>
+            <hr>
+            <div class="card-text">
+                <div class="row justify-content-center mt-5 mb-5">
+                    <div class="col-md-4">
+                        <form action="" method="get">
+                            <div class="form-group row">
+                                <div class="col">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="calendar">
+                                                        <i class="far fa-calendar-alt"></i>
+                                                    </span>
+                                        </div>
+                                        <input type="text" class="js-year-picker form-control" name="date"
+                                               aria-describedby="calendar">
+                                        <div class="input-group-append">
+                                            <a tabindex="0" class="btn btn-outline-secondary" role="button"
+                                               data-toggle="popover" data-trigger="focus"
+                                               data-content="Laissez ce champ vide pour exporter l'inventaire de toutes les années.">
+                                                <i class="fas fa-question-circle"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" name="submit" value="Exporter" class="btn btn-outline-primary">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

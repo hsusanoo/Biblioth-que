@@ -20,19 +20,19 @@ class LivreRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param $value
+     * @param $year
      * @return Livre[] Returns an array of Livre objects
+     * @throws \Exception
      */
     public function findByYear($year)
     {
-        $startDate = '01/01/'.$year;
-        $endDate = '31/12/'.$year;
+        $startDate = new \DateTime('01-01-' . $year . ' 00:00:00');
+        $endDate = new \DateTime('31-12-' . $year . ' 23:59:59');
 
         return $this->createQueryBuilder('l')
-            ->andWhere('l.dateAquis >= :start')
-            ->andWhere('l.dateAquis <= :end')
-            ->setParameter('start', $startDate)
-            ->setParameter('end', $endDate)
+            ->andWhere('l.dateAquis BETWEEN :from and :to')
+            ->setParameter('from', $startDate)
+            ->setParameter('to', $endDate)
             ->getQuery()
             ->getResult();
     }

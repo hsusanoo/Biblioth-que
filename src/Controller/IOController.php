@@ -39,17 +39,19 @@ class IOController extends AbstractController
     /**
      * @Route("/admin/invent",name="inventory")
      */
-    public function inventory(Request $request, CategorieRepository $repository)
+    public function inventory(Request $request, CategorieRepository $repository, LivreRepository $livreRepo)
     {
         if ($request->query->get('submit'))
-            $this->export($repository, $request->query->get('date'),true);
+            $this->export($repository, $request->query->get('date'), true, $livreRepo);
+
+
         return $this->render('admin/book/inventaire.html.twig', [
             'controller_name' => 'IOController',
         ]);
 
     }
 
-    public function export(CategorieRepository $repository, String $date = null, bool $inv = false)
+    public function export(CategorieRepository $repository, String $date = null, bool $inv = false, LivreRepository $livrRepo = null)
     {
 
         // Getting date values
@@ -122,7 +124,10 @@ class IOController extends AbstractController
         $overviewStyle = [
             'font' => [
                 'bold' => true,
-                'size' => 14
+                'size' => 14,
+                'color' => [
+                    'argb' => 'FFFFFFFF'
+                ]
             ],
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
@@ -176,7 +181,7 @@ class IOController extends AbstractController
 
         // Set Header values
         $sheet->setCellValue('A1', 'Ecole Supérieure de Technologie de Salé');
-        $sheet->setCellValue('D1','Le ' . date_format(new \DateTime(),'d/m/Y'));
+        $sheet->setCellValue('D1', 'Le ' . date_format(new \DateTime(), 'd/m/Y'));
         $sheet->setCellValue('A2', 'Direction des Etudes');
         $sheet->setCellValue('A3', 'Bibliothèque');
         if (!$inv) {
@@ -217,17 +222,45 @@ class IOController extends AbstractController
             foreach ($categories as $category) {
 
                 $sheet->setCellValue('A' . $row, $category->getNom());
-                $sheet->setCellValue('B' . $row, count($category->getLivres()));
+                $nbLivres = 0;
+                if (!$year) {
+                    $nbLivres = count($category->getLivres());
+                } else {
+                    foreach ($livrRepo->findByYear($year) as $livreByYear) {
+                        if ($livreByYear->getCategorie() === $category)
+                            $nbLivres++;
+                    }
+                }
+                $sheet->setCellValue('B' . $row, $nbLivres);
+
                 $nbExemplaires = 0;
                 $prixTotale = 0;
-                foreach ($category->getLivres() as $livre) {
-                    $samples = count($livre->getExemplaires());
+                if (!$year)
+                    foreach ($category->getLivres() as $livre) {
+                        $samples = count($livre->getExemplaires());
+                        $nbExemplaires += $samples;
+                        $prixTotale += $livre->getPrix() * $samples;
+                    }
+                else {
+                    $samples = 0;
+                    $prix = 0;
+//                    //debug
+//                    $debugSamples = [];
+                    foreach ($livrRepo->findByYear($year) as $livreByYear) {
+                        if ($livreByYear->getCategorie() === $category) {
+                            $samples += count($livreByYear->getExemplaires());
+                            $prix += $livreByYear->getPrix() * $samples;
+                        }
+                    }
                     $nbExemplaires += $samples;
-                    $prixTotale += $livre->getPrix() * $samples;
+                    $prixTotale += $prix;
+//
+//                    dump($debugSamples);
+//                    die();
                 }
                 $sheet->setCellValue('C' . $row, $nbExemplaires);
                 $sheet->setCellValue('D' . $row, $prixTotale);
-                $smLivres += count($category->getLivres());
+                $smLivres += $nbLivres;
                 $smSamples += $nbExemplaires;
                 $smPrix += $prixTotale;
                 $row++;
@@ -281,7 +314,8 @@ class IOController extends AbstractController
                             && date_format($book->getDateAquis(), "Y") == $year)) {
                             continue;
                         }
-                    } elseif (!(date_format($book->getDateAquis(), "Y") == $year)) {
+                    } elseif
+                    (!(date_format($book->getDateAquis(), "Y") == $year)) {
                         continue;
                     }
                 }

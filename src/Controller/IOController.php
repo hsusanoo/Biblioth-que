@@ -38,6 +38,10 @@ class IOController extends AbstractController
 
     /**
      * @Route("/admin/invent",name="inventory")
+     * @param Request $request
+     * @param CategorieRepository $repository
+     * @param LivreRepository $livreRepo
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function inventory(Request $request, CategorieRepository $repository, LivreRepository $livreRepo)
     {
@@ -181,7 +185,7 @@ class IOController extends AbstractController
 
         // Set Header values
         $sheet->setCellValue('A1', 'Ecole Supérieure de Technologie de Salé');
-        $sheet->setCellValue('D1', 'Le ' . date_format(new \DateTime(), 'd/m/Y'));
+        $sheet->setCellValue('D1', 'Le: ' . date_format(new \DateTime(), 'd/m/Y'));
         $sheet->setCellValue('A2', 'Direction des Etudes');
         $sheet->setCellValue('A3', 'Bibliothèque');
         if (!$inv) {
@@ -370,20 +374,33 @@ class IOController extends AbstractController
     }
 
     /**
-     * @Route("/admin/import",name="import")
+     * @Route("admin/import",name="import")
+     * @param Request $request
      * @param ObjectManager $manager
      * @param LivreRepository $livreRepository
      * @param CategorieRepository $categorieRepository
      * @param AuteurRepository $auteurRepository
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     * @throws \Exception
      */
-    public function import(ObjectManager $manager, LivreRepository $livreRepository,
+    public function import(Request $request, ObjectManager $manager, LivreRepository $livreRepository,
                            CategorieRepository $categorieRepository, AuteurRepository $auteurRepository)
     {
+        $date = null;
+        $file = null;
+
+        if (!($date = $request->request->get('date')) && ($file = $request->files->get('excelFile'))){
+            $this->addFlash('error',"Une erreur est survenue lors de la requette");
+            $this->redirectToRoute('books');
+        }
+
+        $date = $request->request->get('date');
+        $file = $request->files->get('excelFile');
 
         // Excel file name
-        $inputFileName = __DIR__ . '/CultureGen.xlsx';
+//        $inputFileName = __DIR__ . '/CultureGen.xlsx';
+        $inputFileName = $file->getPathName();
         // Loading spreadsheet
         $spreadsheet = IOFactory::load($inputFileName);
         // getting current active sheet
@@ -470,7 +487,6 @@ class IOController extends AbstractController
 
                 }
 
-
                 // Exemplaires
                 $Ninventaire = $sheet->getCell('C' . $i)->getValue();
                 $cote = $sheet->getCell('D' . $i)->getValue();
@@ -493,14 +509,19 @@ class IOController extends AbstractController
                     $livre->addExemplaire($exemplaire);
                     $i += 3;
                 }
+
+                $livre->setDateAquis(new \DateTime('01/'.$date));
+                $manager->persist($livre);
                 $livres[] = $livre;
+
             }
 
             $byDomain[] = $livres;
-
         }
-        dump($byDomain);
-        die();
+
+        $manager->flush();
+        $this->addFlash("success","Livres Importés !");
+        return $this->redirectToRoute("books");
     }
 
     // Return String value of the given month in the given language

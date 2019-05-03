@@ -137,99 +137,107 @@ class BookController extends AbstractController
     public function getBooks(Request $request, LivreRepository $livreRepository)
     {
 
-        if ($request->isXmlHttpRequest()) {
+//        if ($request->isXmlHttpRequest()) {
 
-            $livres = $livreRepository->findAll();
+        $livres = $livreRepository->findAll();
 
-            $books = [];
+        $books = [];
 
-            foreach ($livres as $livre) {
-
-                $book = [];
-                $book['id'] = $livre->getId();
-                $book['titrePrincipale'] = $livre->getTitrePrincipale();
-                $book['titreSecondaire'] = $livre->getTitreSecondaire();
-                $book['isbn'] = $livre->getIsbn();
-                $book['couverture'] = $livre->getCouverture();
-                $statut = 0;
-                foreach ($livre->getExemplaires() as $exemplaire) {
-                    if ($exemplaire->getStatut() == 1)
-                        $statut = 1;
-                }
-                $book['statut'] = $statut;
-                $book['edition'] = $livre->getDateEdition();
-                $book['date_aquis'] = date_format($livre->getDateAquis(), "d/m/Y");
-                $book['quantité'] = count($livre->getExemplaires());
-                $book['observation'] = $livre->getObservation();
-                $book['n_pages'] = $livre->getNPages();
+        foreach ($livres as $livre) {
+            if ($livre)
+            $book = [];
+            $book['id'] = $livre->getId();
+            $book['titrePrincipale'] = $livre->getTitrePrincipale();
+            $book['titreSecondaire'] = $livre->getTitreSecondaire();
+            $book['isbn'] = $livre->getIsbn()?$livre->getIsbn():"";
+            $book['couverture'] = $livre->getCouverture()?$livre->getCouverture():"";
+            $statut = 0;
+            foreach ($livre->getExemplaires() as $exemplaire) {
+                if ($exemplaire->getStatut() == 1)
+                    $statut = 1;
+            }
+            $book['statut'] = $statut;
+            $book['edition'] = $livre->getDateEdition()?$livre->getDateEdition():"";
+            $book['date_aquis'] = date_format($livre->getDateAquis(), "d/m/Y");
+            $book['quantité'] = count($livre->getExemplaires());
+            $book['observation'] = $livre->getObservation()?$livre->getObservation():"";
+            $book['n_pages'] = $livre->getNPages()?$livre->getNPages():"";
+            if ($livre->getCategorie()->getNom()) {
                 $book['categorie'] = $livre->getCategorie()->getNom();
-                $book['prix'] = $livre->getPrix();
+            }
+            $book['prix'] = $livre->getPrix()?$livre->getPrix():"";
+            if (count($livre->getDescripteurs()) > 0) {
                 $tags = [];
                 foreach ($livre->getDescripteurs() as $tag) {
                     $tags[] = $tag->getNom();
                 }
                 $book['tags'] = implode(",", $tags);
+            } else
+                $book['tags'] = "";
+            if (count($livre->getAuteurs()) > 0) {
                 $authors = [];
                 foreach ($livre->getAuteurs() as $auteur) {
                     $authors[] = $auteur->getNom();
                 }
                 $book['authors'] = implode(",", $authors);
-                $books[] = $book;
-
-            }
-
-
-            // Getting query parameters
-
-            $statut = $request->query->get('statut');
-            $start = $request->query->get('start');
-            $end = $request->query->get('end');
-            $cat = $request->query->get('cat');
-
-            // Filtering data
-
-            $filteredStatut = array_filter($books, function ($el) use ($statut) {
-                if ($statut != null)
-                    return $el['statut'] == $statut;
-                return true;
-            });
-
-            $filteredDate = array_filter($filteredStatut, function ($el) use ($start, $end) {
-                if ($start != null && $end != null) {
-                    return (strtotime($el['date_aquis']) <= strtotime($end) && strtotime($el['date_aquis']) >= strtotime($start));
-                }
-                return true;
-            });
-
-            $filteredCat = array_filter($filteredDate, function ($el) use ($cat) {
-                if ($cat != null)
-                    return $el['categorie'] == $cat;
-                return true;
-            });
-
-            if ($filteredCat) {
-
-                $encoders = [
-                    new JsonEncoder(),
-                ];
-
-                $normalizers = [
-                    new ObjectNormalizer(),
-                ];
-
-                $seralizer = new Serializer($normalizers, $encoders);
-
-                $data = $seralizer->serialize($filteredCat, 'json', [
-                    'circular_reference_handler' => function ($object) {
-                        return $object->getId();
-                    }
-                ]);
-
-                return new JsonResponse($data, 200, [], true);
-
-            }
+            } else
+                $book['authors'] = "";
+            $books[] = $book;
 
         }
+
+
+        // Getting query parameters
+
+        $statut = $request->query->get('statut');
+        $start = $request->query->get('start');
+        $end = $request->query->get('end');
+        $cat = $request->query->get('cat');
+
+        // Filtering data
+
+        $filteredStatut = array_filter($books, function ($el) use ($statut) {
+            if ($statut != null)
+                return $el['statut'] == $statut;
+            return true;
+        });
+
+        $filteredDate = array_filter($filteredStatut, function ($el) use ($start, $end) {
+            if ($start != null && $end != null) {
+                return (strtotime($el['date_aquis']) <= strtotime($end) && strtotime($el['date_aquis']) >= strtotime($start));
+            }
+            return true;
+        });
+
+        $filteredCat = array_filter($filteredDate, function ($el) use ($cat) {
+            if ($cat != null)
+                return $el['categorie'] == $cat;
+            return true;
+        });
+
+        if ($filteredCat) {
+
+            $encoders = [
+                new JsonEncoder(),
+            ];
+
+            $normalizers = [
+                new ObjectNormalizer(),
+            ];
+
+            $seralizer = new Serializer($normalizers, $encoders);
+
+            $data = $seralizer->serialize($filteredCat, 'json', [
+                'circular_reference_handler' => function ($object) {
+                    return $object->getId();
+                }
+            ]);
+
+            return new JsonResponse($data, 200, [], true);
+
+        }
+
+//        }
 
         return new JsonResponse([
             'type' => "error",

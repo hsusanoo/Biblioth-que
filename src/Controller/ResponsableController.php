@@ -16,6 +16,9 @@ class ResponsableController extends AbstractController
 {
     /**
      * @Route("/admin/responsable", name="responsable")
+     * @param Request $request
+     * @param UserRepository $repository
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function show(Request $request, UserRepository $repository)
     {
@@ -78,16 +81,16 @@ class ResponsableController extends AbstractController
                     ),
                     'text/html'
                 )->setContentType('text/html');
-                $nSent = $mailer->send($message);
-            if (!$nSent){
-                $this->addFlash('error','Une erreur est survenue: Email n\'a pas pu être envoyé !');
+            $nSent = $mailer->send($message);
+            if (!$nSent) {
+                $this->addFlash('error', 'Une erreur est survenue: Email n\'a pas pu être envoyé !');
                 return $this->render('admin/responsable/new.html.twig', [
                     'controller_name' => 'ResponsableController',
                     'userForm' => $userForm->createView()
                 ]);
             }
 
-                $manager->persist($user);
+            $manager->persist($user);
             $manager->flush();
 
             $this->addFlash('success', $user->getNom() . ' ' . $user->getPrenom() . ' ajouté !');

@@ -41,6 +41,7 @@ require('select2/dist/js/select2.full');
 require('select2/dist/js/i18n/fr');
 require('store');
 require('jquery-resizable-columns/dist/jquery.resizableColumns.min');
+require('dropzone');
 
 
 // Override update method
@@ -114,9 +115,25 @@ $(document).ready(function () {
     // Select tags
     $('.select-two').select2({
         lang: 'fr',
-    })
+    });
+
+    // // Dropzones
+    // $('div#dropzone').dropzone({
+    //     url: '/file/post',
+    //     acceptedFiles: ".xls, .xlsx",
+    //     parallelUploads: 1,
+    //     paramName: "excelFile", // The name that will be used to transfer the file
+    //     maxFilesize: 5, // MB
+    //     maxFiles: 1,
+    //     autoProcessQueue: false,
+    //     dictDefaultMessage: 'Séléctionnez, ou glissez-déposez votre fichier<br><small>.xls ou .xlsx</small>',
+    //     dictFallbackMessage: 'Désolé, Votre navigateur ne supporte pas cette fonctionnalité.',
+    //     dictFileTooBig: 'Taille du fichier dépasse la taille maximale 5 Mb',
+    //     dictInvalidFileType: 'Type du fichier non supporté, choisisser une format .xls ou .xlsx'
+    // });
 
 });
+
 
 //Moment.JS Return Date Ranges
 function getDates(startDate, endDate) {

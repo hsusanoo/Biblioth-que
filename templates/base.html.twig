@@ -119,6 +119,21 @@
         toastr["success"]("{{ message }}");
     </script>
 {% endfor %}
+{% for message in app.flashes('error') %}
+    <script>
+        toastr["error"]("{{ message }}");
+    </script>
+{% endfor %}
+{% for message in app.flashes('info') %}
+    <script>
+        toastr["info"]("{{ message }}");
+    </script>
+{% endfor %}
+{% for message in app.flashes('warning') %}
+    <script>
+        toastr["warning"]("{{ message }}");
+    </script>
+{% endfor %}
 {% block javascripts %}{% endblock %}
 </body>
 </html>

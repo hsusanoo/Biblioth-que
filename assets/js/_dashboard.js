@@ -31,14 +31,40 @@ $('input[name=options]').change(function () {
 
     mode = $('input[name=options]:checked').val();
     $('.mode').text(mode);
+    refresh(year);
 
 });
 
 $('#year').change(function () {
     year = $(this).val();
     $('.chart-year').text(year);
+    refresh(year);
 }).trigger('change');
 
+function refresh(year) {
+    $.ajax({
+        url: '/admin/getCatStats/' + year,
+        success(result) {
+            console.log(result, mode);
+            let $container = $('#categories');
+            $container.text('');
+            let $content = '';
+            $.each(result.categories, function (key, category) {
+                $content += '<div class="col-6 mb-sm-4 col-md-3 col-lg-3 col-xl-2 mb-0">' +
+                    '<div class="text-muted">' + key + '</div>' +
+                    '<small><strong>' + category[mode].nbr + '  ' + mode + '  (' + category[mode].prc + '%)</strong></small>' +
+                    '<div class="progress progress-xs mt-2">\n' +
+                    '<div class="progress-bar bg-success" role="progressbar" style="width: ' + category[mode].prc + '%" ' +
+                    'aria-valuenow="' + category[mode].prc + '" aria-valuemin="0" aria-valuemax="100"></div>' +
+                    '</div>' +
+                    '</div>';
+            });
+            $container.append($content);
+
+        }
+    })
+}
+
 $(document).ready(function () {
-   $('#option1').trigger('change');
+    $('#option1').trigger('change');
 });

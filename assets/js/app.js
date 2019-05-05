@@ -16,6 +16,7 @@ require('bootstrap');
 require('popper.js');
 require('perfect-scrollbar');
 require('@coreui/coreui');
+require('@coreui/coreui-plugin-chartjs-custom-tooltips/js/index');
 require('pace/pace');
 require('pace-js/pace.min');
 require('bootstrap-table');

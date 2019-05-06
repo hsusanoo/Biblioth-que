@@ -563,4 +563,17 @@ class IOController extends AbstractController
             return $monthsArray[$lang][(int)$month];
         return '';
     }
+
+    public function getCatRepo(CategorieRepository $repository){
+
+        $categories = $repository->findAll();
+        $categories->
+        $data = [];
+
+        foreach ($categories as $category) {
+            //TODO: build json data
+        }
+
+    }
+
 }

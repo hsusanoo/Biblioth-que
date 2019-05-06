@@ -26,15 +26,15 @@ class AppFixtures extends Fixture
             "Chimie",
             "Génie civile",
             "Mathématiques",
-            "Management/Gestion",
+            "Management/gestion",
             "Sciences de l'environnement",
-            "Techniques Financières/Techniques Fiscales",
+            "Techniques Financières/techniques Fiscales",
             "Management et organisation sports",
             "Electronique",
             "Economie",
             "Physique",
             "Génie électronique",
-            "Métrologie/Mesures physiques",
+            "Métrologie/mesures physiques",
             "Marketing",
             "Electronique"
         ];

@@ -25,15 +25,6 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/admin",name="dashboard")
-     */
-    public function dashboard(){
-
-        return $this->render('admin/index.html.twig');
-
-    }
-
-    /**
      * @Route("/login", name="app_login")
      * @param AuthenticationUtils $authenticationUtils
      * @return Response

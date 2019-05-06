@@ -20,6 +20,52 @@ class LivreRepository extends ServiceEntityRepository
     }
 
     /**
+     * @return Livre[] Returns an array of Livre objects
+     * @param $category
+     * @param $year
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getByCategoryAndYear($category, $year)
+    {
+        $startDate = new \DateTime('01-01-' . $year . ' 00:00:00');
+        $endDate = new \DateTime('31-12-' . $year . ' 23:59:59');
+
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.categorie = :category')
+            ->andWhere('l.dateAquis BETWEEN :from and :to')
+            ->setParameters([
+                'category' => $category,
+                'from' => $startDate,
+                'to' => $endDate
+            ])
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Livre[] Returns an array of Livre objects
+     * @param $year
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getByYear($year)
+    {
+
+        $startDate = new \DateTime('01-01-' . $year . ' 00:00:00');
+        $endDate = new \DateTime('31-12-' . $year . ' 23:59:59');
+
+        return $result = $this->createQueryBuilder('l')
+            ->andWhere('l.dateAquis BETWEEN :from and :to')
+            ->setParameters([
+                'from' => $startDate,
+                'to' => $endDate
+            ])
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
      * @param $year
      * @return Livre[] Returns an array of Livre objects
      * @throws \Exception

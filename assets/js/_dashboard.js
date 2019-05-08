@@ -1,29 +1,4 @@
-// let ctx = $('#booksByCat');
-// let myChart = new Chart(ctx, {
-//     type: 'doughnut',
-//     data: {
-//         labels: ['Informatique', 'Economie', 'Gestion', 'Management', 'Communication'],
-//         datasets: [{
-//             label: '# of Votes',
-//             data: [12, 19, 3, 5, 2, 3],
-//             backgroundColor: [
-//                 'rgba(255, 99, 132, 0.8)',
-//                 'rgba(54, 162, 235, 0.8)',
-//                 'rgba(255, 206, 86, 0.8)',
-//                 'rgba(75, 192, 192, 0.8)',
-//                 'rgba(153, 102, 255, 0.8)',
-//             ],
-//             borderColor: [
-//                 'rgba(255, 99, 132, 1)',
-//                 'rgba(54, 162, 235, 1)',
-//                 'rgba(255, 206, 86, 1)',
-//                 'rgba(75, 192, 192, 1)',
-//                 'rgba(153, 102, 255, 1)',
-//             ],
-//             borderWidth: 0.5
-//         }]
-//     }
-// });
+let ctx = $('#main-chart');
 
 var mode, year;
 
@@ -50,11 +25,11 @@ function refresh(year) {
             $container.text('');
             let $content = '';
             $.each(result.categories, function (key, category) {
-                $content += '<div class="col-6 mb-sm-4 col-md-3 col-lg-3 col-xl-2 mb-0">' +
-                    '<div class="text-muted">' + key + '</div>' +
+                $content += '<div class="col-6 mb-sm-4 col-md-3 col-lg-3 col-xl-2 mb-0 ' + ((category[mode].nbr === 0) ? 'text-muted' : '') + '">' +
+                    '<div>' + key + '</div>' +
                     '<small><strong>' + category[mode].nbr + '  ' + mode + '  (' + category[mode].prc + '%)</strong></small>' +
                     '<div class="progress progress-xs mt-2">\n' +
-                    '<div class="progress-bar bg-success" role="progressbar" style="width: ' + category[mode].prc + '%" ' +
+                    '<div class="progress-bar bg-danger" role="progressbar" style="width: ' + category[mode].prc + '%" ' +
                     'aria-valuenow="' + category[mode].prc + '" aria-valuemin="0" aria-valuemax="100"></div>' +
                     '</div>' +
                     '</div>';
@@ -66,5 +41,26 @@ function refresh(year) {
 }
 
 $(document).ready(function () {
+
     $('#option1').trigger('change');
+
+    // Line Chart
+    let data = {
+        labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        datasets: [
+            {
+                label: mode,
+                data: [10, 14, 17, 43, 12, 7, 19, 34, 43, 29, 17, 66],
+            }
+        ]
+    };
+    let options = {
+        responsive: true,
+    };
+    let myChart = new Chart(ctx, {
+        type: 'line',
+        data: data,
+        options: options
+    });
+
 });

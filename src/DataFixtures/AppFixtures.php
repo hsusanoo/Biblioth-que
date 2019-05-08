@@ -69,7 +69,7 @@ class AppFixtures extends Fixture
         }
 
         // Creating multiple books
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 1000; $i++) {
 
             // Book infos
             $book = new Livre();
@@ -88,7 +88,7 @@ class AppFixtures extends Fixture
             $book->setCategorie($faker->randomElement($categories));
             $book->setDescripteurs($faker->randomElements($tags, $faker->numberBetween(1, 4)));
             // Samples
-            for ($j = 0; $j < mt_rand(3, 10); $j++) {
+            for ($j = 0; $j < mt_rand(2, 30); $j++) {
                 $sample = new Exemplaire();
                 $sample->setNInventaire($faker->randomFloat(7,11111.10,55555.99));
                 $sample->setCote(strtoupper($faker->word) . "-" . $faker->numberBetween(10, 30));

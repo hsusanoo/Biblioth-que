@@ -196,6 +196,7 @@ $(function () {
     });
 });
 
+// table filter
 $('#filter_button').click(function (e) {
 
     let statut = $('#statut').val();
@@ -205,7 +206,7 @@ $('#filter_button').click(function (e) {
         url: '/admin/books/get',
         queryParams: getParams(statut,cat,startDate,endDate)
     });
-
+    console.log(getParams(statut,cat,startDate,endDate));
     function getParams(statut,cat,startDate,endDate) {
 
         let params = {};

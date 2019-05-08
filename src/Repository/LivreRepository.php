@@ -19,6 +19,23 @@ class LivreRepository extends ServiceEntityRepository
         parent::__construct($registry, Livre::class);
     }
 
+
+    public function findByDateRange($start, $end)
+    {
+        $startDate = new \DateTime(str_replace('/','-',$start) . ' 00:00:00');
+        $endDate = new \DateTime(str_replace('/','-',$end) . ' 23:59:59');
+
+        return $result = $this->createQueryBuilder('l')
+            ->andWhere('l.dateAquis BETWEEN :from and :to')
+            ->setParameters([
+                'from' => $startDate,
+                'to' => $endDate
+            ])
+            ->getQuery()
+            ->getResult();
+    }
+
+
     /**
      * @return Livre[] Returns an array of Livre objects
      * @param $category

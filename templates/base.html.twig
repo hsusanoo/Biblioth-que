@@ -59,11 +59,32 @@
                     </a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('books') }}">&nbsp;&nbsp;&nbsp;Consulter
+                            <a class="nav-link" href="{{ path('books_new') }}">&nbsp;&nbsp;&nbsp;Ajouter
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('books_new') }}">&nbsp;&nbsp;&nbsp;Ajouter
+                            <a class="nav-link" href="#">&nbsp;&nbsp;&nbsp;Importer
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('books') }}">&nbsp;&nbsp;&nbsp;Consulter
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link nav-dropdown-toggle" href="#">
+                        <i class="nav-icon cui-chart"></i> Rapports
+                    </a>
+                    <ul class="nav-dropdown-items">
+                        <li class="nav-item">
+                            <a href="{{ path('export') }}" class="nav-link">
+                                &nbsp;&nbsp;&nbsp;Aquisitions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('inventory') }}" class="nav-link">
+                                &nbsp;&nbsp;&nbsp;Inventaire
                             </a>
                         </li>
                     </ul>
@@ -82,34 +103,11 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('export') }}">
-                            <i class="nav-icon cui-chart"></i> Rapports
-                        </a>
-                    </li>
                 {% endif %}
                 <li class="nav-item mt-auto">
                     <a class="nav-link nav-link-danger" href="{{ path('app_logout') }}">
                         <i class="nav-icon cui-account-logout"></i> Déconnexion
                     </a>
-                </li>
-                {% endif %}
-                <li class="nav-item nav-dropdown">
-                    <a class="nav-link nav-dropdown-toggle" href="#">
-                        <i class="nav-icon cui-chart"></i> Rapports
-                    </a>
-                    <ul class="nav-dropdown-items">
-                        <li class="nav-item">
-                            <a href="{{ path('export') }}" class="nav-link">
-                                &nbsp;&nbsp;&nbsp;Aquisitions
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ path('inventory') }}" class="nav-link">
-                                &nbsp;&nbsp;&nbsp;Inventaire
-                            </a>
-                        </li>
-                    </ul>
                 </li>
             </ul>
         </nav>

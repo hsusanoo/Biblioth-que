@@ -190,7 +190,6 @@ $(function () {
         "minDate": min,
         "maxDate": max
     }, function (start, end, label) {
-        //console.log('New date range selected: ' + start.format('DD/MM/YYYY') + ' to ' + end.format('DD/MM/YYYY') + ' (predefined range: ' + label + ')');
         startDate = start.format('DD/MM/YYYY');
         endDate = end.format('DD/MM/YYYY');
     });
@@ -206,7 +205,7 @@ $('#filter_button').click(function (e) {
         url: '/admin/books/get',
         queryParams: getParams(statut,cat,startDate,endDate)
     });
-    console.log(getParams(statut,cat,startDate,endDate));
+
     function getParams(statut,cat,startDate,endDate) {
 
         let params = {};
@@ -219,7 +218,6 @@ $('#filter_button').click(function (e) {
             params.start = startDate;
             params.end = endDate
         }
-        console.log(params);
         return params
     }
 

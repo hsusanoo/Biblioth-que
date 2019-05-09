@@ -57,11 +57,13 @@
                data-pagination="true"
                data-search="true"
                data-show-pagination-switch="true"
+               data-detail-view="true"
+               data-detail-formatter="detailFormatter"
         >
-            <thead>
+            <thead class="thead-light">
             <tr>
                 <th data-field="titrePrincipale" data-sortable="true" data-formatter="textFormatter"
-                    >Titre Principale
+                >Titre Principale
                 </th>
                 <th data-field="authors" data-sortable="true" data-halign="center">Auteurs</th>
                 <th data-field="edition" data-sortable="true" data-align="center" data-halign="center">Edition
@@ -97,6 +99,33 @@
                     year: year,
                 }
             });
-        })
+        });
+
+        function detailFormatter(index, row) {
+            var table = '<table id="exemplaires' + index + '" width="50%" ' +
+                'data-toggle="table" ' +
+                // 'data-classes="table table-hover table-striped">' +
+                '<thead class="thead-light">' +
+                '<tr>' +
+                '<th colspan="2">Exemplaires</th>' +
+                '</tr>' +
+                '<tr>' +
+                '<th>N.Inventaire</th>' +
+                '<th>Cote</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody>';
+            $.each(row.exemplaires, function (key, value) {
+                table += '<tr>' +
+                    '<td>' + value.inventaire + '</td>' +
+                    '<td>' + value.cote + '</td>' +
+                    '</tr>'
+            });
+            table += '</tbody></table>';
+            return '<div class="d-flex justify-content-center">' +
+                table +
+                '</div>';
+        }
+
     </script>
 {% endblock %}

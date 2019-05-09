@@ -93,10 +93,19 @@ class IOController extends AbstractController
                 $book['edition'] = $livre->getEditeur() ? $livre->getEditeur() : "";
                 $book['prix'] = $livre->getPrix() ? $livre->getPrix() : "";
                 $book['quantité'] = count($livre->getExemplaires());
-                if ($livre->getCategorie()->getNom()) {
+                if ($livre->getCategorie()) {
                     $book['categorie'] = $livre->getCategorie()->getNom();
                 } else
                     $book['categorie'] = "";
+
+                // Samples
+                $book['exemplaires'] = [];
+                foreach ($livre->getExemplaires() as $exemplaire) {
+                    $sample = [];
+                    $sample['inventaire'] = $exemplaire->getNInventaire();
+                    $sample['cote'] = $exemplaire->getCote();
+                    $book['exemplaires'][] = $sample;
+                }
 
                 $books[] = $book;
             }

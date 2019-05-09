@@ -33,9 +33,9 @@ class BookController extends AbstractController
     }
 
     /**
+     * @Route("admin/books/getcat",name="get_cat",methods={"GET"})
      * @param Request $request
      * @param CategorieRepository $repo
-     * @Route("admin/books/getcat",name="get_cat",methods={"GET"})
      * @return JsonResponse
      */
     public function getDomaine(Request $request, CategorieRepository $repo)
@@ -79,12 +79,11 @@ class BookController extends AbstractController
         ], 400, [], false);
     }
 
-
     /**
+     * @Route("/admin/books/gettags",name="get_tags",methods={"GET"})
      * @param Request $request
      * @param DescripteurRepository $tagsRepo
      * @return JsonResponse
-     * @Route("/admin/books/gettags",name="get_tags",methods={"GET"})
      */
     public function getTags(Request $request, DescripteurRepository $tagsRepo)
     {
@@ -171,7 +170,7 @@ class BookController extends AbstractController
             $book['quantité'] = count($livre->getExemplaires());
             $book['observation'] = $livre->getObservation() ? $livre->getObservation() : "";
             $book['n_pages'] = $livre->getNPages() ? $livre->getNPages() : "";
-            if ($livre->getCategorie()->getNom()) {
+            if ($livre->getCategorie()) {
                 $book['categorie'] = $livre->getCategorie()->getNom();
             } else
                 $book['categorie'] = "";
@@ -198,7 +197,7 @@ class BookController extends AbstractController
                 }
             }
             if ($qStatut = $request->query->get('statut')) {
-                if ($book['statut'] !== (int) $qStatut) {
+                if ($book['statut'] !== (int)$qStatut) {
                     continue;
                 }
             }
@@ -355,4 +354,15 @@ class BookController extends AbstractController
         ]);
 
     }
+
+    /**
+     * @Route("/admin/books/import",name="books_import")
+     */
+    public function import()
+    {
+        return $this->render('admin/book/import.html.twig', [
+            'controller_name' => 'BookController',
+        ]);
+    }
+
 }

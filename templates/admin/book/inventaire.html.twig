@@ -7,7 +7,7 @@
         <div class="col">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcumb-item" aria-current="page">Rapports</li>
+                    <li class="breadcrumb-item" aria-current="page"><a href="">Rapports</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Inventaire</li>
                 </ol>
             </nav>
@@ -15,39 +15,88 @@
     </div>
 {% endblock %}
 {% block body %}
-    <div class="container">
-        <div class="card card-body text-center">
-            <h2 class="card-title">Exporter l'Inventaires des Livres</h2>
-            <hr>
-            <div class="card-text">
-                <div class="row justify-content-center mt-5 mb-5">
-                    <div class="col-md-4">
-                        <form action="" method="get">
-                            <div class="form-group row">
-                                <div class="col">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
+    <div class="card card-body text-center">
+        <h2 class="card-title">Inventaires des Livres</h2>
+        <hr>
+        <div class="card-text">
+            <div class="row justify-content-center mt-5 mb-5">
+                <div class="col-md-4">
+                    <form action="" method="get" autocomplete="off">
+                        <div class="form-group row">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
                                                     <span class="input-group-text" id="calendar">
                                                         <i class="far fa-calendar-alt"></i>
                                                     </span>
-                                        </div>
-                                        <input type="text" class="js-year-picker form-control" name="date"
-                                               aria-describedby="calendar">
-                                        <div class="input-group-append">
-                                            <a tabindex="0" class="btn btn-outline-secondary" role="button"
-                                               data-toggle="popover" data-trigger="focus"
-                                               data-content="Laissez ce champ vide pour exporter l'inventaire de toutes les années.">
-                                                <i class="fas fa-question-circle"></i>
-                                            </a>
-                                        </div>
+                                    </div>
+                                    <input type="text" class="js-year-picker form-control" name="date"
+                                           aria-describedby="calendar" id="year_filter">
+                                    <div class="input-group-append">
+                                        <a tabindex="0" class="btn btn-outline-secondary" role="button"
+                                           data-toggle="popover" data-trigger="focus"
+                                           data-content="Laissez ce champ vide pour générer l'inventaire de toutes les années.">
+                                            <i class="fas fa-question-circle"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                            <input type="submit" name="submit" value="Exporter" class="btn btn-outline-primary">
-                        </form>
-                    </div>
+                        </div>
+                        <input type="submit" name="submit" value="Exporter" class="btn btn-outline-primary">
+                    </form>
                 </div>
             </div>
         </div>
+        <table id="table"
+               data-url="/admin/invent/get"
+               data-toggle="table"
+               data-id-field="id"
+               data-classes="table table-bordered table-hover table-sm"
+               data-mobile-responsive="true"
+               data-sort-class="table-active"
+               data-pagination="true"
+               data-search="true"
+               data-show-pagination-switch="true"
+        >
+            <thead>
+            <tr>
+                <th data-field="titrePrincipale" data-sortable="true" data-formatter="textFormatter"
+                    >Titre Principale
+                </th>
+                <th data-field="authors" data-sortable="true" data-halign="center">Auteurs</th>
+                <th data-field="edition" data-sortable="true" data-align="center" data-halign="center">Edition
+                <th data-field="annee" data-sortable="true" data-align="center" data-halign="center">Année
+                </th>
+                <th data-field="prix" data-sortable="true" data-align="center" data-halign="center">Prix</th>
+                <th data-field="quantité" data-sortable="true" data-formatter="quantiteFormatter" data-align="center"
+                    data-halign="center">
+                    Quantité
+                </th>
+                <th data-field="categorie" data-sortable="true" data-align="center" data-halign="center">Catégorie</th>
+            </tr>
+            </thead>
+        </table>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        function textFormatter(value) {
+            if (!value) value = "";
+            return '<span style="display: flex; flex-direction: row; max-height: 70px; overflow: auto;">' + value + '</span>';
+        }
+
+        function quantiteFormatter(value) {
+            return '<span class="badge badge-pill badge-danger">' + value + '</span>';
+        }
+
+        $('#year_filter').change(function () {
+            let year = $('#year_filter').val();
+            $('#table').bootstrapTable('refreshOptions', {
+                url: '/admin/invent/get',
+                queryParams: {
+                    year: year,
+                }
+            });
+        })
+    </script>
 {% endblock %}

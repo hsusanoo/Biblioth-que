@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Importer
+{% endblock %}
+{% block bread_cumb %}
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item" aria-current="page"><a href="{{ path('books') }}">Livres</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Importer</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title" id="importModalTitle">Importer des livres</h4>
+            </div>
+            <div class="card-body">
+                <form action="{{ path('import') }}" method="post" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5>1. Importer votre fichier</h5>
+                                <div class="row justify-content-between">
+                                    <div class="col">
+                                        <small>Séléctionner un fichier contenant la liste des livres.
+                                        </small>
+                                    </div>
+                                    <div class="col">
+                                        <a href="#">
+                                            <i class="fas fa-question-circle"></i>
+                                            Télécharger un fichier excel exemple
+                                        </a>&nbsp;&nbsp;&nbsp;
+                                        <a href="#">Lire le tutoriel</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col mt-4 mb-3">
+                                        <div class="form-group">
+                                            <input type="file" name="excelFile" class="form-control-file" id="excelFile"
+                                                   accept=".xls, .xlsx" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col col-md-8">
+                                        <h5>2. Séléctionner une date</h5>
+                                        <div class="input-group mt-4 mb-3">
+                                            <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="calendar">
+                                                        <i class="far fa-calendar-alt"></i>
+                                                    </span>
+                                            </div>
+                                            <input type="text" class="js-month-picker form-control"
+                                                   name="date" required
+                                                   aria-describedby="calendar" placeholder="MM/AAAA">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg">Importer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

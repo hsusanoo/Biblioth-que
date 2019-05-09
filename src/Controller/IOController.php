@@ -14,8 +14,12 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class IOController extends AbstractController
 {
@@ -35,7 +39,6 @@ class IOController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/admin/invent",name="inventory")
      * @param Request $request
@@ -52,6 +55,81 @@ class IOController extends AbstractController
         return $this->render('admin/book/inventaire.html.twig', [
             'controller_name' => 'IOController',
         ]);
+
+    }
+
+    /**
+     * @Route("/admin/invent/get",name="get_invent")
+     * @param Request $request
+     * @param LivreRepository $livreRepository
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function getInvent(Request $request, LivreRepository $livreRepository)
+    {
+
+//        if ($request->isXmlHttpRequest()) {
+
+            if ($year = $request->query->get('year'))
+                $livres = $livreRepository->getByYear($year);
+            else
+                $livres = $livreRepository->findAll();
+
+            $books = [];
+
+            foreach ($livres as $livre) {
+
+                $book = [];
+                $book['titrePrincipale'] = $livre->getTitrePrincipale();
+                if (count($livre->getAuteurs()) > 0) {
+                    $authors = [];
+                    foreach ($livre->getAuteurs() as $auteur) {
+                        $authors[] = $auteur->getNom();
+                    }
+                    $book['authors'] = implode(",", $authors);
+                } else
+                    $book['authors'] = "";
+                $book['annee'] = $livre->getDateEdition() ? $livre->getDateEdition() : "";
+                $book['edition'] = $livre->getEditeur() ? $livre->getEditeur() : "";
+                $book['prix'] = $livre->getPrix() ? $livre->getPrix() : "";
+                $book['quantité'] = count($livre->getExemplaires());
+                if ($livre->getCategorie()->getNom()) {
+                    $book['categorie'] = $livre->getCategorie()->getNom();
+                } else
+                    $book['categorie'] = "";
+
+                $books[] = $book;
+            }
+
+            if ($books) {
+
+                $encoders = [
+                    new JsonEncoder(),
+                ];
+
+                $normalizers = [
+                    new ObjectNormalizer(),
+                ];
+
+                $seralizer = new Serializer($normalizers, $encoders);
+
+                $data = $seralizer->serialize($books, 'json', [
+                    'circular_reference_handler' => function ($object) {
+                        return $object->getId();
+                    }
+                ]);
+
+                return new JsonResponse($data, 200, [], true);
+
+            }
+
+//        }
+
+        return new JsonResponse([
+            'type' => "error",
+            'message' => "Not a XmlHttpRequest"
+        ], 400, [], false);
+
 
     }
 
@@ -380,6 +458,7 @@ class IOController extends AbstractController
      * @param LivreRepository $livreRepository
      * @param CategorieRepository $categorieRepository
      * @param AuteurRepository $auteurRepository
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      * @throws \Exception
@@ -390,16 +469,15 @@ class IOController extends AbstractController
         $date = null;
         $file = null;
 
-        if (!($date = $request->request->get('date')) && ($file = $request->files->get('excelFile'))){
-            $this->addFlash('error',"Une erreur est survenue lors de la requette");
-            $this->redirectToRoute('books');
+        if (!($date = $request->request->get('date')) && ($file = $request->files->get('excelFile'))) {
+            $this->addFlash('error', "Une erreur est survenue lors de la requette");
+            return $this->redirectToRoute('books');
         }
 
         $date = $request->request->get('date');
         $file = $request->files->get('excelFile');
 
         // Excel file name
-//        $inputFileName = __DIR__ . '/CultureGen.xlsx';
         $inputFileName = $file->getPathName();
         // Loading spreadsheet
         $spreadsheet = IOFactory::load($inputFileName);
@@ -510,7 +588,7 @@ class IOController extends AbstractController
                     $i += 3;
                 }
 
-                $livre->setDateAquis(new \DateTime('01/'.$date));
+                $livre->setDateAquis(new \DateTime('01/' . $date));
                 $manager->persist($livre);
                 $livres[] = $livre;
 
@@ -520,7 +598,7 @@ class IOController extends AbstractController
         }
 
         $manager->flush();
-        $this->addFlash("success","Livres Importés !");
+        $this->addFlash("success", "Livres Importés !");
         return $this->redirectToRoute("books");
     }
 
@@ -564,7 +642,8 @@ class IOController extends AbstractController
         return '';
     }
 
-    public function getCatRepo(CategorieRepository $repository){
+    public function getCatRepo(CategorieRepository $repository)
+    {
 
         $categories = $repository->findAll();
         $categories->

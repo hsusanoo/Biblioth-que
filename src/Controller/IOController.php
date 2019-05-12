@@ -12,8 +12,10 @@ use App\Repository\LivreRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Debug\Exception\OutOfMemoryException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -48,7 +50,9 @@ class IOController extends AbstractController
      */
     public function inventory(Request $request, CategorieRepository $repository, LivreRepository $livreRepo)
     {
-        if ($request->query->get('submit'))
+        if ($request->query->get('pdf_submit'))
+            $this->export($repository, $request->query->get('date'), true, $livreRepo, 'pdf');
+        elseif ($request->query->get('excel_submit'))
             $this->export($repository, $request->query->get('date'), true, $livreRepo);
 
 
@@ -68,7 +72,7 @@ class IOController extends AbstractController
     public function getInvent(Request $request, LivreRepository $livreRepository)
     {
 
-//        if ($request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
 
             if ($year = $request->query->get('year'))
                 $livres = $livreRepository->getByYear($year);
@@ -132,7 +136,7 @@ class IOController extends AbstractController
 
             }
 
-//        }
+        }
 
         return new JsonResponse([
             'type' => "error",
@@ -142,9 +146,9 @@ class IOController extends AbstractController
 
     }
 
-    public function export(CategorieRepository $repository, String $date = null, bool $inv = false, LivreRepository $livrRepo = null)
+    public function export(CategorieRepository $repository, String $date = null, bool $inv = false,
+                           LivreRepository $livrRepo = null, $mode = 'excel')
     {
-
         // Getting date values
         $dateArray = null;
         $month = null;
@@ -171,6 +175,9 @@ class IOController extends AbstractController
         $sheet->getColumnDimension('B')->setWidth(22.14);
         $sheet->getColumnDimension('C')->setWidth(16.14);
         $sheet->getColumnDimension('D')->setWidth(16.14);
+        if ($inv) {
+            $sheet->getColumnDimension('E')->setWidth(10);
+        }
 
         // Merging cells
         $sheet->mergeCells('A4:D5');
@@ -286,8 +293,7 @@ class IOController extends AbstractController
 
         } else {
 
-            $sheet->setCellValue('A4', 'LISTE DES LIVRES / BIBLIOTHÈQUE EST-SALÉ ' .
-                $this->getMonthName("fr", $month) . ' ' . $year);
+            $sheet->setCellValue('A4', 'INVENTAIRE DES LIVRES / BIBLIOTHÈQUE EST-SALÉ ' . ' ' . $year);
             $sheet->setCellValue('A6', $year . ' ' . ' قائمة الكتب ' . $this->getMonthName("ar", $month));
 
             $row = 9;
@@ -375,7 +381,7 @@ class IOController extends AbstractController
             $row += 3;
 
             // Domaine title
-            $sheet->mergeCells('A' . $row . ':D' . $row);
+            $sheet->mergeCells('A' . $row . ':' . ($inv ? 'E' : 'D') . $row);
             $sheet->getStyle('A' . $row)->applyFromArray($domaineStyle);
             $sheet->setCellValue('A' . $row, $category->getNom());
 
@@ -386,13 +392,18 @@ class IOController extends AbstractController
             $sheet->mergeCells('A' . $row . ':A' . ($row + 1));
             $sheet->mergeCells('B' . $row . ':B' . ($row + 1));
             $sheet->mergeCells('C' . $row . ':D' . $row);
+            if ($inv)
+                $sheet->mergeCells('E' . $row . ':E' . ($row + 1));
 
             $sheet->setCellValue('A' . $row, 'Titre/Auteurs');
             $sheet->setCellValue('B' . $row, 'Editeurs/Année');
             $sheet->setCellValue('C' . $row, 'Exemplaires');
             $sheet->setCellValue('C' . ($row + 1), 'N° Inventaire');
             $sheet->setCellValue('D' . ($row + 1), 'Cote');
-            $sheet->getStyle('A' . $row . ':D' . ($row + 1))->applyFromArray($tableHeaderStyle);
+            if ($inv) {
+                $sheet->setCellValue('E' . $row, 'Prix');
+            }
+            $sheet->getStyle('A' . $row . ':' . ($inv ? 'E' : 'D') . ($row + 1))->applyFromArray($tableHeaderStyle);
 
             $tableStart = $row + 2;
             $row += 3;
@@ -423,7 +434,7 @@ class IOController extends AbstractController
                     $sheet->setCellValue('A' . ($row + 1), implode(',', $authors));
 
                     // Editeur
-                    $sheet->setCellValue('B' . $row, '*Editeur*');
+                    $sheet->setCellValue('B' . $row, $book->getEditeur());
                     // Année
                     $sheet->setCellValue('B' . ($row + 1), $book->getDateEdition());
 
@@ -433,30 +444,63 @@ class IOController extends AbstractController
                     // Cote
                     $sheet->setCellValue('D' . $row, $exemplaire->getCote());
 
+                    if ($inv)
+                        $sheet->setCellValue('E' . $row, $book->getPrix());
+
                     $row += 3;
 
                 }
+
+                // Delimiter
+                $sheet->getStyle('A' . ($row - 1) . ':' . ($inv ? 'E' : 'D') . ($row - 1))
+                    ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
 
                 $row++;
 
             }
 
             // Setting overall outline
-            $sheet->getStyle('A' . $tableStart . ':D' . ($row - 1))->applyFromArray($tableStyle);
+            $sheet->getStyle('A' . $tableStart . ':' . ($inv ? 'E' : 'D') . ($row - 1))->applyFromArray($tableStyle);
 
         }
 
 
-        // Redirect output to a client’s web browser (Xlsx)
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="Acquisitions Documentaires ' . date_format(new \DateTime(), "d/m/y H:i:s") . '.xlsx"');
-        header('Cache-Control: max-age=0');
-
-
         // Creating IOFactory object to download the file on the client side
-        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-        // Save into php output
-        $writer->save('php://output');
+        if ($mode == 'pdf') {
+            try {
+                $class = \PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf::class;
+                IOFactory::registerWriter('Pdf', $class);
+                $writer = IOFactory::createWriter($spreadsheet, 'Pdf');
+
+                $sheet->setShowGridlines(false);
+                $sheet->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
+
+                $fileDate = date_format(new \DateTime(), "d_m_y_H_i_s");
+                $fileName = 'Inventaire_' . $fileDate . '.pdf';
+
+                header('Content-Type: Content-type:application/pdf');
+                header('Content-Disposition: attachment;filename="' . $fileName);
+                header('Cache-Control: max-age=0');
+
+                $writer->save($fileName);
+            } catch (OutOfMemoryException $e) {
+                memory_get_usage();
+                print_r($e);
+            }
+            memory_get_usage();
+        } else {
+
+            // Redirect output to a client’s web browser (Xlsx)
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename="' . ($inv ? 'Inventaire des livres' : 'Acquisitions Documentaires')
+                . date_format(new \DateTime(), "d/m/y H:i:s") . '.xlsx"');
+            header('Cache-Control: max-age=0');
+
+            $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+            // Save into php output
+            $writer->save('php://output');
+
+        }
         exit();
     }
 
@@ -517,7 +561,6 @@ class IOController extends AbstractController
                 // Categorie
                 $livre->setCategorie($category);
                 $livre->setAddedBy($this->getUser());
-                $livre->setDateAquis(new \DateTime());
 
                 // Titre
                 $title = $sheet->getCell('A' . $i)->getValue();
@@ -597,7 +640,15 @@ class IOController extends AbstractController
                     $i += 3;
                 }
 
-                $livre->setDateAquis(new \DateTime('01/' . $date));
+                $livre->setDateAquis(
+                    new \DateTime(
+                        date('Y-m-d H:i:s',
+                            strtotime(
+                                str_replace('/', '-', '01/' . $date . date('H:i:s'))
+                            )
+                        )
+                    )
+                );
                 $manager->persist($livre);
                 $livres[] = $livre;
 

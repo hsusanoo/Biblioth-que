@@ -55,7 +55,8 @@ $(document).ready(function () {
         ]
     };
     let options = {
-        responsive: true,
+        maintainAspectRatio: false,
+        responsive: true
     };
     let myChart = new Chart(ctx, {
         type: 'line',

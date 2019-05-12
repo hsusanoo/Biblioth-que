@@ -19,11 +19,11 @@
         <h2 class="card-title">Inventaires des Livres</h2>
         <hr>
         <div class="card-text">
-            <div class="row justify-content-center mt-5 mb-5">
-                <div class="col-md-4">
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-6">
                     <form action="" method="get" autocomplete="off">
                         <div class="form-group row">
-                            <div class="col">
+                            <div class="col-md-8">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                                     <span class="input-group-text" id="calendar">
@@ -41,8 +41,17 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col">
+                                <button type="submit" name="excel_submit" value="excel"
+                                        class="btn btn-outline-primary">
+                                    <i class="cui-cloud-download"></i> Excel
+                                </button>
+                                <button type="submit" name="pdf_submit" value="pdf"
+                                        class="btn btn-outline-primary">
+                                    <i class="cui-cloud-download"></i> PDF
+                                </button>
+                            </div>
                         </div>
-                        <input type="submit" name="submit" value="Exporter" class="btn btn-outline-primary">
                     </form>
                 </div>
             </div>
@@ -50,7 +59,6 @@
         <table id="table"
                data-url="/admin/invent/get"
                data-toggle="table"
-               data-id-field="id"
                data-classes="table table-bordered table-hover table-sm"
                data-mobile-responsive="true"
                data-sort-class="table-active"

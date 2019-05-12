@@ -131,12 +131,13 @@ class BookController extends AbstractController
      * @param Request $request
      * @param LivreRepository $livreRepository
      * @return JsonResponse
+     * @throws \Exception
      */
 
     public function getBooks(Request $request, LivreRepository $livreRepository)
     {
 
-//        if ($request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
 
         if (($start = $request->query->get('start')) && ($end = $request->query->get('end'))) {
 
@@ -226,7 +227,7 @@ class BookController extends AbstractController
 
         }
 
-//        }
+        }
 
         return new JsonResponse([
             'type' => "error",

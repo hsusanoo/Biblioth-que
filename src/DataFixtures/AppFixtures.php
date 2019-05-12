@@ -24,7 +24,7 @@ class AppFixtures extends Fixture
             "Techniques de droit",
             "Statistique",
             "Chimie",
-            "Génie civile",
+            "Génie civil",
             "Mathématiques",
             "Management/gestion",
             "Sciences de l'environnement",

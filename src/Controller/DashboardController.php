@@ -40,10 +40,10 @@ class DashboardController extends AbstractController
         // Initialize response data
         $data = [];
         // Get Number of books by year
-        $totalLivres = count($livreRepository->getByYear($year));
+        $totalLivres = count($livreRepository->findByYear($year));
         // Get number of samples by year
         $totalExemplaires = 0;
-        foreach ($livreRepository->getByYear($year) as $livre) {
+        foreach ($livreRepository->findByYear($year) as $livre) {
             $totalExemplaires += count($livre->getExemplaires());
         }
 

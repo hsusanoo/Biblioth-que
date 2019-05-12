@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Livre;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,7 +20,12 @@ class LivreRepository extends ServiceEntityRepository
         parent::__construct($registry, Livre::class);
     }
 
-
+    /**
+     * @param $start
+     * @param $end
+     * @return mixed
+     * @throws \Exception
+     */
     public function findByDateRange($start, $end)
     {
         $startDate = new \DateTime(str_replace('/','-',$start) . ' 00:00:00');
@@ -34,7 +40,6 @@ class LivreRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
 
     /**
      * @return Livre[] Returns an array of Livre objects
@@ -53,28 +58,6 @@ class LivreRepository extends ServiceEntityRepository
             ->andWhere('l.dateAquis BETWEEN :from and :to')
             ->setParameters([
                 'category' => $category,
-                'from' => $startDate,
-                'to' => $endDate
-            ])
-            ->getQuery()
-            ->getResult();
-    }
-
-    /**
-     * @return Livre[] Returns an array of Livre objects
-     * @param $year
-     * @return mixed
-     * @throws \Exception
-     */
-    public function getByYear($year)
-    {
-
-        $startDate = new \DateTime('01-01-' . $year . ' 00:00:00');
-        $endDate = new \DateTime('31-12-' . $year . ' 23:59:59');
-
-        return $result = $this->createQueryBuilder('l')
-            ->andWhere('l.dateAquis BETWEEN :from and :to')
-            ->setParameters([
                 'from' => $startDate,
                 'to' => $endDate
             ])

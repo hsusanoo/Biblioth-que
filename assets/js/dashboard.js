@@ -20,7 +20,6 @@ function refresh(year) {
     $.ajax({
         url: '/admin/getCatStats/' + year,
         success(result) {
-            console.log(result, mode);
             let $container = $('#categories');
             $container.text('');
             let $content = '';

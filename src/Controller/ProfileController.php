@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\CategorieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,40 +37,40 @@ class ProfileController extends AbstractController
     {
         if ($request->isXmlHttpRequest()) {
 
-        $books = $user->getLivres();
+            $books = $user->getLivres();
 
-        $livres = [];
+            $livres = [];
 
-        foreach ($books as $book) {
-            $livres[] = [
-                "id" => $book->getId(),
-                "titre" => $book->getTitrePrincipale(),
-                "date" => date_format($book->getDateAquis(), 'd/m/Y H:i:s')
-            ];
-        }
+            foreach ($books as $book) {
+                $livres[] = [
+                    "id" => $book->getId(),
+                    "titre" => $book->getTitrePrincipale(),
+                    "date" => date_format($book->getDateAquis(), 'd/m/Y H:i:s')
+                ];
+            }
 
 
-        if ($livres) {
+            if ($livres) {
 
-            $encoders = [
-                new JsonEncoder(),
-            ];
+                $encoders = [
+                    new JsonEncoder(),
+                ];
 
-            $normalizers = [
-                new ObjectNormalizer(),
-            ];
+                $normalizers = [
+                    new ObjectNormalizer(),
+                ];
 
-            $seralizer = new Serializer($normalizers, $encoders);
+                $seralizer = new Serializer($normalizers, $encoders);
 
-            $data = $seralizer->serialize($livres, 'json', [
-                'circular_reference_handler' => function ($object) {
-                    return $object->getId();
-                }
-            ]);
+                $data = $seralizer->serialize($livres, 'json', [
+                    'circular_reference_handler' => function ($object) {
+                        return $object->getId();
+                    }
+                ]);
 
-            return new JsonResponse($data, 200, [], true);
+                return new JsonResponse($data, 200, [], true);
 
-        }
+            }
 
         }
         return new JsonResponse([
@@ -82,10 +83,49 @@ class ProfileController extends AbstractController
      * @Route("/admin/responsable/{id}/overview")
      * @param User $user
      * @param Request $request
+     * @param CategorieRepository $repository
+     * @return JsonResponse
      */
-    public function getOverview(User $user,Request $request){
+    public function getOverview(User $user, Request $request,
+                                CategorieRepository $repository)
+    {
 
+        $data = [];
 
+        foreach ($repository->findAll() as $categorie) {
+            $counter = 0;
+            foreach ($categorie->getLivres() as $livre) {
+                if ($livre->getAddedBy() === $user)
+                    $counter++;
+            }
+            $data['category'][] = $categorie->getNom();
+            $data['data'][] = $counter;
+        }
 
+        if ($data) {
+
+            $encoders = [
+                new JsonEncoder(),
+            ];
+
+            $normalizers = [
+                new ObjectNormalizer(),
+            ];
+
+            $seralizer = new Serializer($normalizers, $encoders);
+
+            $jsonData = $seralizer->serialize($data, 'json', [
+                'circular_reference_handler' => function ($object) {
+                    return $object->getId();
+                }
+            ]);
+
+            return new JsonResponse($jsonData, 200, [], true);
+
+        }
+        return new JsonResponse([
+            'type' => "error",
+            'message' => "Not a XmlHttpRequest"
+        ], 400, [], false);
     }
 }

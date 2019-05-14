@@ -7,7 +7,8 @@
         <div class="col">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item" aria-current="page"><a href="{{ path('responsable') }}">Responsables</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a href="{{ path('responsable') }}">Responsables</a>
+                    </li>
                     <li class="breadcrumb-item active" aria-current="page">Profile</li>
                 </ol>
             </nav>
@@ -15,84 +16,88 @@
     </div>
 {% endblock %}
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card">
-                    <img src="{{ asset('build/images/user.jpg') }}" alt="" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ resp.nom|upper~' '~resp.prenom|capitalize }}</h5>
-                        <hr>
-                        <div class="card-text">
-                            <div class="col">
-                                <small>Dernière connexion : <br>
-                                    {% if resp.lastLogin %}
-                                        {% if date(resp.lastLogin)| date('d/m/Y') == date('now')| date('d/m/Y') %}
-                                            Aujourd'hui à {{ resp.lastLogin | date('H:i:s') }}
-                                        {% elseif date(resp.lastLogin)| date('d/m/Y') == date('-1day')| date('d/m/Y') %}
-                                            Hier à {{ resp.lastLogin | date('H:i:s') }}
-                                        {% else %}
-                                            {{ resp.lastLogin | date('d/m/Y à H:i:s') }}
-                                        {% endif %}
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card" style="position:fixed;">
+                <img src="{{ asset('build/images/user.jpg') }}" alt="" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">{{ resp.nom|upper~' '~resp.prenom|capitalize }}</h5>
+                    <hr>
+                    <div class="card-text">
+                        <div class="col">
+                            <small>Dernière connexion : <br>
+                                {% if resp.lastLogin %}
+                                    {% if date(resp.lastLogin)| date('d/m/Y') == date('now')| date('d/m/Y') %}
+                                        Aujourd'hui à {{ resp.lastLogin | date('H:i:s') }}
+                                    {% elseif date(resp.lastLogin)| date('d/m/Y') == date('-1day')| date('d/m/Y') %}
+                                        Hier à {{ resp.lastLogin | date('H:i:s') }}
                                     {% else %}
-                                        Jamais
+                                        {{ resp.lastLogin | date('d/m/Y à H:i:s') }}
                                     {% endif %}
-                                </small>
-                            </div>
-                            <hr>
-                            <table>
-                                <tr>
-                                    <td><b>Email:</b></td>
-                                    <td>{{ resp.email }}</td>
-                                </tr>
-                                <tr>
-                                    <td><b>Tél:</b></td>
-                                    <td>{{ resp.phone }}</td>
-                                </tr>
-                            </table>
+                                {% else %}
+                                    Jamais
+                                {% endif %}
+                            </small>
                         </div>
+                        <hr>
+                        <table>
+                            <tr>
+                                <td><b>Email:</b></td>
+                                <td>{{ resp.email }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Tél:</b></td>
+                                <td>{{ resp.phone }}</td>
+                            </tr>
+                        </table>
                     </div>
-                    {#<div class="card-footer">#}
-                    {#<!-- Send message ? -->#}
-                    {#</div>#}
                 </div>
             </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <h4 class="card-header">Livres Ajoutés</h4>
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <div class="card text-center">
+                        <h4 class="card-header">Vue d'ensemble</h4>
+                        <div class="card-body d-flex justify-content-center">
+                            <div class="chart-wrapper" style="position: relative;height: 380px;width: 100%;max-width: 700px;">
+                                <canvas class="chart" id="admin_chart"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-text m-3">
-                                <table id="table"
-                                       data-url="{{ path('admin_get',{'id':resp.id}) }}"
-                                       data-toggle="table"
-                                       data-page-size="25"
-                                       data-id-field="id"
-                                       data-classes="table table-bordered table-hover table-sm"
-                                       data-mobile-responsive="true"
-                                       data-sort-class="table-active"
-                                       data-pagination="true"
-                                       data-search="true"
-                                       data-show-pagination-switch="true">
-                                    <thead>
-                                    <tr>
-                                        <th data-field="id">ID</th>
-                                        <th data-field="titre">Titre</th>
-                                        <th data-field="date">Date D'ajout</th>
-                                    </tr>
-                                    </thead>
-                                </table>
-                            </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card text-center">
+                        <h4 class="card-header">Livres Ajoutés</h4>
+                        <div class="card-text m-3">
+                            <table id="table"
+                                   data-url="{{ path('admin_get',{'id':resp.id}) }}"
+                                   data-toggle="table"
+                                   data-page-size="25"
+                                   data-id-field="id"
+                                   data-classes="table table-bordered table-hover table-sm"
+                                   data-mobile-responsive="true"
+                                   data-sort-class="table-active"
+                                   data-pagination="true"
+                                   data-search="true"
+                                   data-show-pagination-switch="true">
+                                <thead>
+                                <tr>
+                                    <th data-field="id">ID</th>
+                                    <th data-field="titre">Titre</th>
+                                    <th data-field="date">Date D'ajout</th>
+                                </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('adminProfile') }}
 {% endblock %}

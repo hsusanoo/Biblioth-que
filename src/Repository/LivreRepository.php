@@ -28,8 +28,8 @@ class LivreRepository extends ServiceEntityRepository
      */
     public function findByDateRange($start, $end)
     {
-        $startDate = new \DateTime(str_replace('/','-',$start) . ' 00:00:00');
-        $endDate = new \DateTime(str_replace('/','-',$end) . ' 23:59:59');
+        $startDate = new \DateTime(str_replace('/', '-', $start) . ' 00:00:00');
+        $endDate = new \DateTime(str_replace('/', '-', $end) . ' 23:59:59');
 
         return $result = $this->createQueryBuilder('l')
             ->andWhere('l.dateAquis BETWEEN :from and :to')
@@ -74,6 +74,36 @@ class LivreRepository extends ServiceEntityRepository
     {
         $startDate = new \DateTime('01-01-' . $year . ' 00:00:00');
         $endDate = new \DateTime('31-12-' . $year . ' 23:59:59');
+
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.dateAquis BETWEEN :from and :to')
+            ->setParameter('from', $startDate)
+            ->setParameter('to', $endDate)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param $year
+     * @param $month
+     * @return mixed
+     * @throws \Exception
+     */
+    public function findByYearAndMonth($year, $month)
+    {
+        $endDay = '31';
+
+        switch ($month) {
+            case 2 :
+                $endDay = '28';
+                break;
+            case (4 || 6 || 9 || 11 || 10 || 12):
+                $endDay = '30';
+                break;
+        }
+
+        $startDate = new \DateTime('01-' . $month . '-' . $year . ' 00:00:00');
+        $endDate = new \DateTime($endDay . '-' . $month . '-' . $year . ' 23:59:59');
 
         return $this->createQueryBuilder('l')
             ->andWhere('l.dateAquis BETWEEN :from and :to')

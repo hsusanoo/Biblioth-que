@@ -231,7 +231,7 @@ class BookController extends AbstractController
 
         return new JsonResponse([
             'type' => "error",
-            'message' => "Not a XmlHttpRequest"
+            'message' => "Not an XmlHttpRequest"
         ], 400, [], false);
 
     }

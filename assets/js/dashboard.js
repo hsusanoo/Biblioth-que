@@ -17,6 +17,35 @@ $('#year').change(function () {
 }).trigger('change');
 
 function refresh(year) {
+
+    $.ajax({
+       url: '/admin/getBooksStats/'+year,
+       success(result){
+           console.log(result);
+
+           // Line Chart
+           let data = {
+               labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+               datasets: [
+                   {
+                       label: mode,
+                       data: result,
+                   }
+               ]
+           };
+           let options = {
+               maintainAspectRatio: false,
+               responsive: true
+           };
+           let myChart = new Chart(ctx, {
+               type: 'line',
+               data: data,
+               options: options
+           });
+
+       }
+    });
+
     $.ajax({
         url: '/admin/getCatStats/' + year,
         success(result) {
@@ -34,33 +63,12 @@ function refresh(year) {
                     '</div>';
             });
             $container.append($content);
-
         }
-    })
+    });
 }
 
 $(document).ready(function () {
 
     $('#option1').trigger('change');
-
-    // Line Chart
-    let data = {
-        labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-        datasets: [
-            {
-                label: mode,
-                data: [10, 14, 17, 43, 12, 7, 19, 34, 43, 29, 17, 66],
-            }
-        ]
-    };
-    let options = {
-        maintainAspectRatio: false,
-        responsive: true
-    };
-    let myChart = new Chart(ctx, {
-        type: 'line',
-        data: data,
-        options: options
-    });
 
 });

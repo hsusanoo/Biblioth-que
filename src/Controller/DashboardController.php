@@ -34,40 +34,86 @@ class DashboardController extends AbstractController
      * @throws \Exception
      */
     public function getCategoriesStats(int $year, CategorieRepository $categorieRepository,
-                                       LivreRepository $livreRepository)
+                                       LivreRepository $livreRepository, Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+
+            // Initialize response data
+            $data = [];
+            // Get Number of books by year
+            $totalLivres = count($livreRepository->findByYear($year));
+            // Get number of samples by year
+            $totalExemplaires = 0;
+            foreach ($livreRepository->findByYear($year) as $livre) {
+                $totalExemplaires += count($livre->getExemplaires());
+            }
+
+            // Loop for each category/domain
+            foreach ($categorieRepository->findAll() as $categorie) {
+                // Get category name
+                $catNom = $categorie->getNom();
+                // Get books by category and year
+                $livres = $livreRepository->getByCategoryAndYear($categorie->getId(), $year);
+                $nbrLivres = count($livres);
+                $nbrExemplaires = 0;
+                foreach ($livres as $livre) {
+                    $nbrExemplaires += count($livre->getExemplaires());
+                }
+                $data['categories'][$catNom]['Livres']['nbr'] = $nbrLivres;
+                $data['categories'][$catNom]['Livres']['prc'] = number_format($nbrLivres * 100 / $totalLivres, 2, '.', ' ');
+                $data['categories'][$catNom]['Exemplaires']['nbr'] = $nbrExemplaires;
+                $data['categories'][$catNom]['Exemplaires']['prc'] = number_format($nbrExemplaires * 100 / $totalExemplaires, 2, '.', ' ');
+            }
+            $data['totalLivres'] = $totalLivres;
+            $data['totalExemplaires'] = $totalExemplaires;
+
+            // Sort by Categories
+            ksort($data);
+
+            $encoders = [
+                new JsonEncoder(),
+            ];
+
+            $normalizers = [
+                new ObjectNormalizer(),
+            ];
+
+            $seralizer = new Serializer($normalizers, $encoders);
+
+            $result = $seralizer->serialize($data, 'json', [
+                'circular_reference_handler' => function ($object) {
+                    return $object->getId();
+                }
+            ]);
+
+            return new JsonResponse($result, 200, [], true);
+
+        }
+        return new JsonResponse([
+            'type' => "error",
+            'message' => "Not an XmlHttpRequest"
+        ], 400, [], false);
+    }
+
+    /**
+     * @Route("/admin/getBooksStats/{year}",name="BooksStatistics")
+     * @param int $year
+     * @param LivreRepository $livreRepository
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function getBooksStats(int $year, LivreRepository $livreRepository)
     {
 
-        // Initialize response data
         $data = [];
-        // Get Number of books by year
-        $totalLivres = count($livreRepository->findByYear($year));
-        // Get number of samples by year
-        $totalExemplaires = 0;
-        foreach ($livreRepository->findByYear($year) as $livre) {
-            $totalExemplaires += count($livre->getExemplaires());
-        }
 
-        // Loop for each category/domain
-        foreach ($categorieRepository->findAll() as $categorie) {
-            // Get category name
-            $catNom = $categorie->getNom();
-            // Get books by category and year
-            $livres = $livreRepository->getByCategoryAndYear($categorie->getId(), $year);
-            $nbrLivres = count($livres);
-            $nbrExemplaires = 0;
-            foreach ($livres as $livre) {
-                $nbrExemplaires += count($livre->getExemplaires());
-            }
-            $data['categories'][$catNom]['Livres']['nbr'] = $nbrLivres;
-            $data['categories'][$catNom]['Livres']['prc'] = number_format($nbrLivres * 100 / $totalLivres, 2, '.', ' ');
-            $data['categories'][$catNom]['Exemplaires']['nbr'] = $nbrExemplaires;
-            $data['categories'][$catNom]['Exemplaires']['prc'] = number_format($nbrExemplaires * 100 / $totalExemplaires, 2, '.', ' ');
-        }
-        $data['totalLivres'] = $totalLivres;
-        $data['totalExemplaires'] = $totalExemplaires;
+        for ($i = 1; $i <= 12; $i++) {
 
-        // Sort by Categories
-        ksort($data);
+            $counter = count($livreRepository->findByYearAndMonth($year, $i));
+
+            $data[] = $counter;
+
+        }
 
         $encoders = [
             new JsonEncoder(),
@@ -88,4 +134,5 @@ class DashboardController extends AbstractController
         return new JsonResponse($result, 200, [], true);
 
     }
+
 }

@@ -109,9 +109,19 @@ class DashboardController extends AbstractController
 
         for ($i = 1; $i <= 12; $i++) {
 
-            $counter = count($livreRepository->findByYearAndMonth($year, $i));
+            $books = $livreRepository->findByYearAndMonth($year, $i);
 
-            $data[] = $counter;
+            $samplesCounter = 0;
+
+
+            foreach ($books as $book) {
+                $samplesCounter += count($book->getExemplaires());
+            }
+
+            $booksCounter = count($books);
+
+            $data['books'][] = $booksCounter;
+            $data['samples'][] = $samplesCounter;
 
         }
 

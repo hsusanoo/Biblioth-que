@@ -10,6 +10,8 @@ $('input[name=options]').change(function () {
 
 });
 
+$('#option1').trigger('change');
+
 $('#year').change(function () {
     year = $(this).val();
     $('.chart-year').text(year);
@@ -19,31 +21,36 @@ $('#year').change(function () {
 function refresh(year) {
 
     $.ajax({
-       url: '/admin/getBooksStats/'+year,
-       success(result){
-           console.log(result);
+        url: '/admin/getBooksStats/' + year,
+        success(result) {
+            console.log(result);
+            // Line Chart
+            let data = {
+                labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                datasets: [
+                    {
+                        label: 'Livres',
+                        data: result.books,
+                        backgroundColor: 'rgba(41,87,120,0.3)',
+                    },
+                    {
+                        label: 'Exemplaires',
+                        data: result.samples,
+                        backgroundColor: 'rgba(80,85,170,0.3)',
+                    }
+                ]
+            };
+            let options = {
+                maintainAspectRatio: false,
+                responsive: true
+            };
+            let myChart = new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: options
+            });
 
-           // Line Chart
-           let data = {
-               labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-               datasets: [
-                   {
-                       label: mode,
-                       data: result,
-                   }
-               ]
-           };
-           let options = {
-               maintainAspectRatio: false,
-               responsive: true
-           };
-           let myChart = new Chart(ctx, {
-               type: 'line',
-               data: data,
-               options: options
-           });
-
-       }
+        }
     });
 
     $.ajax({
@@ -66,9 +73,3 @@ function refresh(year) {
         }
     });
 }
-
-$(document).ready(function () {
-
-    $('#option1').trigger('change');
-
-});

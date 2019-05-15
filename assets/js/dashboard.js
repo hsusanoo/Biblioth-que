@@ -6,7 +6,7 @@ $('input[name=options]').change(function () {
 
     mode = $('input[name=options]:checked').val();
     $('.mode').text(mode);
-    refresh(year);
+    refreshCats(year);
 
 });
 
@@ -23,7 +23,6 @@ function refresh(year) {
     $.ajax({
         url: '/admin/getBooksStats/' + year,
         success(result) {
-            console.log(result);
             // Line Chart
             let data = {
                 labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
@@ -31,12 +30,12 @@ function refresh(year) {
                     {
                         label: 'Livres',
                         data: result.books,
-                        backgroundColor: 'rgba(41,87,120,0.3)',
+                        backgroundColor: 'rgba(41,87,120,0.35)',
                     },
                     {
                         label: 'Exemplaires',
                         data: result.samples,
-                        backgroundColor: 'rgba(80,85,170,0.3)',
+                        backgroundColor: 'rgba(80,85,170,0.35)',
                     }
                 ]
             };
@@ -52,7 +51,10 @@ function refresh(year) {
 
         }
     });
+    refreshCats(year);
+}
 
+function refreshCats(year) {
     $.ajax({
         url: '/admin/getCatStats/' + year,
         success(result) {
@@ -70,6 +72,7 @@ function refresh(year) {
                     '</div>';
             });
             $container.append($content);
+            $('.total').text(result['total'+mode]);
         }
     });
 }

@@ -7,14 +7,58 @@ use App\Entity\Categorie;
 use App\Entity\Descripteur;
 use App\Entity\Exemplaire;
 use App\Entity\Livre;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
+
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
+
     public function load(ObjectManager $manager)
     {
+
+        // Creating random admin user
+
+        $users = [];
+        $user = new User();
+
+        $user->setEmail("admin@gmail.com");
+        $user->setPassword($this->passwordEncoder->encodePassword($user, "admin"));
+        $user->setNom("ADMIN");
+        $user->setPrenom("Admin");
+        $user->setPhone("0548178727");
+        $user->setRoles(["ROLE_ADMIN", "ROLE_GESTION"]);
+
+        $users[] = $user;
+        $manager->persist($user);
+
+
+        $faker = Factory::create();
+
+        for ($i = 0; $i < 3; $i++) {
+            $user = new User();
+
+            $user->setEmail($faker->email);
+            $user->setPassword($this->passwordEncoder->encodePassword($user, "admin"));
+            $user->setNom($faker->lastName);
+            $user->setPrenom($faker->firstName);
+            $user->setPhone("06" . $faker->randomNumber(8));
+            $user->setRoles(["ROLE_ADMIN"]);
+
+            $users[] = $user;
+            $manager->persist($user);
+        }
+
 
         // Ctreating Categories
         $categories_array = [
@@ -47,9 +91,6 @@ class AppFixtures extends Fixture
             $categories[] = $cat;
         }
 
-
-        $faker = Factory::create();
-
         // Creating authors
         $authors = [];
         for ($i = 0; $i < 70; $i++) {
@@ -69,16 +110,17 @@ class AppFixtures extends Fixture
         }
 
         // Creating multiple books
-        for ($i = 0; $i < 1000; $i++) {
+        for ($i = 0; $i < 300; $i++) {
 
             // Book infos
             $book = new Livre();
+            $book->setAddedBy($faker->randomElement($users));
             $book->setCouverture($faker->imageUrl(350, 500, 'abstract'));
             $book->setIsbn($faker->isbn10);
             $book->setEditeur($faker->name);
-            $book->setTitrePrincipale($faker->sentence($faker->numberBetween(3,7)));
-            $book->setTitreSecondaire($faker->sentence($faker->numberBetween(3,7)));
-            $book->setDateAquis($faker->dateTimeThisYear('now'));
+            $book->setTitrePrincipale($faker->sentence($faker->numberBetween(3, 7)));
+            $book->setTitreSecondaire($faker->sentence($faker->numberBetween(3, 7)));
+            $book->setDateAquis($faker->dateTimeBetween('-10 years','now'));
             $book->setUpdatedAt(new \DateTime());
             $book->setDateEdition($faker->year());
             $book->setPrix($faker->numberBetween(100, 500));
@@ -88,17 +130,17 @@ class AppFixtures extends Fixture
             $book->setCategorie($faker->randomElement($categories));
             $book->setDescripteurs($faker->randomElements($tags, $faker->numberBetween(1, 4)));
             // Samples
-            for ($j = 0; $j < mt_rand(2, 30); $j++) {
+            for ($j = 1; $j < mt_rand(1, 10); $j++) {
                 $sample = new Exemplaire();
-                $sample->setNInventaire($faker->randomFloat(7,11111.10,55555.99));
+                $sample->setNInventaire($faker->randomFloat(7, 11111.10, 55555.99));
                 $sample->setCote(strtoupper($faker->word) . "-" . $faker->numberBetween(10, 30));
                 $manager->persist($sample);
                 $book->addExemplaire($sample);
             }
 
-        }
+            $manager->persist($book);
 
-        $manager->persist($book);
+        }
 
         $manager->flush();
     }

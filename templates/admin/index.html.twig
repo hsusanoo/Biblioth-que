@@ -21,10 +21,9 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <h4 class="card-title mb-0">
-                                    <span class="mode">
-                                    </span>
-                            </h4>
+                            <h3 class="card-title mb-0">
+                                    Acquisitions
+                            </h3>
                             <div class="small text-muted chart-year"></div>
                         </div>
                         <div class="col-lg-1 col-md-2 col-sm-3 col-4">
@@ -36,17 +35,6 @@
                             <button class="btn btn-primary float-right" type="button">
                                 <i class="cui-cloud-download"></i>
                             </button>
-                            <div class="btn-group btn-group-toggle float-right mr-3" data-toggle="buttons">
-                                <label class="btn btn-outline-secondary active">
-                                    <input id="option1" type="radio" name="options" autocomplete="off" checked
-                                           value="Livres">
-                                    Livres
-                                </label>
-                                <label class="btn btn-outline-secondary">
-                                    <input id="option2" type="radio" name="options" autocomplete="off"
-                                           value="Exemplaires"> Exemplaires
-                                </label>
-                            </div>
                         </div>
 
                     </div>
@@ -56,7 +44,32 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <div id="categories" class="row text-center">
+                    <div class="card card-body">
+                        <div class="row mb-1">
+                            <div class="col"><h3>Domaines</h3></div>
+                            <div class="col text-center">
+                                <h4 title="Quantité totale">
+                                    <span class="badge badge-primary total"></span>
+                                    <span class="mode"></span>
+                                </h4>
+                            </div>
+                            <div class="col d-none d-md-block pr-0">
+                                <div class="btn-group btn-group-toggle float-right mr-3" data-toggle="buttons">
+                                    <label class="btn btn-outline-secondary active">
+                                        <input id="option1" type="radio" name="options" autocomplete="off" checked
+                                               value="Livres">
+                                        Livres
+                                    </label>
+                                    <label class="btn btn-outline-secondary">
+                                        <input id="option2" type="radio" name="options" autocomplete="off"
+                                               value="Exemplaires"> Exemplaires
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div id="categories" class="row text-center mt-1">
+                        </div>
                     </div>
                 </div>
             </div>

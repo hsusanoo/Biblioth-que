@@ -43,7 +43,8 @@ require('select2/dist/js/i18n/fr');
 require('store');
 require('jquery-resizable-columns/dist/jquery.resizableColumns.min');
 require('chart.js/dist/Chart.min');
-
+require('file-saver/dist/FileSaver.min');
+require('canvas-toBlob');
 
 // Override update method
 $.fn.select2.amd.require._defined['select2/selection/search'].prototype.update = function (a, b) {

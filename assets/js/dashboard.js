@@ -76,3 +76,13 @@ function refreshCats(year) {
         }
     });
 }
+
+$(document).ready(function () {
+
+    $("#save-btn").click(function() {
+        $("#main-chart").get(0).toBlob(function(blob) {
+            saveAs(blob, "courbe.png");
+        });
+    });
+
+});

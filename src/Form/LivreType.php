@@ -3,13 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Categorie;
-use App\Entity\Descripteur;
 use App\Entity\Livre;
-use App\Form\DataTransformer\StringToTagTransformer;
-use App\Repository\CategorieRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -22,12 +18,13 @@ class LivreType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('couvertureFile',FileType::class,[
+            ->add('couvertureFile', FileType::class, [
                 'required' => false,
                 'label' => false
             ])
             ->add('titrePrincipale')
             ->add('titreSecondaire')
+            ->add('editeur')
             ->add('dateEdition', TextType::class)
             ->add('prix')
             ->add('nPages')
@@ -42,14 +39,18 @@ class LivreType extends AbstractType
                 'class' => Categorie::class,
                 'choice_label' => "nom"
             ])
-            ->add('descripteurs', ChoiceType::class, [
+            ->add('descripteurs', TagsInputType::class, [
                 'label' => false,
-                'multiple' => true,
-                'required' => false,
-                'attr' => [
-                    'class' => "select-two-multiple"
-                ]
+                'required' => false
             ])
+//            ->add('descripteurs', ChoiceType::class, [
+//                'label' => false,
+//                'multiple' => true,
+//                'required' => false,
+//                'attr' => [
+//                    'class' => "select-two-multiple"
+//                ]
+//            ])
             ->add('exemplaires', CollectionType::class, [
                 'entry_type' => ExemplaireType::class,
                 'entry_options' => [
@@ -66,7 +67,7 @@ class LivreType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true
             ]);
-        $builder->get('descripteurs')->resetViewTransformers();
+//        $builder->get('descripteurs')->resetViewTransformers();
     }
 
     public function configureOptions(OptionsResolver $resolver)

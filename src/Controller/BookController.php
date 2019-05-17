@@ -139,93 +139,93 @@ class BookController extends AbstractController
 
         if ($request->isXmlHttpRequest()) {
 
-        if (($start = $request->query->get('start')) && ($end = $request->query->get('end'))) {
+            if (($start = $request->query->get('start')) && ($end = $request->query->get('end'))) {
 
-            $livres = $livreRepository->findByDateRange($start, $end);
+                $livres = $livreRepository->findByDateRange($start, $end);
 
-        } else {
+            } else {
 
-            $livres = $livreRepository->findAll();
+                $livres = $livreRepository->findAll();
 
-        }
-
-
-        $books = [];
-
-        foreach ($livres as $livre) {
-
-            $book = [];
-            $book['id'] = $livre->getId();
-            $book['titrePrincipale'] = $livre->getTitrePrincipale();
-            $book['titreSecondaire'] = $livre->getTitreSecondaire();
-            $book['isbn'] = $livre->getIsbn() ? $livre->getIsbn() : "";
-            $book['couverture'] = $livre->getCouverture() ? $livre->getCouverture() : "";
-            $statut = 0;
-            foreach ($livre->getExemplaires() as $exemplaire) {
-                if ($exemplaire->getStatut() == 1)
-                    $statut = 1;
             }
-            $book['statut'] = $statut;
-            $book['edition'] = $livre->getDateEdition() ? $livre->getDateEdition() : "";
-            $book['date_aquis'] = date_format($livre->getDateAquis(), "d/m/Y");
-            $book['quantité'] = count($livre->getExemplaires());
-            $book['observation'] = $livre->getObservation() ? $livre->getObservation() : "";
-            $book['n_pages'] = $livre->getNPages() ? $livre->getNPages() : "";
-            if ($livre->getCategorie()) {
-                $book['categorie'] = $livre->getCategorie()->getNom();
-            } else
-                $book['categorie'] = "";
-            $book['prix'] = $livre->getPrix() ? $livre->getPrix() : "";
-            if (count($livre->getDescripteurs()) > 0) {
-                $tags = [];
-                foreach ($livre->getDescripteurs() as $tag) {
-                    $tags[] = $tag->getNom();
+
+
+            $books = [];
+
+            foreach ($livres as $livre) {
+
+                $book = [];
+                $book['id'] = $livre->getId();
+                $book['titrePrincipale'] = $livre->getTitrePrincipale();
+                $book['titreSecondaire'] = $livre->getTitreSecondaire();
+                $book['isbn'] = $livre->getIsbn() ? $livre->getIsbn() : "";
+                $book['couverture'] = $livre->getCouverture() ? $livre->getCouverture() : "";
+                $statut = 0;
+                foreach ($livre->getExemplaires() as $exemplaire) {
+                    if ($exemplaire->getStatut() == 1)
+                        $statut = 1;
                 }
-                $book['tags'] = implode(",", $tags);
-            } else
-                $book['tags'] = "";
-            if (count($livre->getAuteurs()) > 0) {
-                $authors = [];
-                foreach ($livre->getAuteurs() as $auteur) {
-                    $authors[] = $auteur->getNom();
+                $book['statut'] = $statut;
+                $book['edition'] = $livre->getDateEdition() ? $livre->getDateEdition() : "";
+                $book['date_aquis'] = date_format($livre->getDateAquis(), "d/m/Y");
+                $book['quantité'] = count($livre->getExemplaires());
+                $book['observation'] = $livre->getObservation() ? $livre->getObservation() : "";
+                $book['n_pages'] = $livre->getNPages() ? $livre->getNPages() : "";
+                if ($livre->getCategorie()) {
+                    $book['categorie'] = $livre->getCategorie()->getNom();
+                } else
+                    $book['categorie'] = "";
+                $book['prix'] = $livre->getPrix() ? $livre->getPrix() : "";
+                if (count($livre->getDescripteurs()) > 0) {
+                    $tags = [];
+                    foreach ($livre->getDescripteurs() as $tag) {
+                        $tags[] = $tag->getNom();
+                    }
+                    $book['tags'] = implode(",", $tags);
+                } else
+                    $book['tags'] = "";
+                if (count($livre->getAuteurs()) > 0) {
+                    $authors = [];
+                    foreach ($livre->getAuteurs() as $auteur) {
+                        $authors[] = $auteur->getNom();
+                    }
+                    $book['authors'] = implode(",", $authors);
+                } else
+                    $book['authors'] = "";
+                if ($qCat = $request->query->get('cat')) {
+                    if ($book['categorie'] !== $qCat) {
+                        continue;
+                    }
                 }
-                $book['authors'] = implode(",", $authors);
-            } else
-                $book['authors'] = "";
-            if ($qCat = $request->query->get('cat')) {
-                if ($book['categorie'] !== $qCat) {
-                    continue;
+                if ($qStatut = $request->query->get('statut')) {
+                    if ($book['statut'] !== (int)$qStatut) {
+                        continue;
+                    }
                 }
+                $books[] = $book;
             }
-            if ($qStatut = $request->query->get('statut')) {
-                if ($book['statut'] !== (int)$qStatut) {
-                    continue;
-                }
+
+            if ($books) {
+
+                $encoders = [
+                    new JsonEncoder(),
+                ];
+
+                $normalizers = [
+                    new ObjectNormalizer(),
+                ];
+
+                $seralizer = new Serializer($normalizers, $encoders);
+
+                $data = $seralizer->serialize($books, 'json', [
+                    'circular_reference_handler' => function ($object) {
+                        return $object->getId();
+                    }
+                ]);
+
+                return new JsonResponse($data, 200, [], true);
+
             }
-            $books[] = $book;
-        }
-
-        if ($books) {
-
-            $encoders = [
-                new JsonEncoder(),
-            ];
-
-            $normalizers = [
-                new ObjectNormalizer(),
-            ];
-
-            $seralizer = new Serializer($normalizers, $encoders);
-
-            $data = $seralizer->serialize($books, 'json', [
-                'circular_reference_handler' => function ($object) {
-                    return $object->getId();
-                }
-            ]);
-
-            return new JsonResponse($data, 200, [], true);
-
-        }
 
         }
 
@@ -266,11 +266,11 @@ class BookController extends AbstractController
             $auteur->addLivre($livre);
             $livre->addAuteur($auteur);
 
-        } else {
-            $tags = [];
-            foreach ($livre->getDescripteurs() as $tag) {
-                $tags[] = $tag->getNom();
-            }
+//        } else {
+//            $tags = [];
+//            foreach ($livre->getDescripteurs() as $tag) {
+//                $tags[] = $tag->getNom();
+//            }
         }
 
 
@@ -280,38 +280,37 @@ class BookController extends AbstractController
 
         if ($livreForm->isSubmitted() && $livreForm->isValid()) {
 
-            // Converting tags strings to Objects Array
-            $descripteurs = [];
-
-            foreach ($livre->getDescripteurs() as $desc) {
-
-                if (!is_numeric($desc)) {
-                    if (!$desc instanceof Descripteur) {
-
-                        $exists = $manager
-                            ->getRepository(DescripteurRepository::class)
-                            ->findOneBy(["nom" => $desc]);
-
-                        if (!$exists) {
-
-                            $descripteur = new Descripteur();
-                            $descripteur->setNom($desc);
-                            $manager->persist($descripteur);
-
-                            $descripteurs[] = $descripteur;
-
-                        } else {
-                            $descripteurs[] = $exists;
-                        }
-
-                    } else {
-                        $descripteurs[] = $desc;
-                    }
-
-                }
-            }
-
-            $livre->setDescripteurs($descripteurs);
+//            // Converting tags strings to Objects Array
+//            $descripteurs = [];
+//            foreach ($livre->getDescripteurs() as $desc) {
+//
+//                if (!is_numeric($desc)) {
+//                    if (!$desc instanceof Descripteur) {
+//
+//                        $exists = $manager
+//                            ->getRepository(DescripteurRepository::class)
+//                            ->findOneBy(["nom" => $desc]);
+//
+//                        if (!$exists) {
+//
+//                            $descripteur = new Descripteur();
+//                            $descripteur->setNom($desc);
+//                            $manager->persist($descripteur);
+//
+//                            $descripteurs[] = $descripteur;
+//
+//                        } else {
+//                            $descripteurs[] = $exists;
+//                        }
+//
+//                    } else {
+//                        $descripteurs[] = $desc;
+//                    }
+//
+//                }
+//            }
+//
+//            $livre->setDescripteurs($descripteurs);
 
             foreach ($livre->getAuteurs() as $auteur)
                 $auteur->addLivre($livre);
@@ -320,8 +319,8 @@ class BookController extends AbstractController
                 $exemplaire->setLivre($livre);
             }
 
-            // setting update time
-            $livre->setUpdatedAt(new \DateTime());
+//            // setting update time
+//            $livre->setUpdatedAt(new \DateTime());
 
             //setting added by
             $livre->setAddedBy($this->getUser());
@@ -335,7 +334,7 @@ class BookController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Livre ajouté avec succès !');
+                'Livre ' . $livre->getId() ? 'modifié' : 'ajouté' . 'avec succès !');
 
             return $this->redirectToRoute("books");
         }
@@ -343,7 +342,7 @@ class BookController extends AbstractController
         if ($livre->getId())
             return $this->render('admin/book/new.html.twig', [
                 'livreForm' => $livreForm->createView(),
-                'tags' => $tags ? $tags : null,
+//                'tags' => $tags ? $tags : null,
                 'editMode' => true,
                 'livre' => $livre
             ]);

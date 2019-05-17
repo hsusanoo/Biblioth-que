@@ -1,3 +1,5 @@
+//TODO: domain select2 bug always focusing
+
 $('#exportType').change(function () {
     $('#table').bootstrapTable('refreshOptions', {
         exportTypes: ['csv', 'sql', 'excel'],

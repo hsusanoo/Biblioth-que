@@ -49,7 +49,8 @@
                                 {{ form_row(livreForm.Isbn,{
                                     'label': false,
                                     'attr':{
-                                        'placeholder': "Numéro ISBN"
+                                        'placeholder': "Numéro ISBN",
+                                        'autofocus': "true"
                                     }}) }}
                             </div>
                             <div class="col">
@@ -80,6 +81,14 @@
                             </div>
                         </div>
                         <div class="form-row">
+                            <div class="col">
+                                {{ form_row(livreForm.editeur,{
+                                    'label': false,
+                                    'attr':{
+                                        'placeholder': "Editeur"
+                                    }
+                                }) }}
+                            </div>
                             <div class="col">
                                 {{ form_row(livreForm.dateEdition,{
                                     'label': false,
@@ -117,7 +126,7 @@
                         </div>
                         <div class="form-row">
                             <div class="col">
-                                {% if tags is defined %}
+                                {#{% if tags is defined %}
                                     {{ form_row(livreForm.descripteurs,{
                                         'attr':{
                                             'value': tags|join(',')
@@ -126,6 +135,25 @@
                                 {% else %}
                                     {{ form_row(livreForm.descripteurs) }}
                                 {% endif %}
+                                <input type="text" class="select-two-multiple" multiple>#}
+                                <div class="input-group">
+                                    {{ form_widget(livreForm.descripteurs, {
+                                        'attr': {
+                                            'data-toggle': 'tagsinput',
+                                             'data-tags': livreForm.descripteurs|json_encode
+                                             }
+                                         })
+                                     }}
+                                    <span class="input-group-addon">
+                                        <span class="fa fa-tags" aria-hidden="true"></span>
+                                    </span>
+                                </div>
+                                {#{{ form_row(livreForm.descripteurs),{
+                                    'attr': {
+                                        'data-toggle': 'tagsinput',
+                                        'data-tags': livreForm.descripteurs|json_encode
+                                    }
+                                } }}#}
                             </div>
                         </div>
                         <div class="form-row">
@@ -133,7 +161,8 @@
                                 {{ form_row(livreForm.observation,{
                                     'label': false,
                                     'attr':{
-                                        'placeholder': "Description..."
+                                        'placeholder': "Description...",
+                                        'rows': "5"
                                     }}) }}
                             </div>
                         </div>

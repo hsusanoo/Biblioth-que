@@ -130,7 +130,7 @@ class AppFixtures extends Fixture
             $book->setCategorie($faker->randomElement($categories));
             $book->setDescripteurs($faker->randomElements($tags, $faker->numberBetween(1, 4)));
             // Samples
-            for ($j = 1; $j < mt_rand(1, 10); $j++) {
+            for ($j = 1; $j < mt_rand(2, 10); $j++) {
                 $sample = new Exemplaire();
                 $sample->setNInventaire($faker->randomFloat(7, 11111.10, 55555.99));
                 $sample->setCote(strtoupper($faker->word) . "-" . $faker->numberBetween(10, 30));

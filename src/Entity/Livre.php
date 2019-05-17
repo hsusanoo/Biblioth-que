@@ -134,9 +134,11 @@ class Livre
 
     public function __construct()
     {
+        $this->updated_at = new \DateTime();
         $this->exemplaires = new ArrayCollection();
         $this->descripteurs = new ArrayCollection();
         $this->auteurs = new ArrayCollection();
+        $this->descripteurs = new ArrayCollection();
     }
 
 

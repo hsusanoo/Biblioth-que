@@ -1,7 +1,8 @@
-// Book cover
-.custom-file{
+/* Book cover */
+.custom-file {
   display: none;
 }
+
 .cover-upload {
   input {
     display: none;
@@ -36,4 +37,16 @@
     object-position: center;
   }
 
+}
+
+/* Select2 Override styles */
+.select2-container--default .select2-selection--single {
+  border: 1px solid #e4e7ea;
+  height: 100%;
+  padding: 2px;
+}
+
+/* Tags input */
+tags.tagify{
+  width: 100%;
 }

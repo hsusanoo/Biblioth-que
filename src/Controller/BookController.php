@@ -334,7 +334,7 @@ class BookController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Livre ' . $livre->getId() ? 'modifié' : 'ajouté' . 'avec succès !');
+                'Livre ' . ($livre->getId() ? 'modifié' : 'ajouté') . 'avec succès !');
 
             return $this->redirectToRoute("books");
         }

@@ -45,6 +45,7 @@ require('jquery-resizable-columns/dist/jquery.resizableColumns.min');
 require('chart.js/dist/Chart.min');
 require('file-saver/dist/FileSaver.min');
 require('canvas-toBlob');
+var Tagify = require('@yaireo/tagify/dist/jQuery.tagify.min');
 
 // Override update method
 $.fn.select2.amd.require._defined['select2/selection/search'].prototype.update = function (a, b) {
@@ -133,7 +134,7 @@ function getDates(startDate, endDate) {
     return dateArray;
 }
 
-// dateRangePicker filter
+/* dateRangePicker filter */
 
 var startDate;
 var endDate;
@@ -196,7 +197,7 @@ $(function () {
     });
 });
 
-// table filter
+/* table filter */
 $('#filter_button').click(function (e) {
 
     let statut = $('#statut').val();
@@ -227,3 +228,9 @@ $('#filter_button').click(function (e) {
 // assets/js/_main.js
 const imagesContext = require.context('../img', true, /\.(png|jpg|jpeg|gif|ico|svg|webp)$/);
 imagesContext.keys().forEach(imagesContext);
+
+/* Tags */
+$('input.tagify').removeClass('form-control').tagify({
+    // maxTags: 4,
+});
+

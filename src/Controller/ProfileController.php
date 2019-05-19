@@ -80,14 +80,12 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/admin/responsable/{id}/overview")
+     * @Route("/admin/responsable/{id}/overview",name="admin_overview")
      * @param User $user
-     * @param Request $request
      * @param CategorieRepository $repository
      * @return JsonResponse
      */
-    public function getOverview(User $user, Request $request,
-                                CategorieRepository $repository)
+    public function getOverview(User $user, CategorieRepository $repository)
     {
 
         $data = [];
@@ -127,5 +125,13 @@ class ProfileController extends AbstractController
             'type' => "error",
             'message' => "Not a XmlHttpRequest"
         ], 400, [], false);
+    }
+
+    /**
+     * @Route("/admin/profile",name="user_profile")
+     */
+    public function profile()
+    {
+        return $this->index($this->getUser());
     }
 }

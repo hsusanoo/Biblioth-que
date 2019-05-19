@@ -52,6 +52,9 @@
                         </table>
                     </div>
                 </div>
+                {% if app.user == resp %}
+                    <div class="card-footer"></div>
+                {% endif %}
             </div>
         </div>
         <div class="col">
@@ -60,7 +63,8 @@
                     <div class="card text-center">
                         <h4 class="card-header">Vue d'ensemble</h4>
                         <div class="card-body d-flex justify-content-center">
-                            <div class="chart-wrapper" style="position: relative;height: 380px;width: 100%;max-width: 700px;">
+                            <div class="chart-wrapper"
+                                 style="position: relative;height: 380px;width: 100%;max-width: 700px;">
                                 <canvas class="chart" id="admin_chart"></canvas>
                             </div>
                         </div>

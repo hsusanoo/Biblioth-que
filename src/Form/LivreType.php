@@ -43,14 +43,6 @@ class LivreType extends AbstractType
                 'label' => false,
                 'required' => false
             ])
-//            ->add('descripteurs', ChoiceType::class, [
-//                'label' => false,
-//                'multiple' => true,
-//                'required' => false,
-//                'attr' => [
-//                    'class' => "select-two-multiple"
-//                ]
-//            ])
             ->add('exemplaires', CollectionType::class, [
                 'entry_type' => ExemplaireType::class,
                 'entry_options' => [
@@ -67,7 +59,6 @@ class LivreType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true
             ]);
-//        $builder->get('descripteurs')->resetViewTransformers();
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -1,0 +1,62 @@
+{% extends 'search_base.html.twig' %}
+{% block title %}Résultats{% endblock %}
+{% block stylesheets %}
+{% endblock %}
+{% block body %}
+    <nav class="navbar d-flex justify-content-center">
+        <a class="nav-item">
+            <form action="" method="get">
+                <div class="ui search mb-5">
+                    <div class="ui left icon input">
+                        <input class="prompt" type="text" value="{{ app.request.query.get('q') }}" placeholder="Recherche..." style="width: 400px;">
+                        <i class="icon cui-magnifying-glass"></i>
+                    </div>
+                </div>
+            </form>
+        </a>
+    </nav>
+    <main class="main">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    {{ books|length }} résultats
+                    <hr>
+                    <ul class="list-unstyled">
+                        {% for book in books %}
+                            <li class="media">
+                                <a href="{{ book.url }}">
+                                    <img class="mr-3" src="{{ book.cover }}" height="100px">
+                                </a>
+                                <div class="media-body">
+                                    <a href="{{ book.url }}"><h3 class="mt-0 mb-1">{{ book.title }}</h3></a>
+                                    <small class="post-metadata text-muted">
+                                        <span class="metadata p-3" title="Date d'ajout"><i
+                                                    class="icon cui-calendar"></i> {{ book.date }}</span>
+                                        <span class="metadata p-3" title="Auteurs"><i
+                                                    class="icon cui-user"></i> {{ book.authors }}</span>
+                                    </small>
+                                    <p>
+                                        {{ book.desc }}
+                                    </p>
+                                    <div class="tags">
+                                        {% for tag in book.tags %}
+                                            <a href="{{ path('search_results')~'?q='~app.request.query.get('q')~'&tag='~tag.nom }}"
+                                            >
+                                                <span class="badge badge-{{ tag.nom == app.request.query.get('tag') ? 'primary' : 'secondary' }} m-1">
+                                                <i class="icon cui-tags"></i> {{ tag.nom }}
+                                                </span>
+                                            </a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </li>
+                            <hr>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block javascripts %}
+{% endblock %}

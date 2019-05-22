@@ -113,6 +113,53 @@ class LivreRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @return Livre[]
+     */
+    public function findBySearchQuery(string $rawQuery): array
+    {
+        $query = $this->sanitizeSearchQuery($rawQuery);
+        $searchTerms = $this->extractSearchTerms($query);
+
+        if (0 === \count($searchTerms)) {
+            return [];
+        }
+
+        $queryBuilder = $this->createQueryBuilder('l');
+
+        foreach ($searchTerms as $key => $term) {
+            $queryBuilder
+                ->orWhere('l.titrePrincipale LIKE :t_'.$key)
+                ->setParameter('t_'.$key, '%'.$term.'%')
+            ;
+        }
+
+        return $queryBuilder
+            ->orderBy('l.dateAquis', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Removes all non-alphanumeric characters except whitespaces.
+     */
+    private function sanitizeSearchQuery(string $query): string
+    {
+        return trim(preg_replace('/[[:space:]]+/', ' ', $query));
+    }
+
+    /**
+     * Splits the search query into terms and removes the ones which are irrelevant.
+     */
+    private function extractSearchTerms(string $searchQuery): array
+    {
+        $terms = array_unique(explode(' ', $searchQuery));
+
+        return array_filter($terms, function ($term) {
+            return 2 <= mb_strlen($term);
+        });
+    }
+
     // /**
     //  * @return Livre[] Returns an array of Livre objects
     //  */

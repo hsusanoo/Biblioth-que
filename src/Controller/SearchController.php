@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\CategorieRepository;
+use App\Repository\DescripteurRepository;
 use App\Repository\LivreRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,11 +27,15 @@ class SearchController extends AbstractController
 
     /**
      * @Route("/search/get")
+     * @param Request $request
+     * @param LivreRepository $repo
+     * @param CategorieRepository $categorieRepository
+     * @return JsonResponse
      */
     public function getSearch(Request $request, LivreRepository $repo, CategorieRepository $categorieRepository)
     {
 
-//        if ($request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
 
             $livres = $repo->findAll();
 
@@ -40,16 +45,16 @@ class SearchController extends AbstractController
             foreach ($categorieRepository->findAll() as $categorie) {
                 $results['results']['category' . $i]['name'] = $categorie->getNom();
                 foreach ($livres as $livre) {
-                    if (!($livre->getCategorie()===$categorie))
+                    if (!($livre->getCategorie() === $categorie))
                         continue;
                     $book = [];
                     $book['image'] = $livre->getCouverture() ? $livre->getCouverture() : "";
                     $book['title'] = $livre->getTitrePrincipale();
                     $book['url'] = "#";
                     $book['description'] = $livre->getObservation() ? $livre->getObservation() : "";
-                    $results['results']['category'.$i]['results'][] = $book;
-//                    dd($livre->getCategorie(),$categorie,!($livre->getCategorie()===$categorie));
-                    break;
+                    $results['results']['category' . $i]['results'][] = $book;
+                    $results['results']['category' . $i]['results'][] = $book;
+                    $results['results']['category' . $i]['results'][] = $book;
                 }
                 $i++;
             }
@@ -77,12 +82,69 @@ class SearchController extends AbstractController
 
             }
 
-//        }
+        }
 
         return new JsonResponse([
             'type' => "error",
             'message' => "Not an XmlHttpRequest"
         ], 400, [], false);
 
+    }
+
+    /**
+     * @Route("/search/results",name="search_results", methods={"GET"})
+     * @param Request $request
+     * @param LivreRepository $livreRepository
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function results(Request $request, LivreRepository $livreRepository)
+    {
+
+        $query = $request->query->get('q', '');
+
+        if (!$query)
+            return $this->render('search/index.html.twig');
+
+        $foundBooks = $livreRepository->findBySearchQuery($query);
+
+        $results = [];
+
+        foreach ($foundBooks as $book) {
+            $authors = [];
+            foreach ($book->getAuteurs() as $auteur) {
+                $authors[] = $auteur->getNom();
+            }
+            $results[] = [
+                'cover' => $book->getCouverture(),
+                'title' => $book->getTitrePrincipale(),
+                'date' => $book->getDateAquis()->format('M d,Y'),
+                'authors' => join(", ", $authors),
+                'desc' => $book->getObservation(),
+                'url' => "",
+                'tags' => $book->getDescripteurs()
+            ];
+        }
+
+        $withTags = false;
+        $filtered = [];
+        if ($tagName = $request->query->get('tag')) {
+
+            $withTags = true;
+
+            foreach ($results as $result) {
+                foreach ($result['tags'] as $tag) {
+                    if ($tag->getNom()===$tagName){
+                        $filtered[]=$result;
+                        break;
+                    }
+                }
+            }
+        }
+
+//        dd($results);
+
+        return $this->render('search/results.html.twig', [
+            'books' => ($withTags ? $filtered : $results)
+        ]);
     }
 }

@@ -1,76 +1,38 @@
-{% extends 'login_base.html.twig' %}
+{% extends 'search_base.html.twig' %}
 
 {% block title %}Recherche{% endblock %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <style>
-        body {
-            background-color: #eee;
-        }
-        .results .category .name{
-            width: 120px;
-            max-width: 120px;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-            white-space: initial !important;
-        }
-        .results .result .image{
-            height: 8em !important;
-        }
-        .ui.category.search .results {
-            width: 32em !important;
+        body{
+            background: #eee;
         }
     </style>
 {% endblock %}
 {% block body %}
-    <div class="row mb-5">
-        <div class="col mb-5">
-            <div class="row mb-5">
-                <div class="col d-flex justify-content-center">
-                    <img src="https://pixabay.com/get/51e6dd40485ab10ff3d89938b977692b083edbe05b557949712a78/search-768328_640.png"
-                         alt="Search image" width="250px" height="250px" style="border-radius: 50%">
+    <div class="container flex-row align-items-center">
+        <div class="row mb-5 mt-5">
+            <div class="col mb-5">
+                <div class="row mb-5">
+                    <div class="col d-flex justify-content-center">
+                        <img src="https://pixabay.com/get/51e6dd40485ab10ff3d89938b977692b083edbe05b557949712a78/search-768328_640.png"
+                             alt="Search image" width="250px" height="250px" style="border-radius: 50%">
+                    </div>
                 </div>
-            </div>
-            <div class="row d-flex justify-content-center mb-3">
-                <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-12 mb-3">
-                    <form action="">
-                        <div class="ui search">
-                            <div class="ui fluid left icon input">
-                                <input class="prompt" type="text" placeholder="Recherche...">
-                                <i class="icon cui-magnifying-glass"></i>
+                <div class="row d-flex justify-content-center mb-3">
+                    <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-12 mb-3">
+                        <form action="{{ path('search_results') }}" method="get">
+                            <div class="ui search mb-5">
+                                <div class="ui fluid left icon input">
+                                    <input name="q" class="prompt" type="text" placeholder="Recherche...">
+                                    <i class="icon cui-magnifying-glass"></i>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
 {% block javascripts %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
-    <script>
-        $.get('/search/get',function (data, status) {
-            console.log(data);
-        });
-        $('.ui.search')
-            .search({
-                // source: data,
-                apiSettings: {
-                    url: '/search/get'
-                },
-                /*fields: {
-                    // results : 'items',
-                    title: 'titrePrincipale',
-                    description: 'observation'
-                },*/
-                /*searchFields: [
-                    'titrePrincipale',
-                    'tags'
-                ],*/
-                minCharacters: 3,
-                searchFullText: false,
-                type: 'category'
-            })
-        ;
-    </script>
 {% endblock %}

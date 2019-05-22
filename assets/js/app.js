@@ -11,6 +11,7 @@ require('../css/app.scss');
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 const $ = require('jquery');
 global.$ = $;
+global.jQuery = $;
 
 require('bootstrap');
 require('popper.js');
@@ -46,6 +47,7 @@ require('chart.js/dist/Chart.min');
 require('file-saver/dist/FileSaver.min');
 require('canvas-toBlob');
 var Tagify = require('@yaireo/tagify/dist/jQuery.tagify.min');
+require('semantic-ui-search/search');
 
 // Override update method
 $.fn.select2.amd.require._defined['select2/selection/search'].prototype.update = function (a, b) {
@@ -135,7 +137,6 @@ function getDates(startDate, endDate) {
 }
 
 /* dateRangePicker filter */
-
 var startDate;
 var endDate;
 

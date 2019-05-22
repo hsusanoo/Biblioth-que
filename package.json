@@ -42,6 +42,7 @@
         "perfect-scrollbar": "^1.4.0",
         "popper.js": "^1.15.0",
         "select2": "^4.0.7",
+        "semantic-ui-search": "^2.3.3",
         "store": "^2.0.12",
         "tableexport.jquery.plugin": "^1.10.3",
         "toastr": "^2.1.4",

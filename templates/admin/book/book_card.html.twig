@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ book.titrePrincipale }}
+{% endblock %}
+{% block bread_cumb %}
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item" aria-current="page"><a href="{{ path('books') }}">Livres</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ book.titrePrincipale }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+    <div class="container" style="margin-top: -40px">
+        {% include '/admin/book/_card.html.twig' %}
+    </div>
+{% endblock %}

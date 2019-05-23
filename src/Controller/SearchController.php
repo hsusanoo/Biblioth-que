@@ -51,7 +51,7 @@ class SearchController extends AbstractController
                     $book = [];
                     $book['image'] = $livre->getCouverture() ? $livre->getCouverture() : "";
                     $book['title'] = $livre->getTitrePrincipale();
-                    $book['url'] = "#";
+                    $book['url'] = "/search/book/".$livre->getId();
                     $book['description'] = $livre->getObservation() ? $livre->getObservation() : "";
                     $results['results']['category' . $i]['results'][] = $book;
                     $results['results']['category' . $i]['results'][] = $book;

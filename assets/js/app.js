@@ -206,10 +206,10 @@ $('#filter_button').click(function (e) {
 
     $('#table').bootstrapTable('refreshOptions', {
         url: '/admin/books/get',
-        queryParams: getParams(statut,cat,startDate,endDate)
+        queryParams: getParams(statut, cat, startDate, endDate)
     });
 
-    function getParams(statut,cat,startDate,endDate) {
+    function getParams(statut, cat, startDate, endDate) {
 
         let params = {};
 
@@ -217,7 +217,7 @@ $('#filter_button').click(function (e) {
             params.statut = statut;
         if (cat !== '')
             params.cat = cat;
-        if (startDate && endDate){
+        if (startDate && endDate) {
             params.start = startDate;
             params.end = endDate
         }
@@ -235,3 +235,11 @@ $('input.tagify').removeClass('form-control').tagify({
     // maxTags: 4,
 });
 
+/* Book cover */
+
+var cover = $('#book_cover');
+var src = cover.attr('src');
+if (!src.includes('/')) {
+    let oldValue = cover.attr('src');
+    cover.attr('src', '/img/livres/' + oldValue);
+}

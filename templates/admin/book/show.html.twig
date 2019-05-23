@@ -165,14 +165,19 @@
             return '<span class="badge badge-pill badge-' + badge + '" style="margin-bottom: 5px">' + statut + '</span>';
         }
 
-        function coverFormatter(value) {
-            let element = '<img src="';
-            if (value.match(/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g))
+        function coverFormatter(value, row) {
+            let element = '<a href="/admin/books/'+JSON.stringify(row.id)+'"><img src="';
+            if (value.includes('/')){
                 element += value;
+                console.log('is link');
+            }
             else
                 element += '/img/livres/' + value;
             return element + '" style="height: 70px; width: 49px;" ' +
-                'alt="book-cover" onerror="this.onerror=null;this.src=\'https://i.imgur.com/yNW4lQK.png\'">';
+                'alt="book-cover" ' +
+                'onerror="this.onerror=null;' +
+                'this.src=\'https://i.imgur.com/yNW4lQK.png\';">' +
+                '</a>';
         }
 
         function tagsFormatter(value) {
@@ -217,7 +222,7 @@
 
         function operateFormatter(value, row, index) {
             return [
-                '<a class="edit" href="#" title="Like">',
+                '<a class="edit" href="#" title="Modifier">',
                 '<i class="far fa-edit fa-lg"></i>',
                 '</a>'
             ].join('')

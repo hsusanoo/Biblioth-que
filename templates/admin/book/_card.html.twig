@@ -4,13 +4,14 @@
             <div class="col-md-4">
                 <div class="row">
                     <div class="col d-flex justify-content-center">
-                        <img src="{{ book.couverture }}" alt="book cover" height="300px" style="border-radius: 10px">
+                        <img id="book_cover" src="{{ book.couverture }}" alt="book cover" height="300px"
+                             style="border-radius: 10px">
                     </div>
                 </div>
                 <div class="row mt-2">
-                    <div class="col">
+                    <div class="col d-flex justify-content-center">
                         {% for tag in book.descripteurs %}
-                            <span class="badge badge-secondary m-1">
+                            <span class="badge badge-secondary m-1 p-1">
                                 <i class="icon cui-tags"></i> {{ tag.nom }}
                             </span>
                         {% endfor %}
@@ -83,7 +84,8 @@
                 <div class="col"><b>Cote</b></div>
             </div>
             {% for sample in book.exemplaires %}
-                <hr><div class="row">
+                <hr>
+                <div class="row">
                     <div class="col">{{ sample.nInventaire }}</div>
                     <div class="col">{{ sample.cote }}</div>
                 </div>

@@ -280,38 +280,6 @@ class BookController extends AbstractController
 
         if ($livreForm->isSubmitted() && $livreForm->isValid()) {
 
-//            // Converting tags strings to Objects Array
-//            $descripteurs = [];
-//            foreach ($livre->getDescripteurs() as $desc) {
-//
-//                if (!is_numeric($desc)) {
-//                    if (!$desc instanceof Descripteur) {
-//
-//                        $exists = $manager
-//                            ->getRepository(DescripteurRepository::class)
-//                            ->findOneBy(["nom" => $desc]);
-//
-//                        if (!$exists) {
-//
-//                            $descripteur = new Descripteur();
-//                            $descripteur->setNom($desc);
-//                            $manager->persist($descripteur);
-//
-//                            $descripteurs[] = $descripteur;
-//
-//                        } else {
-//                            $descripteurs[] = $exists;
-//                        }
-//
-//                    } else {
-//                        $descripteurs[] = $desc;
-//                    }
-//
-//                }
-//            }
-//
-//            $livre->setDescripteurs($descripteurs);
-
             foreach ($livre->getAuteurs() as $auteur)
                 $auteur->addLivre($livre);
 
@@ -328,6 +296,19 @@ class BookController extends AbstractController
             // setting updated by if it's updated
             if ($livre->getId())
                 $livre->setUpdatedBy($this->getUser());
+
+            // debugging tags
+            $tags = [];
+            foreach ($livre->getDescripteurs() as $descripteur) {
+                $tags[] = $descripteur->getNom();
+            }
+            $tagsArray = json_decode(join(",", $tags), true);
+            $i=0;
+            foreach ($livre->getDescripteurs() as $descripteur) {
+                $descripteur->setNom($tagsArray[$i]['value']);
+                $i++;
+            }
+//            dd($livre->getDescripteurs());
 
             $manager->persist($livre);
             $manager->flush();
@@ -362,6 +343,18 @@ class BookController extends AbstractController
     {
         return $this->render('admin/book/import.html.twig', [
             'controller_name' => 'BookController',
+        ]);
+    }
+
+    /**
+     * @Route("/admin/books/{id}",name="admin_book_inf")
+     * @param Livre $livre
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function bookInformation(Livre $livre)
+    {
+        return $this->render('admin/book/book_card.html.twig', [
+            'book' => $livre
         ]);
     }
 

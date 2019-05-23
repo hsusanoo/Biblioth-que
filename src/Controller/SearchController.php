@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Livre;
 use App\Repository\CategorieRepository;
 use App\Repository\DescripteurRepository;
 use App\Repository\LivreRepository;
@@ -115,12 +116,12 @@ class SearchController extends AbstractController
                 $authors[] = $auteur->getNom();
             }
             $results[] = [
+                'id' => $book->getId(),
                 'cover' => $book->getCouverture(),
                 'title' => $book->getTitrePrincipale(),
                 'date' => $book->getDateAquis()->format('M d,Y'),
                 'authors' => join(", ", $authors),
                 'desc' => $book->getObservation(),
-                'url' => "",
                 'tags' => $book->getDescripteurs()
             ];
         }
@@ -145,6 +146,17 @@ class SearchController extends AbstractController
 
         return $this->render('search/results.html.twig', [
             'books' => ($withTags ? $filtered : $results)
+        ]);
+    }
+
+    /**
+     * @Route("/search/book/{id}",name="book_inf")
+     * @param Livre $book
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function bookCard(Livre $book){
+        return $this->render('search/book.html.twig',[
+            'book' => $book
         ]);
     }
 }

@@ -130,6 +130,8 @@ class LivreRepository extends ServiceEntityRepository
         foreach ($searchTerms as $key => $term) {
             $queryBuilder
                 ->orWhere('l.titrePrincipale LIKE :t_'.$key)
+                ->orWhere('l.titreSecondaire LIKE :t_'.$key)
+                ->orWhere('l.observation LIKE :t_'.$key)
                 ->setParameter('t_'.$key, '%'.$term.'%')
             ;
         }

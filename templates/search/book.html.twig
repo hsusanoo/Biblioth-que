@@ -1,0 +1,14 @@
+{% extends 'search_base.html.twig' %}
+{% block title %}{{ book.titrePrincipale }}{% endblock %}
+{% block stylesheets %}
+    <style>
+        body{
+            background: #eeeeee;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        {% include 'admin/book/_card.html.twig' %}
+    </div>
+{% endblock %}

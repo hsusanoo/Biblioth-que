@@ -1,0 +1,93 @@
+<div class="card mt-5">
+    <div class="card-body p-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <img src="{{ book.couverture }}" alt="book cover" height="300px" style="border-radius: 10px">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        {% for tag in book.descripteurs %}
+                            <span class="badge badge-secondary m-1">
+                                <i class="icon cui-tags"></i> {{ tag.nom }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col-md-4">
+                        <b>Titre Principale:</b>
+                    </div>
+                    <div class="col">{{ book.titrePrincipale }}</div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-4">
+                        <b>Titre Secondaire:</b>
+                    </div>
+                    <div class="col">{{ book.titreSecondaire }}</div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-4">
+                        <b>Edition:</b>
+                    </div>
+                    <div class="col">{{ book.editeur }}  {{ book.dateEdition }}</div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-4">
+                        <b>Auteur(s):</b>
+                    </div>
+                    <div class="col">
+                        {% for author in book.auteurs %}
+                            <i class="icon cui-user"></i>{{ author.nom }}
+                        {% endfor %}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-4">
+                        <b>N.Pages:</b>
+                    </div>
+                    <div class="col">{{ book.nPages }}</div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-4">
+                        <b>Domaine:</b>
+                    </div>
+                    <div class="col">{{ book.categorie.nom }}</div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <h5>Description</h5>
+                        <p>
+                            {{ book.observation }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <h4>Exemplaires : {{ book.exemplaires|length }}</h4>
+        <div class="card card-body">
+            <div class="row">
+                <div class="col"><b>N. Inventaire</b></div>
+                <div class="col"><b>Cote</b></div>
+            </div>
+            {% for sample in book.exemplaires %}
+                <hr><div class="row">
+                    <div class="col">{{ sample.nInventaire }}</div>
+                    <div class="col">{{ sample.cote }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

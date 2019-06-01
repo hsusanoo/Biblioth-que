@@ -1,17 +1,17 @@
 {% extends 'search_base.html.twig' %}
 {% block title %}Résultats{% endblock %}
 {% block stylesheets %}
+    <style>
+        body{
+            background-color: #fff;
+        }
+    </style>
 {% endblock %}
 {% block body %}
     <nav class="navbar d-flex justify-content-center">
         <a class="nav-item">
             <form action="" method="get">
-                <div class="ui search mb-5">
-                    <div class="ui left icon input">
-                        <input class="prompt" type="text" value="{{ app.request.query.get('q') }}" placeholder="Recherche..." style="width: 400px;">
-                        <i class="icon cui-magnifying-glass"></i>
-                    </div>
-                </div>
+                {% include 'search/_search_bar.html.twig' %}
             </form>
         </a>
     </nav>

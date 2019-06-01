@@ -265,12 +265,6 @@ class BookController extends AbstractController
             $auteur = new Auteur();
             $auteur->addLivre($livre);
             $livre->addAuteur($auteur);
-
-//        } else {
-//            $tags = [];
-//            foreach ($livre->getDescripteurs() as $tag) {
-//                $tags[] = $tag->getNom();
-//            }
         }
 
 
@@ -286,9 +280,6 @@ class BookController extends AbstractController
             foreach ($livre->getExemplaires() as $exemplaire) {
                 $exemplaire->setLivre($livre);
             }
-
-//            // setting update time
-//            $livre->setUpdatedAt(new \DateTime());
 
             //setting added by
             $livre->setAddedBy($this->getUser());
@@ -308,14 +299,13 @@ class BookController extends AbstractController
                 $descripteur->setNom($tagsArray[$i]['value']);
                 $i++;
             }
-//            dd($livre->getDescripteurs());
 
             $manager->persist($livre);
             $manager->flush();
 
             $this->addFlash(
                 'success',
-                'Livre ' . ($livre->getId() ? 'modifié' : 'ajouté') . 'avec succès !');
+                'Livre ' . ($livre->getId() ? ' modifié' : 'ajouté') . 'avec succès !');
 
             return $this->redirectToRoute("books");
         }

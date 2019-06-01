@@ -1,8 +1,20 @@
 var Encore = require('@symfony/webpack-encore');
 
 Encore
-    // directory where compiled assets will be stored
+// directory where compiled assets will be stored
     .setOutputPath('public/build/')
+    .copyFiles({
+        from: './assets/img',
+
+        // optional target path, relative to the output dir
+        //to: 'images/[path][name].[ext]',
+
+        // if versioning is enabled, add the file hash too
+        //to: 'images/[path][name].[hash:8].[ext]',
+
+        // only copy files matching this pattern
+        pattern: /\.(png|jpg|jpeg)$/
+    })
     // public path used by the web server to access the output path
     .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
@@ -20,9 +32,9 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('bookForm', './assets/js/bookForm.js')
     .addEntry('booksTable', './assets/js/booksTable.js')
-    .addEntry('dashboard','./assets/js/dashboard.js')
-    .addEntry('adminProfile','./assets/js/admin_profile.js')
-    .addEntry('search','./assets/js/search.js')
+    .addEntry('dashboard', './assets/js/dashboard.js')
+    .addEntry('adminProfile', './assets/js/admin_profile.js')
+    .addEntry('search', './assets/js/search.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -45,7 +57,8 @@ Encore
     .enableVersioning(Encore.isProduction())
 
     // enables @babel/preset-env polyfills
-    .configureBabel(() => {}, {
+    .configureBabel(() => {
+    }, {
         useBuiltIns: 'usage',
         corejs: 3
     })
@@ -64,7 +77,7 @@ Encore
     .autoProvidejQuery()
 
 ;
-    // uncomment if you use API Platform Admin (composer req api-admin)
-    //.enableReactPreset()
-    //.addEntry('admin', './assets/js/admin.js')
+// uncomment if you use API Platform Admin (composer req api-admin)
+//.enableReactPreset()
+//.addEntry('admin', './assets/js/admin.js')
 module.exports = Encore.getWebpackConfig();

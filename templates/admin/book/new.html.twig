@@ -34,9 +34,7 @@
                                     {% else %}
                                     /img/livres/{{ livre.couverture }}
                                     {% endif %}
-                                  {% else %}
-                                  http://placehold.it/350x510
-                                  {% endif %}"
+                                  {% else %}{{ asset('build/cover.png') }}{% endif %}"
                              class="card-img" alt="book_cover">
                         <div class="layer"></div>
                     </label>
@@ -104,7 +102,7 @@
                                     }) }}
                                     <span class="input-group-append">
                                         <span class="input-group-text">
-                                            <i class="icon cui-user"></i>
+                                            <i class="icon cui-home"></i>
                                         </span>
                                     </span>
                                 </div>

@@ -34,6 +34,7 @@
     "symfony/web-link": "4.2.*",
     "symfony/webpack-encore-bundle": "^1.4",
     "symfony/yaml": "4.2.*",
+    "tecnickcom/tcpdf": "^6.2",
     "vich/uploader-bundle": "^1.9"
   },
   "require-dev": {

@@ -12,7 +12,7 @@
     <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="{{ path('dashboard') }}">
         <img class="navbar-brand-full" src="https://via.placeholder.com/89x25" width="89" height="25" alt="Logo">
         <img class="navbar-brand-minimized" src="https://via.placeholder.com/30" width="30" height="30" alt="Logo">
     </a>
@@ -23,7 +23,7 @@
         <li class="nav-item dropdown">
             <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                aria-expanded="false">
-                <img class="img-avatar" src="{{ asset('build/images/user.jpg') }}" alt="admin_avatar">
+                <img class="img-avatar" src="{{ asset('build/user.jpg') }}" alt="admin_avatar" style="box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.50)">
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-header text-center">

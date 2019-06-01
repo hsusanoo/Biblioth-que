@@ -3,7 +3,7 @@
 {% block title %}Recherche{% endblock %}
 {% block stylesheets %}
     <style>
-        body{
+        body {
             background: #eee;
         }
     </style>
@@ -14,19 +14,14 @@
             <div class="col mb-5">
                 <div class="row mb-5">
                     <div class="col d-flex justify-content-center">
-                        <img src="https://pixabay.com/get/51e6dd40485ab10ff3d89938b977692b083edbe05b54774f7c2873/search-768328_640.png"
-                             alt="Search image" width="250px" height="250px" style="border-radius: 50%">
+                        <img src="{{ asset('build/loupe.png') }}"
+                             alt="Search image" width="250px" height="250px" style="border-radius: 20%;margin-right: 30px">
                     </div>
                 </div>
                 <div class="row d-flex justify-content-center mb-3">
                     <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-12 mb-3">
                         <form action="{{ path('search_results') }}" method="get">
-                            <div class="ui search mb-5">
-                                <div class="ui fluid left icon input">
-                                    <input name="q" class="prompt" type="text" placeholder="Recherche...">
-                                    <i class="icon cui-magnifying-glass"></i>
-                                </div>
-                            </div>
+                            {% include 'search/_search_bar.html.twig' %}
                         </form>
                     </div>
                 </div>

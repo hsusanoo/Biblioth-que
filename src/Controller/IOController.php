@@ -75,7 +75,7 @@ class IOController extends AbstractController
         if ($request->isXmlHttpRequest()) {
 
             if ($year = $request->query->get('year'))
-                $livres = $livreRepository->getByYear($year);
+                $livres = $livreRepository->findByYear($year);
             else
                 $livres = $livreRepository->findAll();
 
@@ -294,7 +294,7 @@ class IOController extends AbstractController
         } else {
 
             $sheet->setCellValue('A4', 'INVENTAIRE DES LIVRES / BIBLIOTHÈQUE EST-SALÉ ' . ' ' . $year);
-            $sheet->setCellValue('A6', $year . ' ' . ' قائمة الكتب ' . $this->getMonthName("ar", $month));
+//            $sheet->setCellValue('A6', $year . ' ' . ' قائمة الكتب ' . $this->getMonthName("ar", $month));
 
             $row = 9;
 
@@ -472,17 +472,24 @@ class IOController extends AbstractController
                 IOFactory::registerWriter('Pdf', $class);
                 $writer = IOFactory::createWriter($spreadsheet, 'Pdf');
 
-                $sheet->setShowGridlines(false);
-                $sheet->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
+                $sheet->setShowGridlines(false)
+                    ->setPrintGridlines(false);
+                $sheet->getPageSetup()
+                    ->setOrientation(PageSetup::ORIENTATION_LANDSCAPE)
+                    ->setFitToPage(true)
+                    ->setHorizontalCentered(true)
+                    ->setPaperSize(PageSetup::PAPERSIZE_A3);
 
-                $fileDate = date_format(new \DateTime(), "d_m_y_H_i_s");
+                $sheet->getHeaderFooter()->setFirstHeader('debugging test');
+
+                $fileDate = date_format(new \DateTime(), "d_m_y_H_i");
                 $fileName = 'Inventaire_' . $fileDate . '.pdf';
 
                 header('Content-Type: Content-type:application/pdf');
                 header('Content-Disposition: attachment;filename="' . $fileName);
                 header('Cache-Control: max-age=0');
 
-                $writer->save($fileName);
+                $writer->save('php://output');
             } catch (OutOfMemoryException $e) {
                 memory_get_usage();
                 print_r($e);
@@ -499,7 +506,6 @@ class IOController extends AbstractController
             $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
             // Save into php output
             $writer->save('php://output');
-
         }
         exit();
     }

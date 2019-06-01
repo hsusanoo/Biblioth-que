@@ -41,7 +41,7 @@ $(document).ready(function () {
 
     // setting current exmindex
     exmindex = $exmcollectionHolder.find('.form-row').length;
-    autindex = $autCollectionHolder.find('form-row').length;
+    autindex = $autCollectionHolder.find('.form-row').length;
 
     // Add buttons
     $('#exemplaires div.card-footer').append($addNewSample);

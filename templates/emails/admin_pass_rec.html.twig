@@ -1,0 +1,23 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+{% block body %}
+    <div class="card">
+        <div class="card-body text-center">
+            <div class="ard-title">Bonjour <h5>{{ nom|upper~' '~prenom|capitalize }}</h5></div>
+            <div class="card-text">
+                Vous trouverez votre nouveau mot de passe ci dessous
+                <div class="card col-md-5">
+                    <div class="card-body">
+                        MDP :<b> {{ password }}</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>
+

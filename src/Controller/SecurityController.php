@@ -2,9 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Repository\UserRepository;
+use Doctrine\Common\Persistence\ObjectManager;
+use Faker\Factory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -13,14 +19,15 @@ class SecurityController extends AbstractController
     /**
      * @Route("/",name="index")
      */
-    public function index(){
+    public function index()
+    {
 
         if ($this->isGranted('ROLE_GESTION'))
             return $this->redirectToRoute("dashboard");
         elseif ($this->isGranted('ROLE_ADMIN'))
             return $this->redirectToRoute("books");
 
-        return  $this->redirectToRoute("app_login");
+        return $this->redirectToRoute("app_login");
 
     }
 
@@ -46,5 +53,77 @@ class SecurityController extends AbstractController
     /**
      * @Route("/logout",name="app_logout")
      */
-    public function logout(){}
+    public function logout()
+    {
+    }
+
+
+    /**
+     * @Route("/recover",name="recover")
+     */
+    public function passwordRecover(Request $request, UserRepository $userRepository,
+                                    ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder,
+                                    \Swift_Mailer $mailer)
+    {
+        if ($this->isGranted("IS_AUTHENTICATED_FULLY"))
+            return $this->redirectToRoute("index");
+
+        $email = null;
+        $error = null;
+        $success = null;
+
+        if (($email = $request->request->get('email'))) {
+            if (!($user = $userRepository->findOneBy(['email' => $email]))) {
+                $error = 'Email non existant !';
+            } else {
+                if (!$this->newPassword($user, $manager, $passwordEncoder, $mailer))
+                    $error = "Une erreur est survenue";
+                else
+                    $success = 'Un Nouveau mot de passe est envoyé !' .
+                        ' Vérifiez votre boite mail';
+            }
+
+        }
+
+        return $this->render('security/password_recovery.html.twig',
+            [
+                'email' => $email,
+                'error' => $error,
+                'success' => $success
+            ]
+        );
+    }
+
+    public function newPassword(User $user, ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder,
+                                \Swift_Mailer $mailer)
+    {
+
+        $faker = Factory::create();
+
+        $random = md5(rand(0, 1000));
+        $user->setPassword($passwordEncoder->encodePassword($user, $random));
+
+        // Emailing password to user's mail box
+        $message = (new \Swift_Message("Bienvenue"))
+            ->setFrom("freeinxd@gmail.com")
+            ->setTo($user->getEmail())
+            ->setBody(
+                $this->renderView(
+                    'emails/admin_pass_rec.html.twig', [
+                        'nom' => $user->getNom(),
+                        'prenom' => $user->getPrenom(),
+                        'password' => $random
+                    ]
+                ),
+                'text/html'
+            )->setContentType('text/html');
+        $nSent = $mailer->send($message);
+        if (!$nSent) {
+            return false;
+        }
+
+        $manager->persist($user);
+        $manager->flush();
+        return true;
+    }
 }

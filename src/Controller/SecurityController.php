@@ -3,14 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ResetPasswordType;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Tests\Encoder\PasswordEncoder;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -60,6 +63,12 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/recover",name="recover")
+     * @param Request $request
+     * @param UserRepository $userRepository
+     * @param ObjectManager $manager
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param \Swift_Mailer $mailer
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function passwordRecover(Request $request, UserRepository $userRepository,
                                     ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder,
@@ -93,6 +102,37 @@ class SecurityController extends AbstractController
             ]
         );
     }
+
+
+    /**
+     * @Route("/admin/settings",name="password_reset")
+     */
+    public function passwordReset(Request $request, UserPasswordEncoderInterface $passwordEncoder,
+                                  ObjectManager $manager)
+    {
+        $passForm = $this->createForm(ResetPasswordType::class);
+        $passForm->handleRequest($request);
+
+        if ($passForm->isSubmitted() && $passForm->isValid()) {
+            $oldPassword = $passForm->get('oldPassword')->getData();
+            $newPassword = $passForm->get('newPassword')->getData();
+            $user = $this->getUser();
+
+            if (!($passwordEncoder->isPasswordValid($user, $oldPassword))) {
+                $this->addFlash('error', 'Ancient mot de passe incorrect !');
+            } else {
+                $user->setPassword($passwordEncoder->encodePassword($user, $newPassword));
+                $manager->persist($user);
+                $manager->flush();
+                $this->addFlash('success', 'Mot de passe changé avec succès !');
+            }
+        }
+
+        return $this->render('security/password_reset.html.twig', [
+            'passForm' => $passForm->createView()
+        ]);
+    }
+
 
     public function newPassword(User $user, ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder,
                                 \Swift_Mailer $mailer)

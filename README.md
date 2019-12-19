@@ -1,2 +1,2 @@
 # Biblioth-que
-School enternship project
+School internship project

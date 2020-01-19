@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Exemplaire
 {
-    
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

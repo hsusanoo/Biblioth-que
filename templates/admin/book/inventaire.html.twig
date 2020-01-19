@@ -91,7 +91,7 @@
 {% block javascripts %}
     <script>
         function textFormatter(value) {
-            if (!value) value = "";
+            if (!value) value = '';
             return '<span style="display: flex; flex-direction: row; max-height: 70px; overflow: auto;">' + value + '</span>';
         }
 
@@ -110,7 +110,7 @@
         });
 
         function detailFormatter(index, row) {
-            var table = '<table id="exemplaires' + index + '" width="50%" ' +
+            let table = '<table id="exemplaires' + index + '" width="50%" ' +
                 'data-toggle="table" ' +
                 // 'data-classes="table table-hover table-striped">' +
                 '<thead class="thead-light">' +
@@ -127,7 +127,7 @@
                 table += '<tr>' +
                     '<td>' + value.inventaire + '</td>' +
                     '<td>' + value.cote + '</td>' +
-                    '</tr>'
+                    '</tr>';
             });
             table += '</tbody></table>';
             return '<div class="d-flex justify-content-center">' +

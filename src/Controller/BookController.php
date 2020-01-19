@@ -3,17 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Auteur;
-use App\Entity\Descripteur;
 use App\Entity\Exemplaire;
 use App\Entity\Livre;
 use App\Form\LivreType;
 use App\Repository\CategorieRepository;
 use App\Repository\DescripteurRepository;
 use App\Repository\LivreRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -25,7 +27,7 @@ class BookController extends AbstractController
     /**
      * @Route("/admin/books", name="books")
      */
-    public function show()
+    public function show(): Response
     {
         return $this->render('admin/book/show.html.twig', [
             'controller_name' => 'BookController',
@@ -35,14 +37,14 @@ class BookController extends AbstractController
     /**
      * @Route("admin/books/getcat",name="get_cat",methods={"GET"})
      * @param Request $request
-     * @param CategorieRepository $repo
+     * @param CategorieRepository $catRepo
      * @return JsonResponse
      */
-    public function getDomaine(Request $request, CategorieRepository $repo)
+    public function getDomaine(Request $request, CategorieRepository $catRepo): JsonResponse
     {
         if ($request->isXmlHttpRequest()) {
 
-            $repos = $repo->findAll();
+            $repos = $catRepo->findAll();
             $cats = [];
 
             foreach ($repos as $repo) {
@@ -65,7 +67,7 @@ class BookController extends AbstractController
             $seralizer = new Serializer($normalizers, $encoders);
 
             $data = $seralizer->serialize($results, 'json', [
-                'circular_reference_handler' => function ($object) {
+                'circular_reference_handler' => static function ($object) {
                     return $object->getId();
                 }
             ]);
@@ -85,7 +87,7 @@ class BookController extends AbstractController
      * @param DescripteurRepository $tagsRepo
      * @return JsonResponse
      */
-    public function getTags(Request $request, DescripteurRepository $tagsRepo)
+    public function getTags(Request $request, DescripteurRepository $tagsRepo): JsonResponse
     {
         if ($request->isXmlHttpRequest()) {
 
@@ -112,7 +114,7 @@ class BookController extends AbstractController
             $seralizer = new Serializer($normalizers, $encoders);
 
             $data = $seralizer->serialize($results, 'json', [
-                'circular_reference_handler' => function ($object) {
+                'circular_reference_handler' => static function ($object) {
                     return $object->getId();
                 }
             ]);
@@ -121,8 +123,8 @@ class BookController extends AbstractController
 
         }
         return new JsonResponse([
-            'type' => "error",
-            'message' => "Not a XmlHttpRequest"
+            'type' => 'error',
+            'message' => 'Not a XmlHttpRequest'
         ], 400, [], false);
     }
 
@@ -131,10 +133,10 @@ class BookController extends AbstractController
      * @param Request $request
      * @param LivreRepository $livreRepository
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
 
-    public function getBooks(Request $request, LivreRepository $livreRepository)
+    public function getBooks(Request $request, LivreRepository $livreRepository): JsonResponse
     {
 
         if ($request->isXmlHttpRequest()) {
@@ -240,12 +242,12 @@ class BookController extends AbstractController
      * @Route("/admin/books/new",name="books_new")
      * @Route("/admin/books/{id}/edit",name="book_edit")
      * @param Request $request
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @param Livre|null $livre
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Exception
+     * @return Response
+     * @throws Exception
      */
-    public function create(Request $request, ObjectManager $manager, Livre $livre = null)
+    public function create(Request $request, EntityManagerInterface $manager, Livre $livre = null): Response
     {
 
         // creating new book if create mode
@@ -254,7 +256,7 @@ class BookController extends AbstractController
             $livre = new Livre();
 
             //setting today as a default date
-            $livre->setDateAquis(new \DateTime('now'));
+            $livre->setDateAquis(new DateTime('now'));
 
             // Creating a new book sample
             $exemplaire = new Exemplaire();
@@ -268,14 +270,21 @@ class BookController extends AbstractController
         }
 
 
+        /// Debug
+
+        foreach ($livre->getExemplaires() as $sample) {
+            dump($sample);
+        }
+
         $livreForm = $this->createForm(LivreType::class, $livre);
 
         $livreForm->handleRequest($request);
 
         if ($livreForm->isSubmitted() && $livreForm->isValid()) {
 
-            foreach ($livre->getAuteurs() as $auteur)
+            foreach ($livre->getAuteurs() as $auteur) {
                 $auteur->addLivre($livre);
+            }
 
             foreach ($livre->getExemplaires() as $exemplaire) {
                 $exemplaire->setLivre($livre);
@@ -285,16 +294,17 @@ class BookController extends AbstractController
             $livre->setAddedBy($this->getUser());
 
             // setting updated by if it's updated
-            if ($livre->getId())
+            if ($livre->getId()) {
                 $livre->setUpdatedBy($this->getUser());
+            }
 
             // debugging tags
             $tags = [];
             foreach ($livre->getDescripteurs() as $descripteur) {
                 $tags[] = $descripteur->getNom();
             }
-            $tagsArray = json_decode(join(",", $tags), true);
-            $i=0;
+            $tagsArray = json_decode(join(',', $tags), true);
+            $i = 0;
             foreach ($livre->getDescripteurs() as $descripteur) {
                 $descripteur->setNom($tagsArray[$i]['value']);
                 $i++;
@@ -329,7 +339,7 @@ class BookController extends AbstractController
     /**
      * @Route("/admin/books/import",name="books_import")
      */
-    public function import()
+    public function import(): Response
     {
         return $this->render('admin/book/import.html.twig', [
             'controller_name' => 'BookController',
@@ -339,10 +349,15 @@ class BookController extends AbstractController
     /**
      * @Route("/admin/books/{id}",name="admin_book_inf")
      * @param Livre $livre
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function bookInformation(Livre $livre)
+    public function bookInformation(Livre $livre): Response
     {
+        /// debug
+        foreach ($livre->getExemplaires() as $sample) {
+            dump($sample);
+        }
+
         return $this->render('admin/book/book_card.html.twig', [
             'book' => $livre
         ]);

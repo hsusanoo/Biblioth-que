@@ -2,7 +2,7 @@
 {% block title %}Résultats{% endblock %}
 {% block stylesheets %}
     <style>
-        body{
+        body {
             background-color: #fff;
         }
     </style>
@@ -28,7 +28,8 @@
                                     <img class="mr-3" src="{{ book.cover }}" height="100px">
                                 </a>
                                 <div class="media-body">
-                                    <a href="{{ path('book_inf',{id: book.id}) }}"><h3 class="mt-0 mb-1">{{ book.title }}</h3></a>
+                                    <a href="{{ path('book_inf',{id: book.id}) }}"><h3
+                                                class="mt-0 mb-1">{{ book.title }}</h3></a>
                                     <small class="post-metadata text-muted">
                                         <span class="metadata p-3" title="Date d'ajout"><i
                                                     class="icon cui-calendar"></i> {{ book.date }}</span>

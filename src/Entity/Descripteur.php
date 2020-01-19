@@ -5,11 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DescripteurRepository")
  */
-class Descripteur implements \JsonSerializable
+class Descripteur implements JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -38,18 +39,6 @@ class Descripteur implements \JsonSerializable
         return $this->id;
     }
 
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Livre[]
      */
@@ -76,7 +65,6 @@ class Descripteur implements \JsonSerializable
         return $this;
     }
 
-
     /**
      * Specify data which should be serialized to JSON
      * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
@@ -87,6 +75,18 @@ class Descripteur implements \JsonSerializable
     public function jsonSerialize(): string
     {
         return $this->getNom();
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
     }
 
     public function __toString()

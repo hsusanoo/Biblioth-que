@@ -3,9 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Livre;
-use App\Entity\User;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Exception;
+use function count;
 
 /**
  * @method Livre|null find($id, $lockMode = null, $lockVersion = null)
@@ -15,7 +17,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class LivreRepository extends ServiceEntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Livre::class);
     }
@@ -24,12 +26,12 @@ class LivreRepository extends ServiceEntityRepository
      * @param $start
      * @param $end
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function findByDateRange($start, $end)
     {
-        $startDate = new \DateTime(str_replace('/', '-', $start) . ' 00:00:00');
-        $endDate = new \DateTime(str_replace('/', '-', $end) . ' 23:59:59');
+        $startDate = new DateTime(str_replace('/', '-', $start) . ' 00:00:00');
+        $endDate = new DateTime(str_replace('/', '-', $end) . ' 23:59:59');
 
         return $result = $this->createQueryBuilder('l')
             ->andWhere('l.dateAquis BETWEEN :from and :to')
@@ -42,16 +44,16 @@ class LivreRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Livre[] Returns an array of Livre objects
      * @param $category
      * @param $year
+     * @return Livre[] Returns an array of Livre objects
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function getByCategoryAndYear($category, $year)
     {
-        $startDate = new \DateTime('01-01-' . $year . ' 00:00:00');
-        $endDate = new \DateTime('31-12-' . $year . ' 23:59:59');
+        $startDate = new DateTime('01-01-' . $year . ' 00:00:00');
+        $endDate = new DateTime('31-12-' . $year . ' 23:59:59');
 
         return $this->createQueryBuilder('l')
             ->andWhere('l.categorie = :category')
@@ -68,12 +70,12 @@ class LivreRepository extends ServiceEntityRepository
     /**
      * @param $year
      * @return Livre[] Returns an array of Livre objects
-     * @throws \Exception
+     * @throws Exception
      */
     public function findByYear($year)
     {
-        $startDate = new \DateTime('01-01-' . $year . ' 00:00:00');
-        $endDate = new \DateTime('31-12-' . $year . ' 23:59:59');
+        $startDate = new DateTime('01-01-' . $year . ' 00:00:00');
+        $endDate = new DateTime('31-12-' . $year . ' 23:59:59');
 
         return $this->createQueryBuilder('l')
             ->andWhere('l.dateAquis BETWEEN :from and :to')
@@ -87,7 +89,7 @@ class LivreRepository extends ServiceEntityRepository
      * @param $year
      * @param $month
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function findByYearAndMonth($year, $month)
     {
@@ -102,8 +104,8 @@ class LivreRepository extends ServiceEntityRepository
                 break;
         }
 
-        $startDate = new \DateTime('01-' . $month . '-' . $year . ' 00:00:00');
-        $endDate = new \DateTime($endDay . '-' . $month . '-' . $year . ' 23:59:59');
+        $startDate = new DateTime('01-' . $month . '-' . $year . ' 00:00:00');
+        $endDate = new DateTime($endDay . '-' . $month . '-' . $year . ' 23:59:59');
 
         return $this->createQueryBuilder('l')
             ->andWhere('l.dateAquis BETWEEN :from and :to')
@@ -121,7 +123,7 @@ class LivreRepository extends ServiceEntityRepository
         $query = $this->sanitizeSearchQuery($rawQuery);
         $searchTerms = $this->extractSearchTerms($query);
 
-        if (0 === \count($searchTerms)) {
+        if (0 === count($searchTerms)) {
             return [];
         }
 
@@ -129,11 +131,10 @@ class LivreRepository extends ServiceEntityRepository
 
         foreach ($searchTerms as $key => $term) {
             $queryBuilder
-                ->orWhere('l.titrePrincipale LIKE :t_'.$key)
-                ->orWhere('l.titreSecondaire LIKE :t_'.$key)
-                ->orWhere('l.observation LIKE :t_'.$key)
-                ->setParameter('t_'.$key, '%'.$term.'%')
-            ;
+                ->orWhere('l.titrePrincipale LIKE :t_' . $key)
+                ->orWhere('l.titreSecondaire LIKE :t_' . $key)
+                ->orWhere('l.observation LIKE :t_' . $key)
+                ->setParameter('t_' . $key, '%' . $term . '%');
         }
 
         return $queryBuilder

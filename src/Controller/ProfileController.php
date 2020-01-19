@@ -7,6 +7,7 @@ use App\Repository\CategorieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -14,19 +15,6 @@ use Symfony\Component\Serializer\Serializer;
 
 class ProfileController extends AbstractController
 {
-    /**
-     * @Route("/admin/responsable/{id}", name="admin_profile",requirements={"id" = "\d+"})
-     * @param User $user
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function index(User $user)
-    {
-        return $this->render('admin/responsable/profile.html.twig', [
-            'controller_name' => 'ProfileController',
-            'resp' => $user
-        ]);
-    }
-
     /**
      * @Route("/admin/responsable/{id}/get",name="admin_get",requirements={"id" = "\d+"})
      * @param User $user
@@ -133,5 +121,18 @@ class ProfileController extends AbstractController
     public function profile()
     {
         return $this->index($this->getUser());
+    }
+
+    /**
+     * @Route("/admin/responsable/{id}", name="admin_profile",requirements={"id" = "\d+"})
+     * @param User $user
+     * @return Response
+     */
+    public function index(User $user)
+    {
+        return $this->render('admin/responsable/profile.html.twig', [
+            'controller_name' => 'ProfileController',
+            'resp' => $user
+        ]);
     }
 }

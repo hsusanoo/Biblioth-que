@@ -15,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LivreType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('couvertureFile', FileType::class, [
@@ -37,7 +37,7 @@ class LivreType extends AbstractType
             ])
             ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
-                'choice_label' => "nom"
+                'choice_label' => 'nom'
             ])
             ->add('descripteurs', TagsInputType::class, [
                 'label' => false,
@@ -61,7 +61,7 @@ class LivreType extends AbstractType
             ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Livre::class,

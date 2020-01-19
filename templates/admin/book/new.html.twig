@@ -29,7 +29,7 @@
                     <label for="{{ livreForm.couvertureFile.vars.id }}">
                         <img id="coverPreview"
                              src="{% if livre is defined  and livre.couverture %}
-                                    {% if 'lorempixel' in livre.couverture %}
+                                    {% if 'https' in livre.couverture %}
                                         {{ livre.couverture }}
                                     {% else %}
                                     /img/livres/{{ livre.couverture }}

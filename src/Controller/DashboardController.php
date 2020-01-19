@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Repository\CategorieRepository;
 use App\Repository\LivreRepository;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -16,7 +18,7 @@ class DashboardController extends AbstractController
 {
     /**
      * @Route("/admin", name="dashboard")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function index()
     {
@@ -31,7 +33,7 @@ class DashboardController extends AbstractController
      * @param CategorieRepository $categorieRepository
      * @param LivreRepository $livreRepository
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function getCategoriesStats(int $year, CategorieRepository $categorieRepository,
                                        LivreRepository $livreRepository, Request $request)
@@ -100,7 +102,7 @@ class DashboardController extends AbstractController
      * @param int $year
      * @param LivreRepository $livreRepository
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function getBooksStats(int $year, LivreRepository $livreRepository)
     {

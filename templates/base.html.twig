@@ -23,7 +23,8 @@
         <li class="nav-item dropdown">
             <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                aria-expanded="false">
-                <img class="img-avatar" src="{{ asset('build/user.jpg') }}" alt="admin_avatar" style="box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.50)">
+                <img class="img-avatar" src="{{ asset('build/user.jpg') }}" alt="admin_avatar"
+                     style="box-shadow: 0 0 5px 0 rgba(0,0,0,0.50)">
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-header text-center">
@@ -125,22 +126,22 @@
 {{ encore_entry_script_tags('app') }}
 {% for message in app.flashes('success') %}
     <script>
-        toastr["success"]("{{ message }}");
+        toastr['success']("{{ message }}");
     </script>
 {% endfor %}
 {% for message in app.flashes('error') %}
     <script>
-        toastr["error"]("{{ message }}");
+        toastr['error']("{{ message }}");
     </script>
 {% endfor %}
 {% for message in app.flashes('info') %}
     <script>
-        toastr["info"]("{{ message }}");
+        toastr['info']("{{ message }}");
     </script>
 {% endfor %}
 {% for message in app.flashes('warning') %}
     <script>
-        toastr["warning"]("{{ message }}");
+        toastr['warning']("{{ message }}");
     </script>
 {% endfor %}
 {% block javascripts %}

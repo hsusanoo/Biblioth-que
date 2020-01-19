@@ -3,14 +3,16 @@
 namespace App\Entity;
 
 use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LivreRepository")
@@ -134,7 +136,7 @@ class Livre
 
     public function __construct()
     {
-        $this->updated_at = new \DateTime();
+        $this->updated_at = new DateTime();
         $this->exemplaires = new ArrayCollection();
         $this->descripteurs = new ArrayCollection();
         $this->auteurs = new ArrayCollection();
@@ -270,26 +272,6 @@ class Livre
         return $this->descripteurs;
     }
 
-    public function addDescripteur(Descripteur $descripteur): self
-    {
-        if (!$this->descripteurs->contains($descripteur)) {
-            $this->descripteurs[] = $descripteur;
-            $descripteur->addLivre($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDescripteur(Descripteur $descripteur): self
-    {
-        if ($this->descripteurs->contains($descripteur)) {
-            $this->descripteurs->removeElement($descripteur);
-            $descripteur->removeLivre($this);
-        }
-
-        return $this;
-    }
-
     /**
      * @param mixed $descripteurs
      */
@@ -307,6 +289,25 @@ class Livre
         $this->descripteurs = $descripteurs;
     }
 
+    public function removeDescripteur(Descripteur $descripteur): self
+    {
+        if ($this->descripteurs->contains($descripteur)) {
+            $this->descripteurs->removeElement($descripteur);
+            $descripteur->removeLivre($this);
+        }
+
+        return $this;
+    }
+
+    public function addDescripteur(Descripteur $descripteur): self
+    {
+        if (!$this->descripteurs->contains($descripteur)) {
+            $this->descripteurs[] = $descripteur;
+            $descripteur->addLivre($this);
+        }
+
+        return $this;
+    }
 
     public function getCouverture(): ?string
     {
@@ -330,7 +331,7 @@ class Livre
 
     /**
      * @param File $couvertureFile
-     * @throws \Exception
+     * @throws Exception
      */
     public function setCouvertureFile(File $couvertureFile): void
     {
@@ -341,12 +342,12 @@ class Livre
         }
     }
 
-    public function getDateAquis(): ?\DateTimeInterface
+    public function getDateAquis(): ?DateTimeInterface
     {
         return $this->dateAquis;
     }
 
-    public function setDateAquis(\DateTimeInterface $dateAquis): self
+    public function setDateAquis(DateTimeInterface $dateAquis): self
     {
         $this->dateAquis = $dateAquis;
 
@@ -359,16 +360,6 @@ class Livre
     public function getAuteurs(): Collection
     {
         return $this->auteurs;
-    }
-
-    public function addAuteur(Auteur $auteur): self
-    {
-        if (!$this->auteurs->contains($auteur)) {
-            $this->auteurs[] = $auteur;
-            $auteur->addLivre($this);
-        }
-
-        return $this;
     }
 
     public function setAuteurs(Array $auteurs)
@@ -395,12 +386,22 @@ class Livre
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function addAuteur(Auteur $auteur): self
+    {
+        if (!$this->auteurs->contains($auteur)) {
+            $this->auteurs[] = $auteur;
+            $auteur->addLivre($this);
+        }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    public function setUpdatedAt(DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
 

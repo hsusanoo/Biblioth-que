@@ -7,13 +7,14 @@ use App\Form\ResetPasswordType;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
+use Swift_Mailer;
+use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Tests\Encoder\PasswordEncoder;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -67,12 +68,12 @@ class SecurityController extends AbstractController
      * @param UserRepository $userRepository
      * @param ObjectManager $manager
      * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param \Swift_Mailer $mailer
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @param Swift_Mailer $mailer
+     * @return RedirectResponse|Response
      */
     public function passwordRecover(Request $request, UserRepository $userRepository,
                                     ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder,
-                                    \Swift_Mailer $mailer)
+                                    Swift_Mailer $mailer)
     {
         if ($this->isGranted("IS_AUTHENTICATED_FULLY"))
             return $this->redirectToRoute("index");
@@ -103,6 +104,38 @@ class SecurityController extends AbstractController
         );
     }
 
+    public function newPassword(User $user, ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder,
+                                Swift_Mailer $mailer)
+    {
+
+        $faker = Factory::create();
+
+        $random = md5(rand(0, 1000));
+        $user->setPassword($passwordEncoder->encodePassword($user, $random));
+
+        // Emailing password to user's mail box
+        $message = (new Swift_Message("Bienvenue"))
+            ->setFrom("freeinxd@gmail.com")
+            ->setTo($user->getEmail())
+            ->setBody(
+                $this->renderView(
+                    'emails/admin_pass_rec.html.twig', [
+                        'nom' => $user->getNom(),
+                        'prenom' => $user->getPrenom(),
+                        'password' => $random
+                    ]
+                ),
+                'text/html'
+            )->setContentType('text/html');
+        $nSent = $mailer->send($message);
+        if (!$nSent) {
+            return false;
+        }
+
+        $manager->persist($user);
+        $manager->flush();
+        return true;
+    }
 
     /**
      * @Route("/admin/settings",name="password_reset")
@@ -131,39 +164,5 @@ class SecurityController extends AbstractController
         return $this->render('security/password_reset.html.twig', [
             'passForm' => $passForm->createView()
         ]);
-    }
-
-
-    public function newPassword(User $user, ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder,
-                                \Swift_Mailer $mailer)
-    {
-
-        $faker = Factory::create();
-
-        $random = md5(rand(0, 1000));
-        $user->setPassword($passwordEncoder->encodePassword($user, $random));
-
-        // Emailing password to user's mail box
-        $message = (new \Swift_Message("Bienvenue"))
-            ->setFrom("freeinxd@gmail.com")
-            ->setTo($user->getEmail())
-            ->setBody(
-                $this->renderView(
-                    'emails/admin_pass_rec.html.twig', [
-                        'nom' => $user->getNom(),
-                        'prenom' => $user->getPrenom(),
-                        'password' => $random
-                    ]
-                ),
-                'text/html'
-            )->setContentType('text/html');
-        $nSent = $mailer->send($message);
-        if (!$nSent) {
-            return false;
-        }
-
-        $manager->persist($user);
-        $manager->flush();
-        return true;
     }
 }

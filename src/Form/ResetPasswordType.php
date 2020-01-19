@@ -29,8 +29,7 @@ class ResetPasswordType extends AbstractType
                     'first_options' => ['label' => 'Nouveau mot de passe'],
                     'second_options' => ['label' => 'Répétez nouveau mot de passe'],
                 ])
-        ->add('Appliquer',SubmitType::class)
-        ;
+            ->add('Appliquer', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -6,7 +6,6 @@ namespace App\Form\DataTransformer;
 use App\Entity\Descripteur;
 use App\Repository\DescripteurRepository;
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class TagArrayToStringTransformer implements DataTransformerInterface
 {
@@ -51,13 +50,11 @@ class TagArrayToStringTransformer implements DataTransformerInterface
      * of the first data transformer outputs NULL, the second must be able to
      * process that value.
      *
-     * @param mixed $value The value in the original representation
-     *
+     * @param $tags
      * @return mixed The value in the transformed representation
      *
-     * @throws TransformationFailedException when the transformation fails
      */
-    public function transform($tags):string
+    public function transform($tags): string
     {
         // The value received is an array of Tag objects generated with
         // Symfony\Bridge\Doctrine\Form\DataTransformer\CollectionToArrayTransformer::transform()
@@ -87,11 +84,9 @@ class TagArrayToStringTransformer implements DataTransformerInterface
      * By convention, reverseTransform() should return NULL if an empty string
      * is passed.
      *
-     * @param mixed $value The value in the transformed representation
-     *
+     * @param $string
      * @return mixed The value in the original representation
      *
-     * @throws TransformationFailedException when the transformation fails
      */
     public function reverseTransform($string)
     {

@@ -7,8 +7,11 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
+use Swift_Mailer;
+use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -18,7 +21,7 @@ class ResponsableController extends AbstractController
      * @Route("/admin/responsable", name="responsable")
      * @param Request $request
      * @param UserRepository $repository
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function show(Request $request, UserRepository $repository)
     {
@@ -46,11 +49,11 @@ class ResponsableController extends AbstractController
      * @param Request $request
      * @param ObjectManager $manager
      * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param \Swift_Mailer $mailer
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Swift_Mailer $mailer
+     * @return Response
      */
     public function new(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder,
-                        \Swift_Mailer $mailer)
+                        Swift_Mailer $mailer)
     {
 
         $user = new User();
@@ -68,7 +71,7 @@ class ResponsableController extends AbstractController
             $user->setPassword($passwordEncoder->encodePassword($user, $random));
 
             // Emailing password to user's mail
-            $message = (new \Swift_Message("Bienvenue"))
+            $message = (new Swift_Message("Bienvenue"))
                 ->setFrom("freeinxd@gmail.com")
                 ->setTo($user->getEmail())
                 ->setBody(

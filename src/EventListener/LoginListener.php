@@ -2,9 +2,9 @@
 
 namespace App\EventListener;
 
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use App\Entity\User;
 
 class LoginListener
 {
@@ -20,13 +20,13 @@ class LoginListener
         $this->manager = $manager;
     }
 
-    public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
+    public function onSecurityInteractiveLogin(InteractiveLoginEvent $event): void
     {
         // Get current user
         $user = $event->getAuthenticationToken()->getUser();
 
         // Update last login field
-        $user->setLastLogin(new \DateTime());
+        $user->setLastLogin(new DateTime());
 
         // Persist to DB
         $this->manager->persist($user);

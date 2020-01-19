@@ -166,12 +166,11 @@
         }
 
         function coverFormatter(value, row) {
-            let element = '<a href="/admin/books/'+JSON.stringify(row.id)+'"><img src="';
-            if (value.includes('/')){
+            let element = '<a href="/admin/books/' + JSON.stringify(row.id) + '"><img src="';
+            if (value.includes('/')) {
                 element += value;
                 console.log('is link');
-            }
-            else
+            } else
                 element += '/img/livres/' + value;
             return element + '" style="height: 70px; width: 49px;" ' +
                 'alt="book-cover" ' +
@@ -204,19 +203,19 @@
         }
 
         function textFormatter(value) {
-            if (!value) value = "";
+            if (!value) value = '';
             return '<span style="display: flex; flex-direction: row; max-height: 70px; overflow: auto;">' + value + '</span>';
         }
 
         function dateFormatter(value) {
-            console.log("my object: %o", value.timezone.transitions[0].time.toString());
+            console.log('my object: %o', value.timezone.transitions[0].time.toString());
             return value.timezone.transitions[0].time;
         }
 
         window.operateEvents = {
             'click .edit': function (e, value, row) {
                 // alert('You click like action, row: ' + JSON.stringify(row.id))
-                window.location.href = "/admin/books/" + JSON.stringify(row.id) + "/edit";
+                window.location.href = '/admin/books/' + JSON.stringify(row.id) + '/edit';
             }
         };
 
@@ -225,7 +224,7 @@
                 '<a class="edit" href="#" title="Modifier">',
                 '<i class="far fa-edit fa-lg"></i>',
                 '</a>'
-            ].join('')
+            ].join('');
         }
 
     </script>

@@ -4,11 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Livre;
 use App\Repository\CategorieRepository;
-use App\Repository\DescripteurRepository;
 use App\Repository\LivreRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -51,7 +51,7 @@ class SearchController extends AbstractController
                     $book = [];
                     $book['image'] = $livre->getCouverture() ? $livre->getCouverture() : "";
                     $book['title'] = $livre->getTitrePrincipale();
-                    $book['url'] = "/search/book/".$livre->getId();
+                    $book['url'] = "/search/book/" . $livre->getId();
                     $book['description'] = $livre->getObservation() ? $livre->getObservation() : "";
                     $results['results']['category' . $i]['results'][] = $book;
                     $results['results']['category' . $i]['results'][] = $book;
@@ -96,7 +96,7 @@ class SearchController extends AbstractController
      * @Route("/search/results",name="search_results", methods={"GET"})
      * @param Request $request
      * @param LivreRepository $livreRepository
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function results(Request $request, LivreRepository $livreRepository)
     {
@@ -134,8 +134,8 @@ class SearchController extends AbstractController
 
             foreach ($results as $result) {
                 foreach ($result['tags'] as $tag) {
-                    if ($tag->getNom()===$tagName){
-                        $filtered[]=$result;
+                    if ($tag->getNom() === $tagName) {
+                        $filtered[] = $result;
                         break;
                     }
                 }
@@ -152,10 +152,11 @@ class SearchController extends AbstractController
     /**
      * @Route("/search/book/{id}",name="book_inf")
      * @param Livre $book
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function bookCard(Livre $book){
-        return $this->render('search/book.html.twig',[
+    public function bookCard(Livre $book)
+    {
+        return $this->render('search/book.html.twig', [
             'book' => $book
         ]);
     }

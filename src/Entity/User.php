@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -16,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     message="Cet email est déja utilisé"
  * )
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface, Serializable
 {
     /**
      * @ORM\Id()
@@ -268,12 +270,12 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getLastLogin(): ?\DateTimeInterface
+    public function getLastLogin(): ?DateTimeInterface
     {
         return $this->lastLogin;
     }
 
-    public function setLastLogin(?\DateTimeInterface $lastLogin): self
+    public function setLastLogin(?DateTimeInterface $lastLogin): self
     {
         $this->lastLogin = $lastLogin;
 

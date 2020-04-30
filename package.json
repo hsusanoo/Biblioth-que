@@ -29,7 +29,7 @@
         "dropzone": "^5.5.1",
         "file-saver": "^2.0.2",
         "fs": "0.0.1-security",
-        "jquery": "^3.4.1",
+        "jquery": "^3.5.0",
         "jquery-resizable-columns": "^0.2.3",
         "jspdf": "^1.5.3",
         "jspdf-autotable": "^3.1.1",

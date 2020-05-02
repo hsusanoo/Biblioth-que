@@ -1,5 +1,7 @@
 # Biblioth-que
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1e1f2f7ca0d84f72b42531355c63f638)](https://app.codacy.com/manual/hsusanoo/Biblioth-que?utm_source=github.com&utm_medium=referral&utm_content=hsusanoo/Biblioth-que&utm_campaign=Badge_Grade_Dashboard)
+
 ## Overview
 School library management system, main features:
 - Managing books in stock with the ability to import and/or export data

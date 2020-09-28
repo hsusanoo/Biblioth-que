@@ -33,7 +33,7 @@
     "symfony/translation": "5.0.*",
     "symfony/twig-bundle": "5.0.*",
     "symfony/validator": "5.0.*",
-    "symfony/web-link": "5.0.*",
+    "symfony/web-link": "5.1.*",
     "symfony/webpack-encore-bundle": "^1.4",
     "symfony/yaml": "5.1.*",
     "tecnickcom/tcpdf": "^6.2",

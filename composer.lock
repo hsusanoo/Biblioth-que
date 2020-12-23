@@ -1702,20 +1702,20 @@
         },
         {
             "name": "liip/imagine-bundle",
-            "version": "2.3.1",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/liip/LiipImagineBundle.git",
-                "reference": "d0819fc9b1cd4e9e16db204467b6fe1a5316a163"
+                "reference": "4704b34fb1c416f88d670e7b0427dd96cc256eac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/d0819fc9b1cd4e9e16db204467b6fe1a5316a163",
-                "reference": "d0819fc9b1cd4e9e16db204467b6fe1a5316a163",
+                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/4704b34fb1c416f88d670e7b0427dd96cc256eac",
+                "reference": "4704b34fb1c416f88d670e7b0427dd96cc256eac",
                 "shasum": ""
             },
             "require": {
-                "imagine/imagine": "^0.7.1|^1.1",
+                "imagine/imagine": "^1.1",
                 "php": "^7.1",
                 "symfony/filesystem": "^3.4|^4.3|^5.0",
                 "symfony/finder": "^3.4|^4.3|^5.0",
@@ -1740,7 +1740,7 @@
                 "symfony/console": "^3.4|^4.3|^5.0",
                 "symfony/dependency-injection": "^3.4|^4.3|^5.0",
                 "symfony/form": "^3.4|^4.3|^5.0",
-                "symfony/phpunit-bridge": "^4.3|^5.0",
+                "symfony/phpunit-bridge": "^5.2",
                 "symfony/validator": "^3.4|^4.3|^5.0",
                 "symfony/yaml": "^3.4|^4.3|^5.0"
             },
@@ -1797,7 +1797,7 @@
                 "symfony",
                 "transformation"
             ],
-            "time": "2020-06-26T05:55:54+00:00"
+            "time": "2020-12-16T07:14:53+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -5239,20 +5239,21 @@
         },
         {
             "name": "symfony/mime",
-            "version": "v5.1.8",
+            "version": "v5.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mime.git",
-                "reference": "f5485a92c24d4bcfc2f3fc648744fb398482ff1b"
+                "reference": "de97005aef7426ba008c46ba840fc301df577ada"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mime/zipball/f5485a92c24d4bcfc2f3fc648744fb398482ff1b",
-                "reference": "f5485a92c24d4bcfc2f3fc648744fb398482ff1b",
+                "url": "https://api.github.com/repos/symfony/mime/zipball/de97005aef7426ba008c46ba840fc301df577ada",
+                "reference": "de97005aef7426ba008c46ba840fc301df577ada",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2.5",
+                "symfony/deprecation-contracts": "^2.1",
                 "symfony/polyfill-intl-idn": "^1.10",
                 "symfony/polyfill-mbstring": "^1.0",
                 "symfony/polyfill-php80": "^1.15"
@@ -5262,7 +5263,11 @@
             },
             "require-dev": {
                 "egulias/email-validator": "^2.1.10",
-                "symfony/dependency-injection": "^4.4|^5.0"
+                "phpdocumentor/reflection-docblock": "^3.0|^4.0|^5.0",
+                "symfony/dependency-injection": "^4.4|^5.0",
+                "symfony/property-access": "^4.4|^5.1",
+                "symfony/property-info": "^4.4|^5.1",
+                "symfony/serializer": "^5.2"
             },
             "type": "library",
             "autoload": {
@@ -5307,7 +5312,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-10-24T12:01:57+00:00"
+            "time": "2020-12-09T18:54:12+00:00"
         },
         {
             "name": "symfony/monolog-bridge",
@@ -7410,7 +7415,7 @@
         },
         {
             "name": "symfony/templating",
-            "version": "v5.1.8",
+            "version": "v5.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/templating.git",

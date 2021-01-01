@@ -1335,16 +1335,16 @@
         },
         {
             "name": "dompdf/dompdf",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dompdf/dompdf.git",
-                "reference": "e53da1ccea4340832d0b864e383c4e2b2d141ca3"
+                "reference": "45d260f2f6c6a542e0db3459470374c986a46d93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/e53da1ccea4340832d0b864e383c4e2b2d141ca3",
-                "reference": "e53da1ccea4340832d0b864e383c4e2b2d141ca3",
+                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/45d260f2f6c6a542e0db3459470374c986a46d93",
+                "reference": "45d260f2f6c6a542e0db3459470374c986a46d93",
                 "shasum": ""
             },
             "require": {
@@ -1399,7 +1399,7 @@
             ],
             "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
             "homepage": "https://github.com/dompdf/dompdf",
-            "time": "2020-12-24T19:58:01+00:00"
+            "time": "2020-12-31T13:25:19+00:00"
         },
         {
             "name": "egulias/email-validator",

@@ -5635,16 +5635,16 @@
         },
         {
             "name": "symfony/polyfill-apcu",
-            "version": "v1.22.0",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-apcu.git",
-                "reference": "3b3944f40987b9d3f9b9147f86c32df87d9f3505"
+                "reference": "bc9974e74f8c05f4ceb500b1e0603e36be7d8223"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-apcu/zipball/3b3944f40987b9d3f9b9147f86c32df87d9f3505",
-                "reference": "3b3944f40987b9d3f9b9147f86c32df87d9f3505",
+                "url": "https://api.github.com/repos/symfony/polyfill-apcu/zipball/bc9974e74f8c05f4ceb500b1e0603e36be7d8223",
+                "reference": "bc9974e74f8c05f4ceb500b1e0603e36be7d8223",
                 "shasum": ""
             },
             "require": {
@@ -5705,7 +5705,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-07T16:49:33+00:00"
+            "time": "2021-01-22T09:19:47+00:00"
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
@@ -9044,12 +9044,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "5f40d4d577a71466f9723122251b46bdaf634709"
+                "reference": "1e48e1beacb6122df93aa61a6cc291254984be2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/5f40d4d577a71466f9723122251b46bdaf634709",
-                "reference": "5f40d4d577a71466f9723122251b46bdaf634709",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/1e48e1beacb6122df93aa61a6cc291254984be2a",
+                "reference": "1e48e1beacb6122df93aa61a6cc291254984be2a",
                 "shasum": ""
             },
             "conflict": {
@@ -9291,6 +9291,7 @@
                 "ua-parser/uap-php": "<3.8",
                 "usmanhalalit/pixie": "<1.0.3|>=2,<2.0.2",
                 "verot/class.upload.php": "<=1.0.3|>=2,<=2.0.4",
+                "vrana/adminer": "<4.7.9",
                 "wallabag/tcpdf": "<6.2.22",
                 "willdurand/js-translation-bundle": "<2.1.1",
                 "yii2mod/yii2-cms": "<1.9.2",
@@ -9357,7 +9358,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-10T03:02:31+00:00"
+            "time": "2021-02-16T17:17:25+00:00"
         },
         {
             "name": "symfony/browser-kit",

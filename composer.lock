@@ -3843,16 +3843,16 @@
         },
         {
             "name": "symfony/dependency-injection",
-            "version": "v5.2.8",
+            "version": "v5.2.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "024e929da5a994cbab0ce2291d332f7edf926acf"
+                "reference": "2761ca2f7e2f41af3a45951e1ce8c01f121245eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/024e929da5a994cbab0ce2291d332f7edf926acf",
-                "reference": "024e929da5a994cbab0ce2291d332f7edf926acf",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/2761ca2f7e2f41af3a45951e1ce8c01f121245eb",
+                "reference": "2761ca2f7e2f41af3a45951e1ce8c01f121245eb",
                 "shasum": ""
             },
             "require": {
@@ -3923,7 +3923,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-11T16:07:35+00:00"
+            "time": "2021-05-16T13:07:46+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -6720,16 +6720,16 @@
         },
         {
             "name": "symfony/security-bundle",
-            "version": "v5.2.8",
+            "version": "v5.2.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-bundle.git",
-                "reference": "dbb555941ea0f6a461e4d26ed4e20dad73991cf4"
+                "reference": "c3502279a8e28e6586c1f0cce674f0d360236997"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/dbb555941ea0f6a461e4d26ed4e20dad73991cf4",
-                "reference": "dbb555941ea0f6a461e4d26ed4e20dad73991cf4",
+                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/c3502279a8e28e6586c1f0cce674f0d360236997",
+                "reference": "c3502279a8e28e6586c1f0cce674f0d360236997",
                 "shasum": ""
             },
             "require": {
@@ -6813,20 +6813,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-12T13:14:35+00:00"
+            "time": "2021-05-19T10:09:09+00:00"
         },
         {
             "name": "symfony/security-core",
-            "version": "v5.2.8",
+            "version": "v5.2.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-core.git",
-                "reference": "216b19421aa3b414f18f353aeea0bb230827844c"
+                "reference": "03d9f94e733afd4f3e73081fa7809f8a02f77a11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-core/zipball/216b19421aa3b414f18f353aeea0bb230827844c",
-                "reference": "216b19421aa3b414f18f353aeea0bb230827844c",
+                "url": "https://api.github.com/repos/symfony/security-core/zipball/03d9f94e733afd4f3e73081fa7809f8a02f77a11",
+                "reference": "03d9f94e733afd4f3e73081fa7809f8a02f77a11",
                 "shasum": ""
             },
             "require": {
@@ -6899,7 +6899,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-12T13:14:35+00:00"
+            "time": "2021-05-19T12:08:15+00:00"
         },
         {
             "name": "symfony/security-csrf",
@@ -7035,16 +7035,16 @@
         },
         {
             "name": "symfony/security-http",
-            "version": "v5.2.8",
+            "version": "v5.2.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-http.git",
-                "reference": "c55a8f70fb2a04cf8ec3263d337abb3f22fc0132"
+                "reference": "cc02ba30c8e721704202489f6e7963339a367e37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-http/zipball/c55a8f70fb2a04cf8ec3263d337abb3f22fc0132",
-                "reference": "c55a8f70fb2a04cf8ec3263d337abb3f22fc0132",
+                "url": "https://api.github.com/repos/symfony/security-http/zipball/cc02ba30c8e721704202489f6e7963339a367e37",
+                "reference": "cc02ba30c8e721704202489f6e7963339a367e37",
                 "shasum": ""
             },
             "require": {
@@ -7112,7 +7112,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-12T13:14:35+00:00"
+            "time": "2021-05-18T23:02:18+00:00"
         },
         {
             "name": "symfony/serializer",
@@ -9045,12 +9045,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "42840dcc436945146d79a985240a99ddd3bc5dc7"
+                "reference": "62148111d4ef79d664b0da42729ce5e0705ad4aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/42840dcc436945146d79a985240a99ddd3bc5dc7",
-                "reference": "42840dcc436945146d79a985240a99ddd3bc5dc7",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/62148111d4ef79d664b0da42729ce5e0705ad4aa",
+                "reference": "62148111d4ef79d664b0da42729ce5e0705ad4aa",
                 "shasum": ""
             },
             "conflict": {
@@ -9286,14 +9286,14 @@
                 "symfony/polyfill-php55": ">=1,<1.10",
                 "symfony/proxy-manager-bridge": ">=2.7,<2.7.51|>=2.8,<2.8.50|>=3,<3.4.26|>=4,<4.1.12|>=4.2,<4.2.7",
                 "symfony/routing": ">=2,<2.0.19",
-                "symfony/security": ">=2,<2.7.51|>=2.8,<3.4.48|>=4,<4.4.23|>=5,<5.2.8",
+                "symfony/security": ">=2,<2.7.51|>=2.8,<3.4.49|>=4,<4.4.24|>=5,<5.2.8",
                 "symfony/security-bundle": ">=2,<2.7.48|>=2.8,<2.8.41|>=3,<3.3.17|>=3.4,<3.4.11|>=4,<4.0.11",
-                "symfony/security-core": ">=2.4,<2.6.13|>=2.7,<2.7.9|>=2.7.30,<2.7.32|>=2.8,<3.4.48|>=4,<4.4.23|>=5,<5.2.8",
+                "symfony/security-core": ">=2.4,<2.6.13|>=2.7,<2.7.9|>=2.7.30,<2.7.32|>=2.8,<3.4.49|>=4,<4.4.24|>=5,<5.2.9",
                 "symfony/security-csrf": ">=2.4,<2.7.48|>=2.8,<2.8.41|>=3,<3.3.17|>=3.4,<3.4.11|>=4,<4.0.11",
                 "symfony/security-guard": ">=2.8,<3.4.48|>=4,<4.4.23|>=5,<5.2.8",
                 "symfony/security-http": ">=2.3,<2.3.41|>=2.4,<2.7.51|>=2.8,<3.4.48|>=4,<4.4.23|>=5,<5.2.8",
                 "symfony/serializer": ">=2,<2.0.11",
-                "symfony/symfony": ">=2,<3.4.48|>=4,<4.4.23|>=5,<5.2.8",
+                "symfony/symfony": ">=2,<3.4.49|>=4,<4.4.24|>=5,<5.2.9",
                 "symfony/translation": ">=2,<2.0.17",
                 "symfony/validator": ">=2,<2.0.24|>=2.1,<2.1.12|>=2.2,<2.2.5|>=2.3,<2.3.3",
                 "symfony/var-exporter": ">=4.2,<4.2.12|>=4.3,<4.3.8",
@@ -9323,6 +9323,7 @@
                 "wallabag/tcpdf": "<6.2.22",
                 "wikimedia/parsoid": "<0.12.2",
                 "willdurand/js-translation-bundle": "<2.1.1",
+                "wp-cli/wp-cli": "<2.5",
                 "yii2mod/yii2-cms": "<1.9.2",
                 "yiisoft/yii": ">=1.1.14,<1.1.15",
                 "yiisoft/yii2": "<2.0.38",
@@ -9389,7 +9390,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-18T18:23:15+00:00"
+            "time": "2021-05-19T23:05:50+00:00"
         },
         {
             "name": "symfony/browser-kit",

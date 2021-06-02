@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "57e7f0e88540f869851c76dc3de5b806",
+    "content-hash": "b9ace1413f26b7fe1df4f4f292b7368b",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -8251,16 +8251,16 @@
         },
         {
             "name": "symfony/web-link",
-            "version": "v5.2.5",
+            "version": "v5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/web-link.git",
-                "reference": "118ef73c177a033955af1342ec54f08dd1bf6d8e"
+                "reference": "87b34e33e833e948256b237f25fdd54f85975a94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/web-link/zipball/118ef73c177a033955af1342ec54f08dd1bf6d8e",
-                "reference": "118ef73c177a033955af1342ec54f08dd1bf6d8e",
+                "url": "https://api.github.com/repos/symfony/web-link/zipball/87b34e33e833e948256b237f25fdd54f85975a94",
+                "reference": "87b34e33e833e948256b237f25fdd54f85975a94",
                 "shasum": ""
             },
             "require": {
@@ -8268,14 +8268,13 @@
                 "psr/link": "^1.0"
             },
             "conflict": {
-                "symfony/http-kernel": "<4.4"
+                "symfony/http-kernel": "<5.3"
             },
             "provide": {
                 "psr/link-implementation": "1.0"
             },
             "require-dev": {
-                "symfony/http-foundation": "^4.4|^5.0",
-                "symfony/http-kernel": "^4.4|^5.0"
+                "symfony/http-kernel": "^5.3"
             },
             "suggest": {
                 "symfony/http-kernel": ""
@@ -8331,7 +8330,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-03-07T15:51:33+00:00"
+            "time": "2021-05-26T17:43:10+00:00"
         },
         {
             "name": "symfony/webpack-encore-bundle",
@@ -9127,12 +9126,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "80f32ef3cff7c3b5b650d8aa823437b43d5c5056"
+                "reference": "9460a22455b82b353d2212fecedebcf73b141baa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/80f32ef3cff7c3b5b650d8aa823437b43d5c5056",
-                "reference": "80f32ef3cff7c3b5b650d8aa823437b43d5c5056",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/9460a22455b82b353d2212fecedebcf73b141baa",
+                "reference": "9460a22455b82b353d2212fecedebcf73b141baa",
                 "shasum": ""
             },
             "conflict": {
@@ -9282,6 +9281,7 @@
                 "paypal/merchant-sdk-php": "<3.12",
                 "pear/archive_tar": "<1.4.12",
                 "personnummer/personnummer": "<3.0.2",
+                "phanan/koel": "<5.1.4",
                 "phpfastcache/phpfastcache": ">=5,<5.0.13",
                 "phpmailer/phpmailer": "<6.1.6|>=6.1.8,<6.4.1",
                 "phpmussel/phpmussel": ">=1,<1.6",
@@ -9475,7 +9475,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-26T16:24:26+00:00"
+            "time": "2021-06-01T22:04:47+00:00"
         },
         {
             "name": "symfony/browser-kit",

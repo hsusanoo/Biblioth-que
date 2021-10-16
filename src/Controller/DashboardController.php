@@ -35,7 +35,7 @@ class DashboardController extends AbstractController
      * @return JsonResponse
      * @throws Exception
      */
-    public function getCategoriesStats(int $year, CategorieRepository $categorieRepository,
+    public function getCategoriesStats(int             $year, CategorieRepository $categorieRepository,
                                        LivreRepository $livreRepository, Request $request)
     {
         if ($request->isXmlHttpRequest()) {

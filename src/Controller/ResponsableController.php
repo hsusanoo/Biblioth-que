@@ -53,7 +53,7 @@ class ResponsableController extends AbstractController
      * @return Response
      * @throws Exception
      */
-    public function new(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $passwordEncoder,
+    public function new(Request      $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $passwordEncoder,
                         Swift_Mailer $mailer): Response
     {
 

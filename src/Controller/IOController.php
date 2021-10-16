@@ -46,18 +46,16 @@ class IOController extends AbstractController
         ]);
     }
 
-    public function export(CategorieRepository $repository, String $date = null, bool $inv = false,
-                           LivreRepository $livrRepo = null, $mode = 'excel'): void
+    public function export(CategorieRepository $repository, string $date = null, bool $inv = false,
+                           LivreRepository     $livrRepo = null, $mode = 'excel'): void
     {
         // Getting date values
-        $dateArray = null;
         $month = null;
         $year = null;
         if ($date) {
             $dateArray = explode('/', $date);
             if (count($dateArray) > 1) {
-                $month = $dateArray[0];
-                $year = $dateArray[1];
+                [$month, $year] = $dateArray;
             } else {
                 $year = $dateArray[0];
             }
@@ -445,7 +443,7 @@ class IOController extends AbstractController
 
 
         // Creating IOFactory object to download the file on the client side
-        if ($mode == 'pdf') {
+        if ($mode === 'pdf') {
             $class = Dompdf::class;
             IOFactory::registerWriter('Pdf', $class);
             $writer = IOFactory::createWriter($spreadsheet, 'Pdf');
@@ -490,10 +488,10 @@ class IOController extends AbstractController
             } catch (\PhpOffice\PhpSpreadsheet\Writer\Exception $e) {
             }
         }
-        exit();
+//        exit();
     }
 
-    public function getMonthName(String $lang, int $month = null)
+    public function getMonthName(string $lang, int $month = null): string
     {
 
         $monthsArray = [
@@ -650,7 +648,7 @@ class IOController extends AbstractController
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
-    public function import(Request $request, EntityManagerInterface $manager, LivreRepository $livreRepository,
+    public function import(Request             $request, EntityManagerInterface $manager, LivreRepository $livreRepository,
                            CategorieRepository $categorieRepository, AuteurRepository $auteurRepository): RedirectResponse
     {
         $date = null;

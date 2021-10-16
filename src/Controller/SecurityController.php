@@ -72,9 +72,9 @@ class SecurityController extends AbstractController
      * @param Swift_Mailer $mailer
      * @return RedirectResponse|Response
      */
-    public function passwordRecover(Request $request, UserRepository $userRepository,
+    public function passwordRecover(Request                $request, UserRepository $userRepository,
                                     EntityManagerInterface $manager, UserPasswordEncoderInterface $passwordEncoder,
-                                    Swift_Mailer $mailer)
+                                    Swift_Mailer           $mailer)
     {
         if ($this->isGranted('IS_AUTHENTICATED_FULLY'))
             return $this->redirectToRoute('index');
@@ -105,7 +105,7 @@ class SecurityController extends AbstractController
         );
     }
 
-    public function newPassword(User $user, EntityManagerInterface $manager,
+    public function newPassword(User                         $user, EntityManagerInterface $manager,
                                 UserPasswordEncoderInterface $passwordEncoder, Swift_Mailer $mailer): bool
     {
 
@@ -148,7 +148,7 @@ class SecurityController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    public function passwordReset(Request $request, UserPasswordEncoderInterface $passwordEncoder,
+    public function passwordReset(Request                $request, UserPasswordEncoderInterface $passwordEncoder,
                                   EntityManagerInterface $manager): Response
     {
         $passForm = $this->createForm(ResetPasswordType::class);

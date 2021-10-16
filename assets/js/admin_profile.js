@@ -4,7 +4,6 @@ let actx = $('#admin_chart');
 $.ajax({
     url: window.location.pathname + '/overview',
     success(result) {
-        console.log(result);
         let data = {
             labels: result.category,
             datasets: [{

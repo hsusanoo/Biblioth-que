@@ -35,17 +35,22 @@ class IOController extends AbstractController
      * @param Request $request
      * @param CategorieRepository $repository
      * @return Response
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function index(Request $request, CategorieRepository $repository): Response
     {
-        if ($request->query->get('submit'))
+        if ($request->query->get('submit')) {
             $this->export($repository, $request->query->get('date'));
+        }
 
         return $this->render('admin/book/reports.html.twig', [
             'controller_name' => 'IOController',
         ]);
     }
 
+    /**
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     */
     public function export(CategorieRepository $repository, string $date = null, bool $inv = false,
                            LivreRepository     $livrRepo = null, $mode = 'excel'): void
     {
@@ -260,8 +265,9 @@ class IOController extends AbstractController
                 } else {
                     try {
                         foreach ($livrRepo->findByYear($year) as $livreByYear) {
-                            if ($livreByYear->getCategorie() === $category)
+                            if ($livreByYear->getCategorie() === $category) {
                                 $nbLivres++;
+                            }
                         }
                     } catch (Exception $e) {
                     }
@@ -270,13 +276,13 @@ class IOController extends AbstractController
 
                 $nbExemplaires = 0;
                 $prixTotale = 0;
-                if (!$year)
+                if (!$year) {
                     foreach ($category->getLivres() as $livre) {
                         $samples = count($livre->getExemplaires());
                         $nbExemplaires += $samples;
                         $prixTotale += $livre->getPrix() * $samples;
                     }
-                else {
+                } else {
                     $samples = 0;
                     $prix = 0;
 //                    //debug
@@ -321,8 +327,9 @@ class IOController extends AbstractController
 
         foreach ($categories as $category) {
 
-            if (count($category->getLivres()) < 1)
+            if (count($category->getLivres()) < 1) {
                 continue;
+            }
 
             // Skipping 2 rows
             $row += 3;
@@ -354,11 +361,12 @@ class IOController extends AbstractController
                 $sheet->mergeCells('C' . $row . ':D' . $row);
             } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
             }
-            if ($inv)
+            if ($inv) {
                 try {
                     $sheet->mergeCells('E' . $row . ':E' . ($row + 1));
                 } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
                 }
+            }
 
             $sheet->setCellValue('A' . $row, 'Titre/Auteurs');
             $sheet->setCellValue('B' . $row, 'Editeurs/Année');
@@ -415,8 +423,9 @@ class IOController extends AbstractController
                     // Cote
                     $sheet->setCellValue('D' . $row, $exemplaire->getCote());
 
-                    if ($inv)
+                    if ($inv) {
                         $sheet->setCellValue('E' . $row, $book->getPrix());
+                    }
 
                     $row += 3;
 
@@ -466,7 +475,6 @@ class IOController extends AbstractController
             header('Cache-Control: max-age=0');
 
             $writer->save('php://output');
-            memory_get_usage();
         } else {
 
             // Redirect output to a client’s web browser (Xlsx)
@@ -525,8 +533,9 @@ class IOController extends AbstractController
             ]
         ];
 
-        if ($month)
+        if ($month) {
             return $monthsArray[$lang][(int)$month];
+        }
         return '';
     }
 
@@ -536,13 +545,15 @@ class IOController extends AbstractController
      * @param CategorieRepository $repository
      * @param LivreRepository $livreRepo
      * @return Response
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function inventory(Request $request, CategorieRepository $repository, LivreRepository $livreRepo): Response
     {
-        if ($request->query->get('pdf_submit'))
+        if ($request->query->get('pdf_submit')) {
             $this->export($repository, $request->query->get('date'), true, $livreRepo, 'pdf');
-        elseif ($request->query->get('excel_submit'))
+        } elseif ($request->query->get('excel_submit')) {
             $this->export($repository, $request->query->get('date'), true, $livreRepo);
+        }
 
 
         return $this->render('admin/book/inventaire.html.twig', [
@@ -582,14 +593,15 @@ class IOController extends AbstractController
                     $book['authors'] = implode(",", $authors);
                 } else
                     $book['authors'] = "";
-                $book['annee'] = $livre->getDateEdition() ? $livre->getDateEdition() : "";
-                $book['edition'] = $livre->getEditeur() ? $livre->getEditeur() : "";
-                $book['prix'] = $livre->getPrix() ? $livre->getPrix() : "";
+                $book['annee'] = $livre->getDateEdition() ?: "";
+                $book['edition'] = $livre->getEditeur() ?: "";
+                $book['prix'] = $livre->getPrix() ?: "";
                 $book['quantité'] = count($livre->getExemplaires());
                 if ($livre->getCategorie()) {
                     $book['categorie'] = $livre->getCategorie()->getNom();
-                } else
+                } else {
                     $book['categorie'] = "";
+                }
 
                 // Samples
                 $book['exemplaires'] = [];
@@ -647,6 +659,7 @@ class IOController extends AbstractController
      * @return RedirectResponse
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     * @throws Exception
      */
     public function import(Request             $request, EntityManagerInterface $manager, LivreRepository $livreRepository,
                            CategorieRepository $categorieRepository, AuteurRepository $auteurRepository): RedirectResponse
@@ -792,19 +805,6 @@ class IOController extends AbstractController
         $manager->flush();
         $this->addFlash('success', 'Livres Importés !');
         return $this->redirectToRoute('books');
-    }
-
-    public function getCatRepo(CategorieRepository $repository): void
-    {
-
-        $categories = $repository->findAll();
-        $categories->
-        $data = [];
-
-        foreach ($categories as $category) {
-            //TODO: build json data
-        }
-
     }
 
 }

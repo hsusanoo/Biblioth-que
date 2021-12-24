@@ -3237,16 +3237,16 @@
         },
         {
             "name": "sensio/framework-extra-bundle",
-            "version": "v6.2.3",
+            "version": "v6.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "eeab0bbe6ac94a600a7da7aac020646dcd739484"
+                "reference": "01a4a9ba102a8034a968a46a939ba18ccdadc47e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/eeab0bbe6ac94a600a7da7aac020646dcd739484",
-                "reference": "eeab0bbe6ac94a600a7da7aac020646dcd739484",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/01a4a9ba102a8034a968a46a939ba18ccdadc47e",
+                "reference": "01a4a9ba102a8034a968a46a939ba18ccdadc47e",
                 "shasum": ""
             },
             "require": {
@@ -3307,7 +3307,7 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2021-12-17T14:36:53+00:00"
+            "time": "2021-12-24T11:52:04+00:00"
         },
         {
             "name": "setasign/fpdi",
@@ -9665,12 +9665,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "b9421ed9de7b2a5f54f637a064dcd31922a82405"
+                "reference": "31d9d9e2977ae7d796d82271be09e46f4bdf41b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/b9421ed9de7b2a5f54f637a064dcd31922a82405",
-                "reference": "b9421ed9de7b2a5f54f637a064dcd31922a82405",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/31d9d9e2977ae7d796d82271be09e46f4bdf41b3",
+                "reference": "31d9d9e2977ae7d796d82271be09e46f4bdf41b3",
                 "shasum": ""
             },
             "conflict": {
@@ -9900,7 +9900,7 @@
                 "pusher/pusher-php-server": "<2.2.1",
                 "pwweb/laravel-core": "<=0.3.6-beta",
                 "rainlab/debugbar-plugin": "<3.1",
-                "remdex/livehelperchat": "<=2",
+                "remdex/livehelperchat": "<=3.90",
                 "rmccue/requests": ">=1.6,<1.8",
                 "robrichards/xmlseclibs": "<3.0.4",
                 "sabberworm/php-css-parser": ">=1,<1.0.1|>=2,<2.0.1|>=3,<3.0.1|>=4,<4.0.1|>=5,<5.0.9|>=5.1,<5.1.3|>=5.2,<5.2.1|>=6,<6.0.2|>=7,<7.0.4|>=8,<8.0.1|>=8.1,<8.1.1|>=8.2,<8.2.1|>=8.3,<8.3.1",
@@ -9913,7 +9913,7 @@
                 "shopware/production": "<=6.3.5.2",
                 "shopware/shopware": "<5.7.6",
                 "showdoc/showdoc": "<=2.9.13",
-                "silverstripe/admin": "<4.8.1",
+                "silverstripe/admin": ">=1,<1.8.1",
                 "silverstripe/assets": ">=1,<1.4.7|>=1.5,<1.5.2",
                 "silverstripe/cms": "<4.3.6|>=4.4,<4.4.4",
                 "silverstripe/comments": ">=1.3,<1.9.99|>=2,<2.9.99|>=3,<3.1.1",
@@ -10085,7 +10085,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-12-16T20:16:03+00:00"
+            "time": "2021-12-22T21:13:38+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

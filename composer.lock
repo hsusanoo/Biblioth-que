@@ -6550,16 +6550,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v5.4.7",
+            "version": "v5.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "38a44b2517b470a436e1c944bf9b9ba3961137fb"
+                "reference": "597f3fff8e3e91836bb0bd38f5718b56ddbde2f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/38a44b2517b470a436e1c944bf9b9ba3961137fb",
-                "reference": "38a44b2517b470a436e1c944bf9b9ba3961137fb",
+                "url": "https://api.github.com/repos/symfony/process/zipball/597f3fff8e3e91836bb0bd38f5718b56ddbde2f3",
+                "reference": "597f3fff8e3e91836bb0bd38f5718b56ddbde2f3",
                 "shasum": ""
             },
             "require": {
@@ -6605,7 +6605,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-18T16:18:52+00:00"
+            "time": "2022-04-08T05:07:18+00:00"
         },
         {
             "name": "symfony/property-access",
@@ -9716,12 +9716,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "e5e096c731d21614b952983804581389eb2a484f"
+                "reference": "f9837ae1f1830a09d71f5132112dcc9ed3ef9c65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/e5e096c731d21614b952983804581389eb2a484f",
-                "reference": "e5e096c731d21614b952983804581389eb2a484f",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/f9837ae1f1830a09d71f5132112dcc9ed3ef9c65",
+                "reference": "f9837ae1f1830a09d71f5132112dcc9ed3ef9c65",
                 "shasum": ""
             },
             "conflict": {
@@ -9780,6 +9780,7 @@
                 "craftcms/cms": "<3.7.29",
                 "croogo/croogo": "<3.0.7",
                 "cuyz/valinor": ">=0.5,<0.7",
+                "czproject/git-php": "<4.0.3",
                 "datadog/dd-trace": ">=0.30,<0.30.2",
                 "david-garcia/phpwhois": "<=4.3.1",
                 "derhansen/sf_event_mgt": "<4.3.1|>=5,<5.1.1",
@@ -10186,7 +10187,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-22T22:04:12+00:00"
+            "time": "2022-04-27T15:08:54+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

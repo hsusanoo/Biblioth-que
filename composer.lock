@@ -9724,12 +9724,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "0e5a0abdd695cd45870e442647ef03a70f2ec1e5"
+                "reference": "54c08f02765d00fd520897873f163703b08f68f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/0e5a0abdd695cd45870e442647ef03a70f2ec1e5",
-                "reference": "0e5a0abdd695cd45870e442647ef03a70f2ec1e5",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/54c08f02765d00fd520897873f163703b08f68f2",
+                "reference": "54c08f02765d00fd520897873f163703b08f68f2",
                 "shasum": ""
             },
             "conflict": {
@@ -9916,6 +9916,7 @@
                 "livewire/livewire": ">2.2.4,<2.2.6",
                 "lms/routes": "<2.1.1",
                 "localizationteam/l10nmgr": "<7.4|>=8,<8.7|>=9,<9.2",
+                "luyadev/yii-helpers": "<1.2.1",
                 "magento/community-edition": ">=2,<2.2.10|>=2.3,<2.3.3",
                 "magento/magento1ce": "<1.9.4.3",
                 "magento/magento1ee": ">=1,<1.14.4.3",
@@ -10001,7 +10002,7 @@
                 "pusher/pusher-php-server": "<2.2.1",
                 "pwweb/laravel-core": "<=0.3.6-beta",
                 "rainlab/debugbar-plugin": "<3.1",
-                "remdex/livehelperchat": "<3.96",
+                "remdex/livehelperchat": "<3.99",
                 "rmccue/requests": ">=1.6,<1.8",
                 "robrichards/xmlseclibs": "<3.0.4",
                 "rudloff/alltube": "<3.0.3",
@@ -10198,7 +10199,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-29T21:04:00+00:00"
+            "time": "2022-05-04T03:31:04+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -11208,16 +11209,16 @@
         },
         {
             "name": "symfony/maker-bundle",
-            "version": "v1.40.1",
+            "version": "v1.41.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/maker-bundle.git",
-                "reference": "adc846e4f852e3aa2cd84a433cd05ba23dd19c3f"
+                "reference": "4b994dfdd0196dcb3d333fdd6a1d72d5955a9532"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/adc846e4f852e3aa2cd84a433cd05ba23dd19c3f",
-                "reference": "adc846e4f852e3aa2cd84a433cd05ba23dd19c3f",
+                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/4b994dfdd0196dcb3d333fdd6a1d72d5955a9532",
+                "reference": "4b994dfdd0196dcb3d333fdd6a1d72d5955a9532",
                 "shasum": ""
             },
             "require": {
@@ -11233,10 +11234,13 @@
                 "symfony/framework-bundle": "^5.4.7|^6.0",
                 "symfony/http-kernel": "^5.4.7|^6.0"
             },
+            "conflict": {
+                "doctrine/orm": "<2.10"
+            },
             "require-dev": {
                 "composer/semver": "^3.0",
                 "doctrine/doctrine-bundle": "^2.4",
-                "doctrine/orm": "^2.3",
+                "doctrine/orm": "^2.10.0",
                 "symfony/http-client": "^5.4.7|^6.0",
                 "symfony/phpunit-bridge": "^5.4.7|^6.0",
                 "symfony/polyfill-php80": "^1.16.0",
@@ -11288,7 +11292,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-23T19:42:13+00:00"
+            "time": "2022-05-04T16:32:52+00:00"
         },
         {
             "name": "symfony/phpunit-bridge",

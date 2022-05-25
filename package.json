@@ -22,7 +22,7 @@
         "@yaireo/tagify": "^4.9.8",
         "bootstrap": "^4.3.1",
         "bootstrap-datepicker": "^1.8.0",
-        "bootstrap-table": "^1.14.2",
+        "bootstrap-table": "^1.20.2",
         "canvas-toBlob": "^1.0.0",
         "chart.js": "^2.9.4",
         "daterangepicker": "^3.0.5",

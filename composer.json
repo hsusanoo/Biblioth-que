@@ -8,7 +8,7 @@
     "ext-iconv": "*",
     "ext-json": "*",
     "doctrine/annotations": "^1.6",
-    "dompdf/dompdf": "^1.0.0",
+    "dompdf/dompdf": "^2.0.0",
     "friendsofsymfony/jsrouting-bundle": "^2.3",
     "fzaninotto/faker": "^1.8",
     "liip/imagine-bundle": "^2.1",

@@ -77,16 +77,16 @@
         },
         {
             "name": "doctrine/annotations",
-            "version": "1.14.1",
+            "version": "1.14.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "9e034d7a70032d422169f27d8759e8d84abb4f51"
+                "reference": "ad785217c1e9555a7d6c6c8c9f406395a5e2882b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/9e034d7a70032d422169f27d8759e8d84abb4f51",
-                "reference": "9e034d7a70032d422169f27d8759e8d84abb4f51",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/ad785217c1e9555a7d6c6c8c9f406395a5e2882b",
+                "reference": "ad785217c1e9555a7d6c6c8c9f406395a5e2882b",
                 "shasum": ""
             },
             "require": {
@@ -145,7 +145,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2022-12-12T12:46:12+00:00"
+            "time": "2022-12-15T06:48:22+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -9746,12 +9746,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "326a87e33bf91da7161ad24a6f7ab5d2bb63077a"
+                "reference": "ae56b0972de9f8ab3a86e47aac977ce048ecdaeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/326a87e33bf91da7161ad24a6f7ab5d2bb63077a",
-                "reference": "326a87e33bf91da7161ad24a6f7ab5d2bb63077a",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/ae56b0972de9f8ab3a86e47aac977ce048ecdaeb",
+                "reference": "ae56b0972de9f8ab3a86e47aac977ce048ecdaeb",
                 "shasum": ""
             },
             "conflict": {
@@ -10180,7 +10180,7 @@
                 "tribalsystems/zenario": "<=9.3.57595",
                 "truckersmp/phpwhois": "<=4.3.1",
                 "twig/twig": "<1.44.7|>=2,<2.15.3|>=3,<3.4.3",
-                "typo3/cms": ">=6.2,<6.2.30|>=7,<7.6.32|>=8,<8.7.38|>=9,<9.5.29|>=10,<10.4.33|>=11,<11.5.20|>=12,<12.1.1",
+                "typo3/cms": "<2.0.5|>=3,<3.0.3|>=6.2,<6.2.30|>=7,<7.6.32|>=8,<8.7.38|>=9,<9.5.29|>=10,<10.4.33|>=11,<11.5.20|>=12,<12.1.1",
                 "typo3/cms-backend": ">=7,<=7.6.50|>=8,<=8.7.39|>=9,<=9.5.24|>=10,<=10.4.13|>=11,<=11.1",
                 "typo3/cms-core": "<8.7.49|>=9,<9.5.38|>=10,<10.4.33|>=11,<11.5.20|>=12,<12.1.1",
                 "typo3/cms-form": ">=8,<=8.7.39|>=9,<=9.5.24|>=10,<=10.4.13|>=11,<=11.1",
@@ -10280,7 +10280,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-19T08:05:12+00:00"
+            "time": "2022-12-19T22:05:01+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

@@ -8085,16 +8085,16 @@
         },
         {
             "name": "symfony/twig-bundle",
-            "version": "v5.4.19",
+            "version": "v5.4.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/twig-bundle.git",
-                "reference": "286bd9e38b9bcb142f1eda0a75b0bbeb49ff34bd"
+                "reference": "875d0edfc8df7505c1993419882c4071fc28c477"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/twig-bundle/zipball/286bd9e38b9bcb142f1eda0a75b0bbeb49ff34bd",
-                "reference": "286bd9e38b9bcb142f1eda0a75b0bbeb49ff34bd",
+                "url": "https://api.github.com/repos/symfony/twig-bundle/zipball/875d0edfc8df7505c1993419882c4071fc28c477",
+                "reference": "875d0edfc8df7505c1993419882c4071fc28c477",
                 "shasum": ""
             },
             "require": {
@@ -8167,7 +8167,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-01T08:32:19+00:00"
+            "time": "2023-02-14T08:03:56+00:00"
         },
         {
             "name": "symfony/validator",
@@ -8730,16 +8730,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.5.0",
+            "version": "v3.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "3ffcf4b7d890770466da3b2666f82ac054e7ec72"
+                "reference": "a6e0510cc793912b451fd40ab983a1d28f611c15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/3ffcf4b7d890770466da3b2666f82ac054e7ec72",
-                "reference": "3ffcf4b7d890770466da3b2666f82ac054e7ec72",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/a6e0510cc793912b451fd40ab983a1d28f611c15",
+                "reference": "a6e0510cc793912b451fd40ab983a1d28f611c15",
                 "shasum": ""
             },
             "require": {
@@ -8798,7 +8798,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-27T12:28:18+00:00"
+            "time": "2023-02-08T07:49:20+00:00"
         },
         {
             "name": "vich/uploader-bundle",
@@ -9746,12 +9746,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "6ab259b93537fda94e80a3e7c545957ce0848052"
+                "reference": "3a45705887412bb03836d4cf363d4c60fa306e82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/6ab259b93537fda94e80a3e7c545957ce0848052",
-                "reference": "6ab259b93537fda94e80a3e7c545957ce0848052",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/3a45705887412bb03836d4cf363d4c60fa306e82",
+                "reference": "3a45705887412bb03836d4cf363d4c60fa306e82",
                 "shasum": ""
             },
             "conflict": {
@@ -10066,7 +10066,7 @@
                 "phpxmlrpc/extras": "<0.6.1",
                 "phpxmlrpc/phpxmlrpc": "<4.9.2",
                 "pimcore/data-hub": "<1.2.4",
-                "pimcore/pimcore": "<=10.5.17",
+                "pimcore/pimcore": "<10.5.18",
                 "pixelfed/pixelfed": "<=0.11.4",
                 "pocketmine/bedrock-protocol": "<8.0.2",
                 "pocketmine/pocketmine-mp": "<4.12.5|>= 4.0.0-BETA5, < 4.4.2",
@@ -10319,7 +10319,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-01T00:18:15+00:00"
+            "time": "2023-03-01T23:04:23+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

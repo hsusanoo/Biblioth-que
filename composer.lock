@@ -3898,16 +3898,16 @@
         },
         {
             "name": "symfony/cache",
-            "version": "v5.4.30",
+            "version": "v5.4.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/cache.git",
-                "reference": "2742d1b595927210546bb7a0887094cf1494de21"
+                "reference": "9c0a3a5d0718e51ff81e0605be38fe1acbee9eeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/cache/zipball/2742d1b595927210546bb7a0887094cf1494de21",
-                "reference": "2742d1b595927210546bb7a0887094cf1494de21",
+                "url": "https://api.github.com/repos/symfony/cache/zipball/9c0a3a5d0718e51ff81e0605be38fe1acbee9eeb",
+                "reference": "9c0a3a5d0718e51ff81e0605be38fe1acbee9eeb",
                 "shasum": ""
             },
             "require": {
@@ -3988,7 +3988,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-17T14:17:25+00:00"
+            "time": "2023-11-06T17:37:55+00:00"
         },
         {
             "name": "symfony/cache-contracts",
@@ -5140,16 +5140,16 @@
         },
         {
             "name": "symfony/framework-bundle",
-            "version": "v5.4.30",
+            "version": "v5.4.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/framework-bundle.git",
-                "reference": "896ce662696a89e44ea38972df5e6263ddd02c74"
+                "reference": "4eeac66c8b0f2793324e94cfc6ac1c8bc5b92960"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/framework-bundle/zipball/896ce662696a89e44ea38972df5e6263ddd02c74",
-                "reference": "896ce662696a89e44ea38972df5e6263ddd02c74",
+                "url": "https://api.github.com/repos/symfony/framework-bundle/zipball/4eeac66c8b0f2793324e94cfc6ac1c8bc5b92960",
+                "reference": "4eeac66c8b0f2793324e94cfc6ac1c8bc5b92960",
                 "shasum": ""
             },
             "require": {
@@ -5283,7 +5283,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-26T16:43:35+00:00"
+            "time": "2023-10-31T07:58:33+00:00"
         },
         {
             "name": "symfony/http-foundation",

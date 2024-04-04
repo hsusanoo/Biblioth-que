@@ -6716,16 +6716,16 @@
         },
         {
             "name": "symfony/property-access",
-            "version": "v5.4.35",
+            "version": "v5.4.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-access.git",
-                "reference": "f1341758d8046cfff0ac748a0cad238f917191d4"
+                "reference": "b58ea319e56b440b4daaa38201ee63ba9efa44d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/property-access/zipball/f1341758d8046cfff0ac748a0cad238f917191d4",
-                "reference": "f1341758d8046cfff0ac748a0cad238f917191d4",
+                "url": "https://api.github.com/repos/symfony/property-access/zipball/b58ea319e56b440b4daaa38201ee63ba9efa44d5",
+                "reference": "b58ea319e56b440b4daaa38201ee63ba9efa44d5",
                 "shasum": ""
             },
             "require": {
@@ -6790,20 +6790,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-23T13:51:25+00:00"
+            "time": "2024-03-18T16:56:51+00:00"
         },
         {
             "name": "symfony/property-info",
-            "version": "v5.4.35",
+            "version": "v5.4.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-info.git",
-                "reference": "d30d48f366ad2bfbf521256be85eb1c182c29198"
+                "reference": "f3e4b84e5a33e655222167894398b671e93322d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/property-info/zipball/d30d48f366ad2bfbf521256be85eb1c182c29198",
-                "reference": "d30d48f366ad2bfbf521256be85eb1c182c29198",
+                "url": "https://api.github.com/repos/symfony/property-info/zipball/f3e4b84e5a33e655222167894398b671e93322d0",
+                "reference": "f3e4b84e5a33e655222167894398b671e93322d0",
                 "shasum": ""
             },
             "require": {
@@ -6878,7 +6878,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-23T15:43:50+00:00"
+            "time": "2024-03-21T07:26:31+00:00"
         },
         {
             "name": "symfony/routing",
@@ -6969,16 +6969,16 @@
         },
         {
             "name": "symfony/security-bundle",
-            "version": "v5.4.37",
+            "version": "v5.4.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-bundle.git",
-                "reference": "6773ef12fe2671a42f111e31f2c18af18e79c55c"
+                "reference": "411190ceea7a5711fa0e0cda81a4914d2c4899b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/6773ef12fe2671a42f111e31f2c18af18e79c55c",
-                "reference": "6773ef12fe2671a42f111e31f2c18af18e79c55c",
+                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/411190ceea7a5711fa0e0cda81a4914d2c4899b0",
+                "reference": "411190ceea7a5711fa0e0cda81a4914d2c4899b0",
                 "shasum": ""
             },
             "require": {
@@ -7065,20 +7065,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-03-01T19:35:15+00:00"
+            "time": "2024-03-14T13:06:06+00:00"
         },
         {
             "name": "symfony/security-core",
-            "version": "v5.4.35",
+            "version": "v5.4.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-core.git",
-                "reference": "3cbacefb2a350ed39950f93c8a054c2eb625fb69"
+                "reference": "8024815e3ee09dc2235d91006ac969b060efccbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-core/zipball/3cbacefb2a350ed39950f93c8a054c2eb625fb69",
-                "reference": "3cbacefb2a350ed39950f93c8a054c2eb625fb69",
+                "url": "https://api.github.com/repos/symfony/security-core/zipball/8024815e3ee09dc2235d91006ac969b060efccbb",
+                "reference": "8024815e3ee09dc2235d91006ac969b060efccbb",
                 "shasum": ""
             },
             "require": {
@@ -7156,7 +7156,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-23T13:51:25+00:00"
+            "time": "2024-03-19T10:19:25+00:00"
         },
         {
             "name": "symfony/security-csrf",
@@ -7295,16 +7295,16 @@
         },
         {
             "name": "symfony/security-http",
-            "version": "v5.4.36",
+            "version": "v5.4.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-http.git",
-                "reference": "87ee1ea2b86740fc6a0104f165bebbe0b08b66ba"
+                "reference": "a6856888064791eef77de26dee86fc33e74dfbba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-http/zipball/87ee1ea2b86740fc6a0104f165bebbe0b08b66ba",
-                "reference": "87ee1ea2b86740fc6a0104f165bebbe0b08b66ba",
+                "url": "https://api.github.com/repos/symfony/security-http/zipball/a6856888064791eef77de26dee86fc33e74dfbba",
+                "reference": "a6856888064791eef77de26dee86fc33e74dfbba",
                 "shasum": ""
             },
             "require": {
@@ -7374,7 +7374,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-23T16:13:23+00:00"
+            "time": "2024-03-19T10:19:25+00:00"
         },
         {
             "name": "symfony/serializer",

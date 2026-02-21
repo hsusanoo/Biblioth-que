@@ -31,7 +31,7 @@
         "fs": "0.0.1-security",
         "jquery": "^3.5.0",
         "jquery-resizable-columns": "^0.2.3",
-        "jspdf": "^4.1.0",
+        "jspdf": "^4.2.0",
         "jspdf-autotable": "^5.0.7",
         "metismenu": "^3.0.4",
         "moment": "^2.29.4",

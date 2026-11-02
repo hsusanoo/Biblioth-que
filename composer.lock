@@ -7056,16 +7056,16 @@
         },
         {
             "name": "symfony/routing",
-            "version": "v5.4.40",
+            "version": "v5.4.55",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/routing.git",
-                "reference": "6df1dd8b306649303267a760699cf04cf39b1f7b"
+                "reference": "32d0367526c2d20d2b66a31bd1f2d5fd553f21d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/routing/zipball/6df1dd8b306649303267a760699cf04cf39b1f7b",
-                "reference": "6df1dd8b306649303267a760699cf04cf39b1f7b",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/32d0367526c2d20d2b66a31bd1f2d5fd553f21d2",
+                "reference": "32d0367526c2d20d2b66a31bd1f2d5fd553f21d2",
                 "shasum": ""
             },
             "require": {
@@ -7125,6 +7125,9 @@
                 "uri",
                 "url"
             ],
+            "support": {
+                "source": "https://github.com/symfony/routing/tree/v5.4.55"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -7135,11 +7138,15 @@
                     "type": "github"
                 },
                 {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
                     "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-05-31T14:33:22+00:00"
+            "time": "2026-10-21T11:42:16+00:00"
         },
         {
             "name": "symfony/security-bundle",
